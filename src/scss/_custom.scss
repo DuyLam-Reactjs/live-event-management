@@ -1,0 +1,104 @@
+// Here you can add other styles
+
+
+table {
+  width: 100%;
+  border: 1px solid #CCCCCC;
+}
+th {
+  background: #616161;
+  vertical-align: middle;
+  padding: 1rem;
+  color: #FFFFFF;
+  height: 50px;
+}
+.content{
+  border: 1px solid #CCCCCC;
+  vertical-align: middle;
+  padding: 1rem 1rem;
+}
+
+.content-action {
+  text-align: center;
+}
+.color-white {
+  background: #FFFFFF;
+  border-radius: 0.25rem;
+  height: 36px;
+}
+.color-black {
+  color: black;
+}
+.dropDownMenu {
+  height: auto;
+  width: auto;
+  max-width: 100px;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+.btn-search {
+  height: 36px;
+  width: 40px;
+  border: 1px solid #d8dbe0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius:0.25rem ;
+}
+.input-search {
+  height: 36px;
+  width: 205px;
+}
+.row-page {
+  border: 1px solid #cccccc;
+  height: 33px;
+  margin-bottom: 1rem !important;
+}
+
+.ads-ops{
+  text-align: end;
+}
+
+.register-back {
+  text-align: center;
+  color: blue;
+}
+.user {
+  font-size: 1rem;
+}
+
+//td {
+//  text-align: center;
+//}
+.modal-size {
+  width: 66%;
+}
+
+.input-size {
+  width: 200px;
+}
+.clink {
+  text-decoration-line: revert;
+  color: black;
+}
+.btn-filter {
+  width: 200px;
+}
+.text-filter {
+  color: rgb(34, 34, 34);
+  text-align: left;
+  margin-right: 65px !important;
+
+}
+.text-name-provider {
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+}
+.active-nav {
+  border-left: 2px solid rgb(10, 212, 24);
+}
+.padding-ads-dropdown{
+  color: #222;
+  margin-right: 120px;
+}
