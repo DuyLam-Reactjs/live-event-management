@@ -98,7 +98,7 @@ const TablesLiveEventList = () => {
 
 
   const onAddContentProvider = () =>{
-    history.push('/instream-ads/content-provider-list/create-content-provider')
+    // history.push('/instream-ads/content-provider-list/create-content-provider')
   }
   const onEditContentItem = (item) => {
     dispatch(openPopup({
