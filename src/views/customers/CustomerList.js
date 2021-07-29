@@ -6,18 +6,19 @@ import {
   CCol,
   CDataTable,
   CRow,
-  CButton, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CPagination, CImg,
+  CButton, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CPagination, CImg, CSwitch,
 } from '@coreui/react'
 
 import { useDispatch } from "react-redux";
 import TitleAds from "../LiveManagementEvent/TitleAds/TitleAds";
 import {parsedPageLimit} from "../../helpers/common";
-import userApi from "../../apis/userApi";
+import customerApi from "../../apis/customerApi";
 import {openPopup} from "../../actions/popup";
 import {POPUP} from "../../constants/constants";
 import ConfigImage from "../../config/ConfigImage";
+import ConfigTestData from "../../config/ConfigTestData";
 
-const Users = () => {
+const CustomerList = () => {
   const dispatch = useDispatch();
 
 
@@ -31,13 +32,18 @@ const Users = () => {
 
 
   useEffect(() => {
-    userApi?.listUser('devtest1905@vieon.vn',currentPage, rowPerPage).then(res => {
-      const data = res?.data
-      if (res?.success){
-        setCurrentPageList(data?.items)
-        setTotal(data?.metadata?.total)
-      }
-    })
+    // customerApi?.listCustomers(currentPage, rowPerPage).then(res => {
+    //   const data = res?.data
+    //   if (res?.success){
+    //     setCurrentPageList(data?.items)
+    //     setTotal(data?.metadata?.total)
+    //   }
+    // })
+    const dataCustomer = ConfigTestData?.dataCustomer
+    setCurrentPageList(dataCustomer?.data?.customers)
+    setTotal(dataCustomer?.data?.total)
+    console.log(dataCustomer?.data.customers)
+
   }, [currentPage, rowPerPage])
 
   useEffect(() => {
@@ -64,7 +70,7 @@ const Users = () => {
 
   const handleSaveEdit = (item) => {
     dispatch(openPopup({
-      name: POPUP.NAME.USER.EDIT_USER,
+      name: POPUP.NAME.USER.UPDATE_CUSTOMER,
       editField,
       setEditField,
       userItem: item
@@ -75,7 +81,7 @@ const Users = () => {
 
   const handleOpenDelete = (item) => {
     dispatch(openPopup({
-      name: POPUP.NAME.USER.DELETE_USER,
+      name: POPUP.NAME.CUSTOMER.DELETE_CUSTOMER,
       item,
       currentPage,
       rowPerPage,
@@ -84,12 +90,12 @@ const Users = () => {
   }
 
 
-  const field = true ? ['Email', 'Quyền hạn', "Quản lý"] : ['Email', 'Quyền hạn']
+  const field = true ? ['Email', 'Thông báo', "Quản lý"] : ['Email', 'Thông báo']
   return (
     <React.Fragment>
-      <div className='justify-content-between'>
-        <TitleAds title={'User List'}/>
-        <CRow>
+      <div>
+        <TitleAds title={'Customers List'}/>
+        <CRow className={'justify-content-between'}>
           <CCol>
             <CCard>
               <CCardBody>
@@ -100,37 +106,17 @@ const Users = () => {
                   scopedSlots={{
                     'Email':
                       (item) => (
-                        <td>
+                        <td className="text-name-provider">
                           {item.email}
                         </td>
                       ),
-                    'Quyền hạn':
+                    'Thông báo':
                       (item) => (
-                            <td >
-                              {item?.role?.read &&
-                              <CBadge>
-                                <CButton block color="success">
-                                   Read
-                                </CButton>
-                              </CBadge>
-                              }
-                              {item?.role?.write &&
-                              <CBadge>
-                                <CButton block color="success">
-                                  Write
-                                </CButton>
-                              </CBadge>
-                              }
-                              {item?.role?.is_admin &&
-                              <CBadge>
-                                <CButton block color="success">
-                                  Admin
-                                </CButton>
-                              </CBadge>
-                              }
-                            </td>
-                          ),
-
+                          <td style={{verticalAlign: "middle"}}>
+                            <CSwitch className={'mx-1'} color={'success'} labelOn={'ON'} labelOff={'OFF'}
+                                     checked={item?.status === 1 ? true : false } readOnly/>
+                          </td>
+                      ),
                     'Quản lý':
                       (item) => (
                         <td>
@@ -144,6 +130,7 @@ const Users = () => {
                           <CBadge>
                             <CButton block color="danger" onClick={()=>handleOpenDelete(item)}>
                               <CImg src={ConfigImage.deleteAds} alt="delete"/>
+                              <span className="ml-1">Xoá</span>
                             </CButton>
                           </CBadge>
                         </td>
@@ -187,4 +174,4 @@ const rowPerPageList = [
   { id: 3, name: '20 dòng', value: 20 },
 ]
 
-export default Users
+export default CustomerList

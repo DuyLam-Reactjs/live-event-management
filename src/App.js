@@ -9,12 +9,12 @@ const loading = (
 )
 
 // Containers
-const Login = React.lazy(() => import('./views/users/login/Login'));
+const Login = React.lazy(() => import('./views/customers/login/Login'));
 const TheLayout = React.lazy(() => import('./containers/TheLayout'));
 
 // Pages
-const ChangePassWord = React.lazy(() => import('./views/users/changePassWord/ChangePassWord'));
-const Register = React.lazy(() => import('./views/users/register/Register'));
+const ChangePassWord = React.lazy(() => import('./views/customers/changePassWord/ChangePassWord'));
+const CreateCustomer = React.lazy(() => import('./views/customers/createCustomer/CreateCustomer'));
 
 class App extends Component {
 
@@ -25,7 +25,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
               <Route exact path="/change-password" name="Change PassWord" render={props => <ChangePassWord {...props}/>} />
-              <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />
+              <Route exact path="/create-customer" name="Create Customer Page" render={props => <CreateCustomer {...props}/>} />
               <Route path="/" name="Home" render={props => <TheLayout {...props}/>} />
             </Switch>
           </React.Suspense>

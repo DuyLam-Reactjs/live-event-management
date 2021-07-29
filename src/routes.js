@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Users = React.lazy(() => import('./views/users/Users'));
+const Customers = React.lazy(() => import('./views/customers/CustomerList'));
 
 //instream-ads
 const Tables = React.lazy(() => import('./views/base/tables/TablesLiveEventList'))
@@ -8,13 +8,14 @@ const ContentProviderList = React.lazy(() => import('./views/LiveManagementEvent
 const CreateContentProvider = React.lazy(() => import('./views/LiveManagementEvent/CreateContentProvider/CreateContentProvider'));
 const EditContentProvider = React.lazy(() => import('./views/LiveManagementEvent/CreateContentProvider/EditContentProvider/EditContentProvider'));
 const ContentList = React.lazy(() => import('./views/LiveManagementEvent/ContentList/ContentList'));
-const Login = React.lazy(() => import('./views/users/login/Login'));
-const ChangePassWord = React.lazy(() => import('./views/users/changePassWord/ChangePassWord'));
+const Login = React.lazy(() => import('./views/customers/login/Login'));
+const ChangePassWord = React.lazy(() => import('./views/customers/changePassWord/ChangePassWord'));
 
 const routes = [
+  //customers
   { path: '/', exact: true, name: 'Home' },
   { path: '/base/tables', name: 'Tables', component: Tables },
-  { path: '/users', exact: true,  name: 'Users', component: Users },
+  { path: '/customers', exact: true,  name: 'Customers', component: Customers },
 
   //instream-ads
   { path: '/live/content-live-list', name: 'Content Provider List', component: ContentProviderList, exact: true },

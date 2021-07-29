@@ -19,7 +19,7 @@ import {validateEmail, saveAccessToken, handleLocalStorage} from "../../../helpe
 import {
   useHistory, useLocation,
 } from "react-router-dom"
-import UserApi from "../../../apis/userApi";
+import CustomerApi from "../../../apis/customerApi";
 import LocalStorage from "../../../config/LocalStorage";
 
 
@@ -56,7 +56,7 @@ const Login = () => {
     timeNow.setFullYear(timeNow.getFullYear() + 1)
     const checkValueEmail = validateEmail(emailValue?.email)
     if (checkValueEmail){
-      UserApi.login(emailValue?.email, emailValue?.password).then(res=>{
+      CustomerApi.login(emailValue?.email, emailValue?.password).then(res=>{
         const data = res?.data
         const apiKey = data?.apiKey
         const idUser = data?.id

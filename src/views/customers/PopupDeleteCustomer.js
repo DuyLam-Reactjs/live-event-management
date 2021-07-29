@@ -3,9 +3,9 @@ import {CButton, CModal, CModalBody, CModalHeader} from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import {useDispatch} from "react-redux";
 import {closePopup} from "../../actions/popup";
-import userApi from "../../apis/userApi";
+import customerApi from "../../apis/customerApi";
 
-const PopupDeleteUser = (props) => {
+const PopupDeleteCustomer = (props) => {
   const {
     item,
     currentPage,
@@ -19,9 +19,9 @@ const PopupDeleteUser = (props) => {
   }
   const handleDelete = () => {
     if (item) {
-      userApi?.deleteUser(item?.id).then(res => {
+      customerApi?.deleteCustomer(item?.id).then(res => {
         if(res?.success){
-          userApi?.listUser(currentPage, rowPerPage).then(resList => {
+          customerApi?.listCustomers(currentPage, rowPerPage).then(resList => {
             const data = resList?.data
             if (resList?.success){
               setCurrentPageList(data?.items)
@@ -40,7 +40,7 @@ const PopupDeleteUser = (props) => {
     >
       <CModalHeader style={{ backgroundColor: '#646464' }}>
         <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
-          <h4 className="mb-0">Xóa User</h4>
+          <h4 className="mb-0">Xóa Customer</h4>
           <CButton className='p-0 shadow-none' onClick={onClose}>
             <CIcon name="cil-x" style={{ color: "#FFF" }}></CIcon>
           </CButton>
@@ -58,4 +58,4 @@ const PopupDeleteUser = (props) => {
   )
 }
 
-export default PopupDeleteUser
+export default PopupDeleteCustomer

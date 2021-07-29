@@ -5,7 +5,7 @@ import AxiosClient from "./axiosClient";
 import ConfigConstant from "../config/ConfigConstant";
 
 
-class UserApi {
+class CustomerApi {
   static async login (email, password) {
     const url = ConfigApi.user.login
     const method = ConfigConstant.API_METHOD.POST
@@ -30,32 +30,28 @@ class UserApi {
       return { ...res, data }
     })
   }
-  static async listUser (email, offset, limit) {
-    const url = ConfigApi.user.listUser + '?email=' + (email || '') + '&offset=' + 10 + '&limit=' + 30
+  static async listCustomers (offset, limit) {
+    const url = ConfigApi.user.listCustomers + '?offset=' + 10 + '&limit=' + 30
     const method = ConfigConstant.API_METHOD.GET
     return AxiosClient.executeWithCache({ url, method }).then(res => {
       const data = res?.data
       return { ...res, data }
     })
   }
-  static async deleteUser (idUser) {
-    const url = ConfigApi.user.listUser + '/' + idUser
+  static async deleteCustomer (idUser) {
+    const url = ConfigApi.user.listCustomers + '/' + idUser
     const method = ConfigConstant.API_METHOD.DELETE
     return AxiosClient.executeWithCache({ url, method }).then(res => {
       const data = res?.data
       return { ...res, data }
     })
   }
-  static async updateInfoUser (id, email, {read, write, is_admin}) {
-    const url = ConfigApi.user.listUser + '/' + id
+  static async updateInfoCustomer (newEmail, newPassword) {
+    const url = ConfigApi.user.listCustomers
     const method = ConfigConstant.API_METHOD.PUT
     const params = {
-      email: email,
-      role: {
-        read: read,
-        write: write,
-        is_admin: is_admin
-      }
+      email: newEmail,
+      password: newPassword
     }
     return AxiosClient.executeWithCache({ url, method, params }).then(res => {
       const data = res?.data
@@ -63,7 +59,7 @@ class UserApi {
     })
   }
   static async createUser (user) {
-    const url = ConfigApi.user.listUser
+    const url = ConfigApi.user.listCustomers
     const method = ConfigConstant.API_METHOD.POST
     const params = user
     return AxiosClient.executeWithCache({ url, method, params }).then(res => {
@@ -81,4 +77,4 @@ class UserApi {
   }
 }
 
-export default UserApi
+export default CustomerApi

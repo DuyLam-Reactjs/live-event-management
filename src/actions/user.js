@@ -1,10 +1,10 @@
-import UserApi from "../apis/userApi";
+import CustomerApi from "../apis/customerApi";
 import {ACTION_TYPE} from "./actionType";
 
 
 export const getLogin = (email, password) =>{
   return dispatch => {
-    return UserApi.login(email, password).then(res => {
+    return CustomerApi.login(email, password).then(res => {
       const result = {
         type: ACTION_TYPE.LOGIN,
         payload: res
@@ -16,7 +16,7 @@ export const getLogin = (email, password) =>{
 }
 export const getUser = (id) =>{
   return dispatch => {
-    return UserApi.userProfile(id).then(res => {
+    return CustomerApi.userProfile(id).then(res => {
       const result = {
         type: ACTION_TYPE.PROFILE,
         payload: res
@@ -26,11 +26,11 @@ export const getUser = (id) =>{
     })
   }
 }
-export const getListUser = () =>{
+export const getlistCustomers = () =>{
   return dispatch => {
-    return UserApi.listUser().then(res => {
+    return CustomerApi.listCustomers().then(res => {
       const result = {
-        type: ACTION_TYPE.LIST_USER,
+        type: ACTION_TYPE.LIST_CUSTOMER,
         payload: res
       }
       dispatch(result)
@@ -39,11 +39,11 @@ export const getListUser = () =>{
   }
 }
 
-export const deleteUser = (id) => {
+export const deleteCustomer = (id) => {
   return dispatch => {
-    return UserApi.deleteUser(id).then(res => {
+    return CustomerApi.deleteCustomer(id).then(res => {
       const result = {
-        type: ACTION_TYPE.DELETE_USER,
+        type: ACTION_TYPE.DELETE_CUSTOMER,
         payload: id
       }
       dispatch(result)
@@ -52,11 +52,11 @@ export const deleteUser = (id) => {
   }
 }
 
-export const updateInfoUser = (id, email, {read, write, is_admin}) => {
+export const updateInfoCustomer = (id, email, {read, write, is_admin}) => {
   return dispatch => {
-    return UserApi.updateInfoUser(id, email, {read, write, is_admin}).then(res => {
+    return CustomerApi.updateInfoCustomer(id, email, {read, write, is_admin}).then(res => {
       const result = {
-        type: ACTION_TYPE.UPDATE_INFO_USER,
+        type: ACTION_TYPE.UPDATE_INFO_CUSTOMER,
         payload: res
       }
       dispatch(result)
@@ -67,7 +67,7 @@ export const updateInfoUser = (id, email, {read, write, is_admin}) => {
 
 export const updatePassword =  (oldPassword, newPassword) =>{
   return dispatch => {
-    return UserApi.changePassword(oldPassword, newPassword).then(res => {
+    return CustomerApi.changePassword(oldPassword, newPassword).then(res => {
       const result = {
         type: ACTION_TYPE.CHANGE_PASSWORD,
         payload: res

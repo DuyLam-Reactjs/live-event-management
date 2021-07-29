@@ -14,11 +14,11 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {validateEmail} from "../../../helpers/common";
-import UserApi from "../../../apis/userApi";
+import CustomerApi from "../../../apis/customerApi";
 import {useHistory} from "react-router";
 import ConfigUrl from "../../../config/ConfigUrl";
 
-const Register = () => {
+const CreateCustomer = () => {
   const [createCustomer, setCustomer] = useState({
     email:'',
     password:'',
@@ -46,7 +46,7 @@ const Register = () => {
 
   const onClickCreatAccount = async () => {
     if (validateEmail(createCustomer?.email)) {
-      UserApi.createUser(createCustomer).then(res=>{
+      CustomerApi.createUser(createCustomer).then(res=>{
         const data = res?.data
         if (data?.code === "SUCCESS"){
           history.push(ConfigUrl.user.LOGIN + '?rel=/')
@@ -120,4 +120,4 @@ const Register = () => {
 }
 
 
-export default Register
+export default CreateCustomer

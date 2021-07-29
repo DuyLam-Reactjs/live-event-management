@@ -17,7 +17,7 @@ const TheHeaderDropdown = (props) => {
   const isAdmin = profile?.role?.is_admin
   const dispatch = useDispatch()
   const Logout = () => {
-    dispatch(openPopup({name: POPUP.NAME.USER.LOGOUT}))
+    dispatch(openPopup({name: POPUP.NAME.CUSTOMER.LOGOUT}))
   }
   return (
     <CDropdown
@@ -33,13 +33,13 @@ const TheHeaderDropdown = (props) => {
         </div>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownItem to="/register">
+        <CDropdownItem to="/create-customer">
           <CIcon name="cil-lock-locked" className="mfe-2"/>
-          Register
+          Create Customer
         </CDropdownItem>
-        <CDropdownItem to="/users">
+        <CDropdownItem to="/customers">
           <CIcon name="cil-people" className="mfe-2" />
-          Quản lý user
+          Quản lý Customer
         </CDropdownItem>
         <CDropdownItem to="/change-password">
           <CIcon name="cil-lock-locked" className="mfe-2"/>

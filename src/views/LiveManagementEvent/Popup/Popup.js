@@ -1,17 +1,17 @@
 import React from "react";
-import PopupDeleteUser from "../../users/PopupDeleteUser";
+import PopupDeleteCustomer from "../../customers/PopupDeleteCustomer";
 import {POPUP} from "../../../constants/constants";
 import {useSelector} from "react-redux";
 import PopupCreateNewAds from "./PopupCreateNewAds";
 import PopupCreateNewInStreamAds from "./PopupCreateNewInStreamAds";
-import PopupEditUser from "../../users/PopupEditUser";
+import PopupUpdateCustomer from "../../customers/PopupUpdateCustomer";
 import PopupEditContent from "./PopupEditContent";
 import PopupDeleteAds from "./PopupDeleteAds";
 import PopupDuplicateAds from "./PopupDuplicateAds";
 import PopupEditAds from "./PopupEditAds";
 import PopupAddContentList from "./PopupAddContentList";
 import PopupEditContentList from "./PopupEditContentList";
-import PopupLogout from "../../users/PopupLogout";
+import PopupLogout from "../../customers/PopupLogout";
 import PopupDeleteLiveItem from "./PopupDeleteLiveItem";
 import PopupEditLiveEvent from "./PopupEditLiveEvent";
 
@@ -19,12 +19,12 @@ const Popup = React.memo((props)=>{
     const params = useSelector(state => state?.Popup)
     const {popupName} = params || {}
     switch (popupName) {
-    case POPUP.NAME.USER.LOGOUT:
+    case POPUP.NAME.CUSTOMER.LOGOUT:
         return <PopupLogout {...params} />
-    case POPUP.NAME.USER.DELETE_USER:
-        return <PopupDeleteUser {...params} />
-    case POPUP.NAME.USER.EDIT_USER:
-        return <PopupEditUser {...params} />
+    case POPUP.NAME.CUSTOMER.DELETE_CUSTOMER:
+        return <PopupDeleteCustomer {...params} />
+    case POPUP.NAME.CUSTOMER.UPDATE_CUSTOMER:
+        return <PopupUpdateCustomer {...params} />
     case POPUP.NAME.IN_STREAM_ADS.CREATE_INSTREAM_ADS:
         return <PopupCreateNewAds {...params} />
     case POPUP.NAME.IN_STREAM_ADS.CREATE_NEW_INSTREAM_ADS:

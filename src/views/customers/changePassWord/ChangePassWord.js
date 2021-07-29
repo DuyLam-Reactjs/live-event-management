@@ -14,7 +14,7 @@ import {
   CRow
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import UserApi from "../../../apis/userApi";
+import CustomerApi from "../../../apis/customerApi";
 import {useDispatch} from "react-redux";
 import {getUser} from "../../../actions/user";
 import {useHistory} from "react-router";
@@ -47,7 +47,7 @@ const ChangePassWord = () => {
   }
 
   const onAppLyPassword = async () => {
-    await UserApi.changePassword(changePassWord?.old_password, changePassWord?.new_password).then(res=>{
+    await CustomerApi.changePassword(changePassWord?.old_password, changePassWord?.new_password).then(res=>{
       if (res){
         history.push(ConfigUrl.user.LOGIN + '?rel=/')
       }
