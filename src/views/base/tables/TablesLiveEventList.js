@@ -14,7 +14,7 @@ import {useHistory} from 'react-router-dom';
 import {parsedTimeCreate, parsedPageLimit} from "../../../helpers/common";
 import {freeSet} from "@coreui/icons";
 import contentApi from "../../../apis/contentApi";
-import TitleAds from "../../LiveManagementEvent/TitleAds/TitleAds";
+import TitleLive from "../../LiveManagementEvent/TitleLive/TitleLive";
 import ConfigImage from "../../../config/ConfigImage";
 import {openPopup} from "../../../actions/popup";
 import {POPUP} from "../../../constants/constants";
@@ -98,7 +98,7 @@ const TablesLiveEventList = () => {
 
 
   const onAddContentProvider = () =>{
-    // history.push('/instream-ads/content-provider-list/create-content-provider')
+    history.push('/live/create-live-event')
   }
   const onEditContentItem = (item) => {
     dispatch(openPopup({
@@ -124,7 +124,7 @@ const TablesLiveEventList = () => {
 
   return (
     <>
-      <TitleAds title={"Live Event Management List"}/>
+      <TitleLive title={"Live Event Management List"}/>
       <CRow className={'row mx-0'}>
         <CCol  className="col-sm-6 form-inline p-0 c-datatable-filter">
           <CInputGroup className="mb-3">
@@ -146,7 +146,7 @@ const TablesLiveEventList = () => {
 
             <CLink>
               <button className="btn btn-success mb-3"  onClick={onAddContentProvider}>
-                Tạo Content Live
+                Tạo Live Entity
               </button>
             </CLink>
           </div>

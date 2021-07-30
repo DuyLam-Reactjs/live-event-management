@@ -10,7 +10,7 @@ import {
 } from '@coreui/react'
 
 import { useDispatch } from "react-redux";
-import TitleAds from "../LiveManagementEvent/TitleAds/TitleAds";
+import TitleLive from "../LiveManagementEvent/TitleLive/TitleLive";
 import {parsedPageLimit} from "../../helpers/common";
 import customerApi from "../../apis/customerApi";
 import {openPopup} from "../../actions/popup";
@@ -70,7 +70,7 @@ const CustomerList = () => {
 
   const handleSaveEdit = (item) => {
     dispatch(openPopup({
-      name: POPUP.NAME.USER.UPDATE_CUSTOMER,
+      name: POPUP.NAME.CUSTOMER.UPDATE_CUSTOMER,
       editField,
       setEditField,
       userItem: item
@@ -94,7 +94,7 @@ const CustomerList = () => {
   return (
     <React.Fragment>
       <div>
-        <TitleAds title={'Customers List'}/>
+        <TitleLive title={'Customers List'}/>
         <CRow className={'justify-content-between'}>
           <CCol>
             <CCard>

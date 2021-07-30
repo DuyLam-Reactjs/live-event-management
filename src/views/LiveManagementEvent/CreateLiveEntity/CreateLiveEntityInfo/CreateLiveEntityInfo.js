@@ -17,7 +17,7 @@ import LocalStorage from "../../../../config/LocalStorage";
 
 const queryString = require('query-string');
 
-const CreateContentProviderInfo =  (props) => {
+const CreateLiveEntityInfo =  (props) => {
 
   const { dataItem, setDisable, isCreateProvider} = props
 
@@ -159,7 +159,7 @@ const CreateContentProviderInfo =  (props) => {
           <CButton block color="success" onClick={onSave}>{ 'Lưu' }</CButton>
         </CCol>
         <CCol className="col-lg-1">
-          <CLink to="/instream-ads/content-provider-list">
+          <CLink to="/live/content-live-list">
             <CButton block color="danger">Huỷ</CButton>
           </CLink>
         </CCol>
@@ -203,4 +203,4 @@ const CreateContentProviderInfo =  (props) => {
   )
 }
 
-export default CreateContentProviderInfo
+export default CreateLiveEntityInfo
