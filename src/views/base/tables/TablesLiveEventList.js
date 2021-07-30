@@ -60,6 +60,7 @@ const TablesLiveEventList = () => {
       setCurrentPageList(items)
       setTotal(total)
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[rowPerPage, currentPage-1])
 
@@ -96,10 +97,11 @@ const TablesLiveEventList = () => {
     }
   }
 
-
   const onAddContentProvider = () =>{
-    history.push('/live/create-live-event')
+    // history.push('/live/create-live-event')
+    dispatch(openPopup({name: POPUP.NAME.LIVE_EVENT.CREATE_LIVE_ENTITY}))
   }
+
   const onEditContentItem = (item) => {
     dispatch(openPopup({
       name: POPUP.NAME.LIVE_EVENT.EDIT_LIVE_ITEM,
@@ -118,30 +120,27 @@ const TablesLiveEventList = () => {
       setCurrentPageList
     }))
   }
-  const handleContent = (item) => {
-    history.push('/instream-ads/content-list?id=' + item?.id)
-  }
 
   return (
     <>
       <TitleLive title={"Live Event Management List"}/>
       <CRow className={'row mx-0'}>
-        <CCol  className="col-sm-6 form-inline p-0 c-datatable-filter">
-          <CInputGroup className="mb-3">
-            <CInput
-                    className="input-search"
-                    type="text" placeholder="Tìm Content Live" autoComplete="search"
-                    onChange={handleChange}
-                    value={valueKeyword}
-                    onKeyPress={handleKeyPress}
-            />
-            <button className="btn btn-square btn-default color-black btn-search"
-                    onClick={onClickSearch}>
-              <CIcon content={freeSet.cilSearch} size={'lg'}style={{margin: 0}} />
-            </button>
-          </CInputGroup>
-        </CCol>
-        <CCol  className="col-sm-6 p-0 ">
+        {/*<CCol  className="col-sm-6 form-inline p-0 c-datatable-filter">*/}
+        {/*  <CInputGroup className="mb-3">*/}
+        {/*    <CInput*/}
+        {/*            className="input-search"*/}
+        {/*            type="text" placeholder="Tìm Content Live" autoComplete="search"*/}
+        {/*            onChange={handleChange}*/}
+        {/*            value={valueKeyword}*/}
+        {/*            onKeyPress={handleKeyPress}*/}
+        {/*    />*/}
+        {/*    <button className="btn btn-square btn-default color-black btn-search"*/}
+        {/*            onClick={onClickSearch}>*/}
+        {/*      <CIcon content={freeSet.cilSearch} size={'lg'}style={{margin: 0}} />*/}
+        {/*    </button>*/}
+        {/*  </CInputGroup>*/}
+        {/*</CCol>*/}
+        <CCol  className="col-sm-12 p-0 ">
           <div className="form-inline justify-content-sm-end c-datatable-items-per-page">
 
             <CLink>

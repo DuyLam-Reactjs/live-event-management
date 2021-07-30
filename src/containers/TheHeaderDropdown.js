@@ -33,18 +33,18 @@ const TheHeaderDropdown = (props) => {
         </div>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownItem to="/create-customer">
-          <CIcon name="cil-lock-locked" className="mfe-2"/>
-          Create Customer
-        </CDropdownItem>
+        {/*<CDropdownItem to="/create-customer">*/}
+        {/*  <CIcon name="cil-lock-locked" className="mfe-2"/>*/}
+        {/*  Create Customer*/}
+        {/*</CDropdownItem>*/}
         <CDropdownItem to="/customers">
           <CIcon name="cil-people" className="mfe-2" />
           Quản lý Customer
         </CDropdownItem>
-        <CDropdownItem to="/change-password">
-          <CIcon name="cil-lock-locked" className="mfe-2"/>
-          Đổi mật khẩu
-        </CDropdownItem>
+        {/*<CDropdownItem to="/change-password">*/}
+        {/*  <CIcon name="cil-lock-locked" className="mfe-2"/>*/}
+        {/*  Đổi mật khẩu*/}
+        {/*</CDropdownItem>*/}
         <CDropdownItem onClick={Logout}>
           <CIcon
               content={freeSet.cilAccountLogout}

@@ -6,21 +6,31 @@ import {
   CCol,
   CDataTable,
   CRow,
-  CButton, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CPagination, CImg, CSwitch,
+  CButton,
+  CDropdown,
+  CDropdownToggle,
+  CDropdownMenu,
+  CDropdownItem,
+  CPagination,
+  CImg,
+  CSwitch,
+  CInputGroup,
+  CInput,
+  CLink,
 } from '@coreui/react'
 
 import { useDispatch } from "react-redux";
 import TitleLive from "../LiveManagementEvent/TitleLive/TitleLive";
 import {parsedPageLimit} from "../../helpers/common";
-import customerApi from "../../apis/customerApi";
 import {openPopup} from "../../actions/popup";
 import {POPUP} from "../../constants/constants";
 import ConfigImage from "../../config/ConfigImage";
 import ConfigTestData from "../../config/ConfigTestData";
+import {useHistory} from 'react-router-dom';
 
 const CustomerList = () => {
   const dispatch = useDispatch();
-
+  const history = useHistory()
 
   const [currentPageList, setCurrentPageList] = useState()
   const [editField, setEditField] = useState();
@@ -42,7 +52,6 @@ const CustomerList = () => {
     const dataCustomer = ConfigTestData?.dataCustomer
     setCurrentPageList(dataCustomer?.data?.customers)
     setTotal(dataCustomer?.data?.total)
-    console.log(dataCustomer?.data.customers)
 
   }, [currentPage, rowPerPage])
 
@@ -76,7 +85,11 @@ const CustomerList = () => {
       userItem: item
     }))
   }
-
+  const createCustomer = () => {
+    dispatch(openPopup({
+      name: POPUP.NAME.CUSTOMER.CREATE_CUSTOMER
+    }))
+  }
 
 
   const handleOpenDelete = (item) => {
@@ -95,6 +108,17 @@ const CustomerList = () => {
     <React.Fragment>
       <div>
         <TitleLive title={'Customers List'}/>
+        <CRow className={'row mx-0'}>
+          <CCol  className="col-sm-12 p-0 ">
+            <div className="form-inline justify-content-sm-end c-datatable-items-per-page">
+              <CLink>
+                <button className="btn btn-success mb-3"  onClick={createCustomer}>
+                  Tạo Customer
+                </button>
+              </CLink>
+            </div>
+          </CCol>
+        </CRow>
         <CRow className={'justify-content-between'}>
           <CCol>
             <CCard>
