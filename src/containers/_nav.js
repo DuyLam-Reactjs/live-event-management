@@ -16,11 +16,6 @@ const _nav = [
         name: 'Content Live List',
         to: '/live/content-live-list',
       },
-      // {
-      //   _tag: 'CSidebarNavItem',
-      //   name: 'Content List',
-      //   to: '/instream-ads/content-list',
-      // },
     ]
   },
   {

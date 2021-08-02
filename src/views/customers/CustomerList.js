@@ -14,8 +14,6 @@ import {
   CPagination,
   CImg,
   CSwitch,
-  CInputGroup,
-  CInput,
   CLink,
 } from '@coreui/react'
 
@@ -25,12 +23,11 @@ import {parsedPageLimit} from "../../helpers/common";
 import {openPopup} from "../../actions/popup";
 import {POPUP} from "../../constants/constants";
 import ConfigImage from "../../config/ConfigImage";
+import ConfigText from "../../config/ConfigText";
 import ConfigTestData from "../../config/ConfigTestData";
-import {useHistory} from 'react-router-dom';
 
 const CustomerList = () => {
   const dispatch = useDispatch();
-  const history = useHistory()
 
   const [currentPageList, setCurrentPageList] = useState()
   const [editField, setEditField] = useState();
@@ -107,7 +104,7 @@ const CustomerList = () => {
   return (
     <React.Fragment>
       <div>
-        <TitleLive title={'Customers List'}/>
+        <TitleLive title={ConfigText.CUSTOMER.CUSTOMER_LIST}/>
         <CRow className={'row mx-0'}>
           <CCol  className="col-sm-12 p-0 ">
             <div className="form-inline justify-content-sm-end c-datatable-items-per-page">
@@ -148,13 +145,13 @@ const CustomerList = () => {
                             <CButton block color="info" onClick={()=>handleSaveEdit(item)}>
                               {/*<CIcon  name={'cil-pencil'}/> */}
                               <CImg src={ConfigImage.edit} alt="edit" />
-                              <span className="ml-1">Chỉnh sửa</span>
+                              <span className="ml-1">{ConfigText.GENERAL.EDIT}</span>
                             </CButton>
                           </CBadge>
                           <CBadge>
                             <CButton block color="danger" onClick={()=>handleOpenDelete(item)}>
                               <CImg src={ConfigImage.deleteAds} alt="delete"/>
-                              <span className="ml-1">Xoá</span>
+                              <span className="ml-1">{ConfigText.GENERAL.DELETE}</span>
                             </CButton>
                           </CBadge>
                         </td>
@@ -181,8 +178,8 @@ const CustomerList = () => {
             </CDropdownMenu>
           </CDropdown>
           <CPagination
-            nextButton={'Sau'}
-            previousButton={'Trước'}
+            nextButton={ConfigText.GENERAL.AFTER}
+            previousButton={ConfigText.GENERAL.BEFORE}
             activePage={currentPage}
             pages={maxPage}
             onActivePageChange={setCurrentPage}

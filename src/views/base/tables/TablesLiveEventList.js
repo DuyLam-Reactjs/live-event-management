@@ -19,6 +19,7 @@ import ConfigImage from "../../../config/ConfigImage";
 import {openPopup} from "../../../actions/popup";
 import {POPUP} from "../../../constants/constants";
 import {useDispatch} from "react-redux";
+import ConfigText from "../../../config/ConfigText";
 
 
 
@@ -123,7 +124,7 @@ const TablesLiveEventList = () => {
 
   return (
     <>
-      <TitleLive title={"Live Event Management List"}/>
+      <TitleLive title={ConfigText.LIVE.LIVE_EVENT_MANAGE_LIST}/>
       <CRow className={'row mx-0'}>
         {/*<CCol  className="col-sm-6 form-inline p-0 c-datatable-filter">*/}
         {/*  <CInputGroup className="mb-3">*/}
@@ -142,10 +143,9 @@ const TablesLiveEventList = () => {
         {/*</CCol>*/}
         <CCol  className="col-sm-12 p-0 ">
           <div className="form-inline justify-content-sm-end c-datatable-items-per-page">
-
             <CLink>
               <button className="btn btn-success mb-3"  onClick={onAddContentProvider}>
-                Tạo Live Entity
+                {ConfigText.LIVE.CREATE_LIVE_ENTITY}
               </button>
             </CLink>
           </div>
@@ -190,12 +190,12 @@ const TablesLiveEventList = () => {
                       <td>
                         <CBadge color={getBadge(item.status)}>
                           <CButton block color="info" onClick={()=>onEditContentItem(item)}>
-                            <CImg src={ConfigImage.edit} alt="edit"/> <span className="ml-1">{'Chỉnh sửa'}</span>
+                            <CImg src={ConfigImage.edit} alt="edit"/> <span className="ml-1">{ConfigText.GENERAL.EDIT}</span>
                           </CButton>
                         </CBadge>
                         <CBadge>
                           <CButton block color="danger" onClick={()=>handleOpenDelete(item)}>
-                            <CImg src={ConfigImage.deleteAds} alt="delete"/> <span className="ml-1">{'Xoá'}</span>
+                            <CImg src={ConfigImage.deleteAds} alt="delete"/> <span className="ml-1">{ConfigText.GENERAL.DELETE}</span>
                           </CButton>
                         </CBadge>
                       </td>
@@ -221,8 +221,8 @@ const TablesLiveEventList = () => {
           </CDropdownMenu>
         </CDropdown>
         <CPagination
-          nextButton={'Sau'}
-          previousButton={'Trước'}
+          nextButton={ConfigText.GENERAL.AFTER}
+          previousButton={ConfigText.GENERAL.BEFORE}
           activePage={currentPage}
           pages={maxPage}
           onActivePageChange={setCurrentPage}

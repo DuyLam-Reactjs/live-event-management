@@ -21,6 +21,7 @@ import {
 } from "react-router-dom"
 import CustomerApi from "../../../apis/customerApi";
 import LocalStorage from "../../../config/LocalStorage";
+import ConfigText from "../../../config/ConfigText";
 
 
 const queryString = require('query-string');
@@ -75,7 +76,7 @@ const Login = () => {
         }
       })
     }else {
-      setError({...error, errorUserName: 'Email không hợp lệ' })
+      setError({...error, errorUserName: ConfigText.CUSTOMER.INVALID_EMAIL })
     }
 
   }

@@ -10,6 +10,7 @@ import {useDispatch} from "react-redux";
 import {openPopup} from "../actions/popup";
 import {POPUP} from "../constants/constants";
 import {freeSet} from "@coreui/icons";
+import ConfigText from "../config/ConfigText";
 
 
 const TheHeaderDropdown = (props) => {
@@ -39,7 +40,7 @@ const TheHeaderDropdown = (props) => {
         {/*</CDropdownItem>*/}
         <CDropdownItem to="/customers">
           <CIcon name="cil-people" className="mfe-2" />
-          Quản lý Customer
+          {ConfigText.CUSTOMER.MANAGE_CUSTOMER}
         </CDropdownItem>
         {/*<CDropdownItem to="/change-password">*/}
         {/*  <CIcon name="cil-lock-locked" className="mfe-2"/>*/}
@@ -49,7 +50,7 @@ const TheHeaderDropdown = (props) => {
           <CIcon
               content={freeSet.cilAccountLogout}
               className="mfe-2"/>
-          Đăng xuất
+          {ConfigText.CUSTOMER.LOGOUT}
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

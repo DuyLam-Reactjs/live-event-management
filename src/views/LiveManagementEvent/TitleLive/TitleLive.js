@@ -1,5 +1,6 @@
 import React from "react";
 import {CCol, CRow} from "@coreui/react";
+import ConfigText from "../../../config/ConfigText";
 
 const TitleLive = (props) => {
   const {title, isCreateProvider} = props
@@ -8,7 +9,7 @@ const TitleLive = (props) => {
       <CCol className="col-lg-7">
         {isCreateProvider &&
           <h3 className="m-0">
-            <span style={{color:'#9B9B9B'}}> Live Event Management List </span><strong> / Thêm Live Entity</strong>
+            <span style={{color:'#9B9B9B'}}> {ConfigText.LIVE.LIVE_EVENT_MANAGE_LIST} </span><strong> / Thêm Live Entity</strong>
           </h3>
         }
         <h2>{title}</h2>

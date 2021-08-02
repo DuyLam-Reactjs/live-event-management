@@ -14,6 +14,7 @@ import {closePopup} from "../../../actions/popup";
 import {useDispatch} from "react-redux";
 import LiveEventApi from "../../../apis/liveEventApi";
 import {sendToast} from "../../../helpers/common";
+import ConfigText from "../../../config/ConfigText";
 
 const PopupCreateCustomer = () => {
 
@@ -22,6 +23,8 @@ const PopupCreateCustomer = () => {
     const [valueNameContent, setValueName] = useState(  '')
     const [checkDvr, setDvr] = useState( false)
     const [desc, setDesc] = useState(  '')
+
+    const [error, setError] = useState(false)
 
     const handleClose = () => {
         dispatch(closePopup())
@@ -41,27 +44,31 @@ const PopupCreateCustomer = () => {
 
     const onSave = () => {
         if (!valueNameContent){
-            sendToast({message: 'Vui lòng nhập tên Live Entity'})
+            sendToast({message: ConfigText.LIVE.IMPORT_NAME_LIVE_ENTITY})
         }else {
-            const relay = [
-                {
-                    "key": "",
-                    "name": "test11",
-                    "url": ""
-                }
-            ]
-            const presetId = 'hd'
-            LiveEventApi.setLiveEntity(
-                valueNameContent,
-                desc,
-                checkDvr,
-                relay,
-                presetId,
-            ).then(res => {
-                if (res.success){
-                    dispatch(closePopup())
-                }
-            })
+            if (valueNameContent?.length < 3 || desc?.length < 3) {
+                setError(true)
+            }else {
+                const relay = [
+                    {
+                        "key": "",
+                        "name": "test11",
+                        "url": ""
+                    }
+                ]
+                const presetId = 'hd'
+                LiveEventApi.setLiveEntity(
+                    valueNameContent,
+                    desc,
+                    checkDvr,
+                    relay,
+                    presetId,
+                ).then(res => {
+                    if (res.success){
+                        dispatch(closePopup())
+                    }
+                })
+            }
         }
     }
 
@@ -73,7 +80,7 @@ const PopupCreateCustomer = () => {
         >
             <CModalHeader style={{ backgroundColor: '#646464' }}>
                 <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
-                    <h4 className="mb-0">{'Create Live Entity'}</h4>
+                    <h4 className="mb-0">{ConfigText.LIVE.CREATE_LIVE_ENTITY}</h4>
                     <CButton className='p-0 shadow-none' onClick={handleClose}>
                         <CIcon name="cil-x" style={{ color: "#FFF" }}></CIcon>
                     </CButton>
@@ -84,11 +91,13 @@ const PopupCreateCustomer = () => {
                     <div className="pb-3 pt-3">
                         <CInputGroup>
                             <CInputGroupPrepend>
-                                <CInputGroupText>{'Tên'}</CInputGroupText>
+                                <CInputGroupText>{ConfigText.GENERAL.NAME}</CInputGroupText>
                             </CInputGroupPrepend>
                             <CInput type="text"
-                                    placeholder="Nhập tên Live Entity"
-                                    onChange={onChangeNameLiveEntity}  />
+                                    placeholder= {ConfigText.LIVE.NAME_LIVE_ENTITY}
+                                    onChange={onChangeNameLiveEntity}
+                                    maxLength={100}
+                                    minLength={3}/>
                         </CInputGroup>
                     </div>
                     <div className="pb-3">
@@ -106,16 +115,20 @@ const PopupCreateCustomer = () => {
                     <div  className="pb-3">
                         <CInputGroup>
                             <CInputGroupPrepend>
-                                <CInputGroupText>{'Thông tin thêm'}</CInputGroupText>
+                                <CInputGroupText>{ConfigText.LIVE.DESCRIPTION_INFO}</CInputGroupText>
                             </CInputGroupPrepend>
                             <CInput  type="text"
-                                     placeholder="Nhập thông tin thêm" onChange={onChangeDescription}
-                                     maxLength={256}/>
+                                     placeholder={ConfigText.LIVE.IMPORT_DESCRIPTION_INFO} onChange={onChangeDescription}
+                                     maxLength={100}
+                                     minLength={3}/>
                         </CInputGroup>
                     </div>
+                    {error &&
+                    <p className="text" style={{color: 'red', textAlign: 'end'}}>{ConfigText.LIVE.ERR_CHARACTER_LIMIT}</p>
+                    }
                 </CForm>
                 <div className="d-flex justify-content-end mt-3">
-                    <CButton className="pl-4 pr-4" color="success" onClick={onSave} >{"Create"}</CButton>
+                    <CButton className="pl-4 pr-4" color="success" onClick={onSave} >{ConfigText.LIVE.CREATE_LIVE_ENTITY}</CButton>
                 </div>
             </CModalBody>
         </CModal>

@@ -19,6 +19,7 @@ import {useHistory} from "react-router";
 import {validateEmail} from "../../helpers/common";
 import CustomerApi from "../../apis/customerApi";
 import ConfigUrl from "../../config/ConfigUrl";
+import ConfigText from "../../config/ConfigText";
 
 const PopupCreateCustomer = (props) => {
   const [createCustomer, setCustomer] = useState({
@@ -58,7 +59,7 @@ const PopupCreateCustomer = (props) => {
         }
       })
     } else {
-      setError('Email không hợp lệ')
+      setError(ConfigText.CUSTOMER.INVALID_EMAIL)
     }
   }
   const handleKeyPress = (event) => {
@@ -80,7 +81,7 @@ const PopupCreateCustomer = (props) => {
     >
       <CModalHeader style={{ backgroundColor: '#646464' }}>
         <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
-          <h4 className="mb-0">Register</h4>
+          <h4 className="mb-0">{ConfigText.CUSTOMER.REGISTER}</h4>
           <CButton className='p-0 shadow-none' onClick={onClose}>
             <CIcon name="cil-x" style={{ color: "#FFF" }}></CIcon>
           </CButton>
@@ -120,10 +121,10 @@ const PopupCreateCustomer = (props) => {
           {error &&
           <p className="text" style={{color: 'red', textAlign: 'end'}}>{error}</p>
           }
-          <CButton color="success" block onClick={onClickCreatAccount}>Create Account</CButton>
-          <CLink to="/live/content-live-list">
-            <p className="mt-3 mb-0 register-back">Quay lại Live Event Management Tool</p>
-          </CLink>
+          <CButton color="success" block onClick={onClickCreatAccount}>{ConfigText.CUSTOMER.CREATE_ACCOUNT}</CButton>
+          {/*<CLink to="/live/content-live-list">*/}
+          {/*  <p className="mt-3 mb-0 register-back">Quay lại Live Event Management Tool</p>*/}
+          {/*</CLink>*/}
         </CForm>
       </CModalBody>
     </CModal>

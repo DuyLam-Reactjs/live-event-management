@@ -4,6 +4,7 @@ import CIcon from "@coreui/icons-react";
 import {closePopup} from "../../../actions/popup";
 import {useDispatch} from "react-redux";
 import LiveEventApi from "../../../apis/liveEventApi";
+import ConfigTExt from "../../../config/ConfigText";
 
 const PopupDeleteAds = ({
     item,
@@ -34,7 +35,7 @@ const PopupDeleteAds = ({
         >
             <CModalHeader style={{ backgroundColor: '#646464' }}>
                 <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
-                    <h4 className="mb-0">Xóa sự kiện: {nameItem}</h4>
+                    <h4 className="mb-0">{ConfigTExt.LIVE.DELETE_EVENT + ':' + nameItem}</h4>
                     <CButton className='p-0 shadow-none' onClick={handleClose}>
                         <CIcon name="cil-x" style={{ color: "#FFF" }}></CIcon>
                     </CButton>
@@ -42,9 +43,9 @@ const PopupDeleteAds = ({
             </CModalHeader>
             <CModalBody>
                 <div >
-                    Bạn có muốn xóa sự kiện này ?
+                    {ConfigTExt.LIVE.DELETE_EVENT_CURRENT}
                     <div className="d-flex justify-content-end mt-3">
-                        <CButton className="pl-4 pr-4" color="danger" onClick={onDeleteGroupAds}>Xóa</CButton>
+                        <CButton className="pl-4 pr-4" color="danger" onClick={onDeleteGroupAds}>{ConfigTExt.GENERAL.DELETE}</CButton>
                     </div>
                 </div>
             </CModalBody>
