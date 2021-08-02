@@ -2,9 +2,9 @@ import Cookie from 'react-cookies'
 import * as ConfigEnv from './ConfigEnv'
 
 const KEY = {
-  ACCESS_TOKEN : 'access_token',
-  ACCESS_TOKEN_TEST : 'access_token_test',
-  ACCESS_TOKEN_DEV : 'access_token_dev',
+  API_KEY : 'api_key',
+  API_KEY_TEST : 'api_key_test',
+  API_KEY_DEV : 'api_key_dev',
   ANONYMOUS_TOKEN : 'anonymous_token',
 }
 
@@ -16,12 +16,12 @@ const METHOD = {
 
 
 function getTokenKey () {
-  let key = KEY.ACCESS_TOKEN
+  let key = KEY.API_KEY
   const domainAPI = ConfigEnv.DOMAIN_API
   const isTesting = (domainAPI || '').includes('testing-api')
   const isDev = (domainAPI || '').includes('dev-api')
-  if (isTesting) key = KEY.ACCESS_TOKEN_TEST
-  else if (isDev) key = KEY.ACCESS_TOKEN_DEV
+  if (isTesting) key = KEY.API_KEY_TEST
+  else if (isDev) key = KEY.API_KEY_DEV
   return key
 }
 

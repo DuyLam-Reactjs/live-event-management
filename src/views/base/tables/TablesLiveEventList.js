@@ -98,12 +98,12 @@ const TablesLiveEventList = () => {
     }
   }
 
-  const onAddContentProvider = () =>{
+  const handleAddLiveItem = () =>{
     // history.push('/live/create-live-event')
     dispatch(openPopup({name: POPUP.NAME.LIVE_EVENT.CREATE_LIVE_ENTITY}))
   }
 
-  const onEditContentItem = (item) => {
+  const handleEditLiveItem = (item) => {
     dispatch(openPopup({
       name: POPUP.NAME.LIVE_EVENT.EDIT_LIVE_ITEM,
       item,
@@ -112,7 +112,7 @@ const TablesLiveEventList = () => {
       setCurrentPageList
     }))
   }
-  const handleOpenDelete = (item) => {
+  const handleDeleteLiveItem = (item) => {
     dispatch(openPopup({
       name: POPUP.NAME.LIVE_EVENT.DELETE_LIVE_ITEM,
       item,
@@ -144,7 +144,7 @@ const TablesLiveEventList = () => {
         <CCol  className="col-sm-12 p-0 ">
           <div className="form-inline justify-content-sm-end c-datatable-items-per-page">
             <CLink>
-              <button className="btn btn-success mb-3"  onClick={onAddContentProvider}>
+              <button className="btn btn-success mb-3"  onClick={handleAddLiveItem}>
                 {ConfigText.LIVE.CREATE_LIVE_ENTITY}
               </button>
             </CLink>
@@ -189,12 +189,12 @@ const TablesLiveEventList = () => {
                     (item)=>(
                       <td>
                         <CBadge color={getBadge(item.status)}>
-                          <CButton block color="info" onClick={()=>onEditContentItem(item)}>
+                          <CButton block color="info" onClick={()=>handleEditLiveItem(item)}>
                             <CImg src={ConfigImage.edit} alt="edit"/> <span className="ml-1">{ConfigText.GENERAL.EDIT}</span>
                           </CButton>
                         </CBadge>
                         <CBadge>
-                          <CButton block color="danger" onClick={()=>handleOpenDelete(item)}>
+                          <CButton block color="danger" onClick={()=>handleDeleteLiveItem(item)}>
                             <CImg src={ConfigImage.deleteAds} alt="delete"/> <span className="ml-1">{ConfigText.GENERAL.DELETE}</span>
                           </CButton>
                         </CBadge>

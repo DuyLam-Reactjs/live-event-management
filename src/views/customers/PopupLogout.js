@@ -3,7 +3,7 @@ import {CButton, CModal, CModalBody, CModalHeader} from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import {useDispatch} from "react-redux";
 import {closePopup} from "../../actions/popup";
-import {removeAccessToken} from "../../helpers/common";
+import {removeApiKey} from "../../helpers/common";
 
 const PopupLogout = () => {
 
@@ -13,7 +13,7 @@ const PopupLogout = () => {
   }
 
   const handleLogout = () => {
-    removeAccessToken()
+    removeApiKey()
   }
   return(
     <CModal

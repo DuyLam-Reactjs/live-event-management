@@ -10,6 +10,7 @@ const CUSTOMER = {
     DELETE_CUSTOMER: "Xóa Customer",
     DELETE_CUSTOMER_CURRENT: "Bạn có muốn xóa người dùng này ?",
     LOGOUT: "Đăng xuất",
+    LOGIN: "Login",
     MANAGE_CUSTOMER: "Quản lí Customer"
 }
 const LIVE = {
