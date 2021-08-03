@@ -25,6 +25,7 @@ import {POPUP} from "../../constants/constants";
 import ConfigImage from "../../config/ConfigImage";
 import ConfigText from "../../config/ConfigText";
 import ConfigTestData from "../../config/ConfigTestData";
+import customerApi from "../../apis/customerApi";
 
 const CustomerList = () => {
   const dispatch = useDispatch();
@@ -39,13 +40,13 @@ const CustomerList = () => {
 
 
   useEffect(() => {
-    // customerApi?.listCustomers(currentPage, rowPerPage).then(res => {
-    //   const data = res?.data
-    //   if (res?.success){
-    //     setCurrentPageList(data?.items)
-    //     setTotal(data?.metadata?.total)
-    //   }
-    // })
+    customerApi?.listCustomers(currentPage, rowPerPage).then(res => {
+      const data = res?.data
+      if (res?.success){
+        setCurrentPageList(data?.items)
+        setTotal(data?.metadata?.total)
+      }
+    })
     const dataCustomer = ConfigTestData?.dataCustomer
     setCurrentPageList(dataCustomer?.data?.customers)
     setTotal(dataCustomer?.data?.total)

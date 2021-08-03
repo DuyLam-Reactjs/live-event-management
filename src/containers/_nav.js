@@ -9,7 +9,7 @@ const _nav = [
     _tag: 'CSidebarNavDropdown',
     name: 'Live Event Management',
     route: '/Live',
-    icon: <CImg style={{marginRight: '11px'}} src={ConfigImage.instreamAds} alt=""/>,
+    icon: <CImg style={{marginRight: '11px'}} src={ConfigImage.live} alt=""/>,
     _children: [
       {
         _tag: 'CSidebarNavItem',
