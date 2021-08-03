@@ -6,21 +6,29 @@ import {
   CCol,
   CDataTable,
   CRow,
-  CButton, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CPagination, CImg, CSwitch,
+  CButton,
+  CDropdown,
+  CDropdownToggle,
+  CDropdownMenu,
+  CDropdownItem,
+  CPagination,
+  CImg,
+  CSwitch,
+  CLink,
 } from '@coreui/react'
 
 import { useDispatch } from "react-redux";
-import TitleAds from "../LiveManagementEvent/TitleAds/TitleAds";
+import TitleLive from "../LiveManagementEvent/TitleLive/TitleLive";
 import {parsedPageLimit} from "../../helpers/common";
-import customerApi from "../../apis/customerApi";
 import {openPopup} from "../../actions/popup";
 import {POPUP} from "../../constants/constants";
 import ConfigImage from "../../config/ConfigImage";
+import ConfigText from "../../config/ConfigText";
 import ConfigTestData from "../../config/ConfigTestData";
+import customerApi from "../../apis/customerApi";
 
 const CustomerList = () => {
   const dispatch = useDispatch();
-
 
   const [currentPageList, setCurrentPageList] = useState()
   const [editField, setEditField] = useState();
@@ -32,17 +40,16 @@ const CustomerList = () => {
 
 
   useEffect(() => {
-    // customerApi?.listCustomers(currentPage, rowPerPage).then(res => {
-    //   const data = res?.data
-    //   if (res?.success){
-    //     setCurrentPageList(data?.items)
-    //     setTotal(data?.metadata?.total)
-    //   }
-    // })
+    customerApi?.listCustomers(currentPage, rowPerPage).then(res => {
+      const data = res?.data
+      if (res?.success){
+        setCurrentPageList(data?.items)
+        setTotal(data?.metadata?.total)
+      }
+    })
     const dataCustomer = ConfigTestData?.dataCustomer
     setCurrentPageList(dataCustomer?.data?.customers)
     setTotal(dataCustomer?.data?.total)
-    console.log(dataCustomer?.data.customers)
 
   }, [currentPage, rowPerPage])
 
@@ -70,13 +77,17 @@ const CustomerList = () => {
 
   const handleSaveEdit = (item) => {
     dispatch(openPopup({
-      name: POPUP.NAME.USER.UPDATE_CUSTOMER,
+      name: POPUP.NAME.CUSTOMER.UPDATE_CUSTOMER,
       editField,
       setEditField,
       userItem: item
     }))
   }
-
+  const createCustomer = () => {
+    dispatch(openPopup({
+      name: POPUP.NAME.CUSTOMER.CREATE_CUSTOMER
+    }))
+  }
 
 
   const handleOpenDelete = (item) => {
@@ -94,7 +105,18 @@ const CustomerList = () => {
   return (
     <React.Fragment>
       <div>
-        <TitleAds title={'Customers List'}/>
+        <TitleLive title={ConfigText.CUSTOMER.CUSTOMER_LIST}/>
+        <CRow className={'row mx-0'}>
+          <CCol  className="col-sm-12 p-0 ">
+            <div className="form-inline justify-content-sm-end c-datatable-items-per-page">
+              <CLink>
+                <button className="btn btn__live mb-3"  onClick={createCustomer}>
+                  Tạo Customer
+                </button>
+              </CLink>
+            </div>
+          </CCol>
+        </CRow>
         <CRow className={'justify-content-between'}>
           <CCol>
             <CCard>
@@ -124,13 +146,13 @@ const CustomerList = () => {
                             <CButton block color="info" onClick={()=>handleSaveEdit(item)}>
                               {/*<CIcon  name={'cil-pencil'}/> */}
                               <CImg src={ConfigImage.edit} alt="edit" />
-                              <span className="ml-1">Chỉnh sửa</span>
+                              <span className="ml-1">{ConfigText.GENERAL.EDIT}</span>
                             </CButton>
                           </CBadge>
                           <CBadge>
                             <CButton block color="danger" onClick={()=>handleOpenDelete(item)}>
                               <CImg src={ConfigImage.deleteAds} alt="delete"/>
-                              <span className="ml-1">Xoá</span>
+                              <span className="ml-1">{ConfigText.GENERAL.DELETE}</span>
                             </CButton>
                           </CBadge>
                         </td>
@@ -157,8 +179,8 @@ const CustomerList = () => {
             </CDropdownMenu>
           </CDropdown>
           <CPagination
-            nextButton={'Sau'}
-            previousButton={'Trước'}
+            nextButton={ConfigText.GENERAL.AFTER}
+            previousButton={ConfigText.GENERAL.BEFORE}
             activePage={currentPage}
             pages={maxPage}
             onActivePageChange={setCurrentPage}

@@ -8,10 +8,10 @@ axios.interceptors.request.use(cfg => {
     if(!cfg.params){
         cfg.params = {}
     }
-    const accessToken = cookie.load(ConfigCookie.getTokenKey());
-    if (accessToken) {
-        // cfg.headers['Authorization'] = accessToken || '';
-        cfg.headers['vieon-api-key'] = accessToken || '';
+    const vieOnApiKey = cookie.load(ConfigCookie.getTokenKey());
+    if (vieOnApiKey) {
+        // cfg.headers['Authorization'] = vieOnApiKey || '';
+        cfg.headers['vieon-api-key'] = vieOnApiKey || '';
         return cfg;
     }
     return cfg

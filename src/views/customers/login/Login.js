@@ -14,13 +14,14 @@ import {
   CRow
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import {validateEmail, saveAccessToken, handleLocalStorage} from "../../../helpers/common";
+import {validateEmail, saveApiKey, handleLocalStorage} from "../../../helpers/common";
 
 import {
   useHistory, useLocation,
 } from "react-router-dom"
 import CustomerApi from "../../../apis/customerApi";
 import LocalStorage from "../../../config/LocalStorage";
+import ConfigText from "../../../config/ConfigText";
 
 
 const queryString = require('query-string');
@@ -62,7 +63,7 @@ const Login = () => {
         const idUser = data?.id
         handleLocalStorage(LocalStorage.SET, 'idUser', idUser)
         const url = parsedURL?.rel
-        saveAccessToken(apiKey)
+        saveApiKey(apiKey)
 
         if (apiKey){
           history.push(
@@ -75,13 +76,13 @@ const Login = () => {
         }
       })
     }else {
-      setError({...error, errorUserName: 'Email không hợp lệ' })
+      setError({...error, errorUserName: ConfigText.CUSTOMER.INVALID_EMAIL })
     }
 
   }
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      onLogin()
+      onLogin && onLogin()
     }
   }
 
@@ -94,8 +95,8 @@ const Login = () => {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm>
-                    <h1>Login</h1>
-                    <p className="text-muted">Sign In to your account</p>
+                    <h1>{ConfigText.CUSTOMER.LOGIN}</h1>
+                    <p className="text-muted">{'Sign In to your account'}</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
                         <CInputGroupText>
@@ -124,7 +125,7 @@ const Login = () => {
                     {error?.errorPassword &&
                       <p  style={{color: 'red', textAlign: 'end'}}>{error?.errorPassword}</p>
                     }
-                    <CButton color="success" className="px-4" block onClick={onLogin}>Login</CButton>
+                    <CButton color="success" className="px-4" block onClick={onLogin}>{ConfigText.CUSTOMER.LOGIN}</CButton>
                   </CForm>
                 </CCardBody>
               </CCard>

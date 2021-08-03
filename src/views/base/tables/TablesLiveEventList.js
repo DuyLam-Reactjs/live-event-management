@@ -14,11 +14,12 @@ import {useHistory} from 'react-router-dom';
 import {parsedTimeCreate, parsedPageLimit} from "../../../helpers/common";
 import {freeSet} from "@coreui/icons";
 import contentApi from "../../../apis/contentApi";
-import TitleAds from "../../LiveManagementEvent/TitleAds/TitleAds";
+import TitleLive from "../../LiveManagementEvent/TitleLive/TitleLive";
 import ConfigImage from "../../../config/ConfigImage";
 import {openPopup} from "../../../actions/popup";
 import {POPUP} from "../../../constants/constants";
 import {useDispatch} from "react-redux";
+import ConfigText from "../../../config/ConfigText";
 
 
 
@@ -60,6 +61,7 @@ const TablesLiveEventList = () => {
       setCurrentPageList(items)
       setTotal(total)
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[rowPerPage, currentPage-1])
 
@@ -96,11 +98,12 @@ const TablesLiveEventList = () => {
     }
   }
 
-
-  const onAddContentProvider = () =>{
-    // history.push('/instream-ads/content-provider-list/create-content-provider')
+  const handleAddLiveItem = () =>{
+    // history.push('/live/create-live-event')
+    dispatch(openPopup({name: POPUP.NAME.LIVE_EVENT.CREATE_LIVE_ENTITY}))
   }
-  const onEditContentItem = (item) => {
+
+  const handleEditLiveItem = (item) => {
     dispatch(openPopup({
       name: POPUP.NAME.LIVE_EVENT.EDIT_LIVE_ITEM,
       item,
@@ -109,7 +112,7 @@ const TablesLiveEventList = () => {
       setCurrentPageList
     }))
   }
-  const handleOpenDelete = (item) => {
+  const handleDeleteLiveItem = (item) => {
     dispatch(openPopup({
       name: POPUP.NAME.LIVE_EVENT.DELETE_LIVE_ITEM,
       item,
@@ -118,35 +121,31 @@ const TablesLiveEventList = () => {
       setCurrentPageList
     }))
   }
-  const handleContent = (item) => {
-    history.push('/instream-ads/content-list?id=' + item?.id)
-  }
 
   return (
     <>
-      <TitleAds title={"Live Event Management List"}/>
+      <TitleLive title={ConfigText.LIVE.LIVE_EVENT_MANAGE_LIST}/>
       <CRow className={'row mx-0'}>
-        <CCol  className="col-sm-6 form-inline p-0 c-datatable-filter">
-          <CInputGroup className="mb-3">
-            <CInput
-                    className="input-search"
-                    type="text" placeholder="Tìm Content Live" autoComplete="search"
-                    onChange={handleChange}
-                    value={valueKeyword}
-                    onKeyPress={handleKeyPress}
-            />
-            <button className="btn btn-square btn-default color-black btn-search"
-                    onClick={onClickSearch}>
-              <CIcon content={freeSet.cilSearch} size={'lg'}style={{margin: 0}} />
-            </button>
-          </CInputGroup>
-        </CCol>
-        <CCol  className="col-sm-6 p-0 ">
+        {/*<CCol  className="col-sm-6 form-inline p-0 c-datatable-filter">*/}
+        {/*  <CInputGroup className="mb-3">*/}
+        {/*    <CInput*/}
+        {/*            className="input-search"*/}
+        {/*            type="text" placeholder="Tìm Content Live" autoComplete="search"*/}
+        {/*            onChange={handleChange}*/}
+        {/*            value={valueKeyword}*/}
+        {/*            onKeyPress={handleKeyPress}*/}
+        {/*    />*/}
+        {/*    <button className="btn btn-square btn-default color-black btn-search"*/}
+        {/*            onClick={onClickSearch}>*/}
+        {/*      <CIcon content={freeSet.cilSearch} size={'lg'}style={{margin: 0}} />*/}
+        {/*    </button>*/}
+        {/*  </CInputGroup>*/}
+        {/*</CCol>*/}
+        <CCol  className="col-sm-12 p-0 ">
           <div className="form-inline justify-content-sm-end c-datatable-items-per-page">
-
             <CLink>
-              <button className="btn btn-success mb-3"  onClick={onAddContentProvider}>
-                Tạo Content Live
+              <button className="btn mb-3 btn__live"  onClick={handleAddLiveItem}>
+                {ConfigText.LIVE.CREATE_LIVE_ENTITY}
               </button>
             </CLink>
           </div>
@@ -190,13 +189,13 @@ const TablesLiveEventList = () => {
                     (item)=>(
                       <td>
                         <CBadge color={getBadge(item.status)}>
-                          <CButton block color="info" onClick={()=>onEditContentItem(item)}>
-                            <CImg src={ConfigImage.edit} alt="edit"/> <span className="ml-1">{'Chỉnh sửa'}</span>
+                          <CButton block color="info" onClick={()=>handleEditLiveItem(item)}>
+                            <CImg src={ConfigImage.edit} alt="edit"/> <span className="ml-1">{ConfigText.GENERAL.EDIT}</span>
                           </CButton>
                         </CBadge>
                         <CBadge>
-                          <CButton block color="danger" onClick={()=>handleOpenDelete(item)}>
-                            <CImg src={ConfigImage.deleteAds} alt="delete"/> <span className="ml-1">{'Xoá'}</span>
+                          <CButton block color="danger" onClick={()=>handleDeleteLiveItem(item)}>
+                            <CImg src={ConfigImage.deleteAds} alt="delete"/> <span className="ml-1">{ConfigText.GENERAL.DELETE}</span>
                           </CButton>
                         </CBadge>
                       </td>
@@ -222,8 +221,8 @@ const TablesLiveEventList = () => {
           </CDropdownMenu>
         </CDropdown>
         <CPagination
-          nextButton={'Sau'}
-          previousButton={'Trước'}
+          nextButton={ConfigText.GENERAL.AFTER}
+          previousButton={ConfigText.GENERAL.BEFORE}
           activePage={currentPage}
           pages={maxPage}
           onActivePageChange={setCurrentPage}

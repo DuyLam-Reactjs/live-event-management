@@ -136,7 +136,7 @@ function parseContentList (items) {
   return items
 }
 
-function saveAccessToken (apiKey) {
+function saveApiKey (apiKey) {
   //time expire token
   const timeNow = new Date()
   timeNow.setFullYear(timeNow.getFullYear() + 1)
@@ -158,16 +158,16 @@ function saveAccessToken (apiKey) {
       option
     })
     handleLocalStorage(LocalStorage.SET, LocalStorage.RE_LOGIN, true)
-    handleLocalStorage(LocalStorage.SET, 'Token', apiKey)
+    handleLocalStorage(LocalStorage.SET, 'ApiKey', apiKey)
   } catch (e) {
     throw e
   }
 }
-async function removeAccessToken (router, notRefresh) {
+async function removeApiKey (router, notRefresh) {
   try {
-    await ConfigCookie.remove(ConfigCookie.KEY.ACCESS_TOKEN)
-    await ConfigCookie.remove(ConfigCookie.KEY.ACCESS_TOKEN_TEST)
-    await ConfigCookie.remove(ConfigCookie.KEY.ACCESS_TOKEN_DEV)
+    await ConfigCookie.remove(ConfigCookie.KEY.API_KEY)
+    await ConfigCookie.remove(ConfigCookie.KEY.API_KEY_TEST)
+    await ConfigCookie.remove(ConfigCookie.KEY.API_KEY_DEV)
     await ConfigCookie.remove(ConfigCookie.KEY.ANONYMOUS_TOKEN)
   } catch (e) {
     throw e
@@ -223,7 +223,7 @@ export {
   sendToast,
   setUrlParams,
   validateEmail,
-  saveAccessToken,
+  saveApiKey,
   handleLocalStorage,
   json_to_query_string,
   parsedTimeCreate,
@@ -232,6 +232,6 @@ export {
   parsedIdAdsGroups,
   parsedNumberUrl,
   classUseStyles,
-  removeAccessToken
+  removeApiKey
 }
 

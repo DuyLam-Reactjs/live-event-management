@@ -8,9 +8,6 @@ import {
 import CIcon from "@coreui/icons-react";
 import {useDispatch, useSelector} from "react-redux";
 import {getContentProviderById} from "../../../actions/content";
-import AdsContentItem from "../ContentList/ItemContentList/AdsContentItem";
-import NameContentProviderItem from "../ContentList/ItemContentList/NameContentProviderItem";
-import StatusContentItem from "../ContentList/ItemContentList/StatusContentItem";
 import contentApi from "../../../apis/contentApi";
 import {parsedIdAdsGroups, parsedIdContentProvider, parsedPageLimit} from "../../../helpers/common"
 import {closePopup} from "../../../actions/popup";
@@ -203,26 +200,26 @@ const PopupEditContentList = (props) => {
           </div>
         </CModalHeader>
         <CModalBody>
-          <div className={'d-flex flex-row'}>
-            <NameContentProviderItem
-              dataContentList={dataContentList}
-              nameItemProvider={currentNameProvider}
-              setNameProvider={setNameProvider}
-              onChangeContentProvider={onChangeContentProvider}
-              arrIdContentProvider={arrIdContentProvider}
-              getListAdsGroups={getListAdsGroups}
-              handleScroll={handleScroll}
-            />
-            <AdsContentItem
-              listAdsGroup={listAdsGroups}
-              groupName={currentGroup}
-              setGroupAds={setGroupAds}
-              onChangeAdsItem={onChangeAdsItem}
-            />
-            <StatusContentItem
-              onChangeStatus={onChangeStatus}
-              status={currentStatus} setStatus={setStatus}/>
-          </div>
+          {/*<div className={'d-flex flex-row'}>*/}
+          {/*  <NameContentProviderItem*/}
+          {/*    dataContentList={dataContentList}*/}
+          {/*    nameItemProvider={currentNameProvider}*/}
+          {/*    setNameProvider={setNameProvider}*/}
+          {/*    onChangeContentProvider={onChangeContentProvider}*/}
+          {/*    arrIdContentProvider={arrIdContentProvider}*/}
+          {/*    getListAdsGroups={getListAdsGroups}*/}
+          {/*    handleScroll={handleScroll}*/}
+          {/*  />*/}
+          {/*  <AdsContentItem*/}
+          {/*    listAdsGroup={listAdsGroups}*/}
+          {/*    groupName={currentGroup}*/}
+          {/*    setGroupAds={setGroupAds}*/}
+          {/*    onChangeAdsItem={onChangeAdsItem}*/}
+          {/*  />*/}
+          {/*  <StatusContentItem*/}
+          {/*    onChangeStatus={onChangeStatus}*/}
+          {/*    status={currentStatus} setStatus={setStatus}/>*/}
+          {/*</div>*/}
           <div className="d-flex justify-content-end mt-3">
             <CButton className="pl-4 pr-4" color="success" onClick={handleSave}>Lưu</CButton>
           </div>

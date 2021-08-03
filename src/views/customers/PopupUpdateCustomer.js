@@ -13,6 +13,7 @@ import CIcon from "@coreui/icons-react";
 import {useDispatch} from "react-redux";
 import {closePopup} from "../../actions/popup";
 import CustomerApi from "../../apis/customerApi";
+import ConfigText from "../../config/ConfigText";
 
 const PopupUpdateCustomer = (props) => {
   const { userItem, editField, setEditField} = props || {}
@@ -83,7 +84,7 @@ const PopupUpdateCustomer = (props) => {
       </CModalBody>
       <CModalFooter>
         <div className="d-flex justify-content-end">
-          <CButton className="pl-4 pr-4" color="success" onClick={()=>saveCustomer(userItem)}>Lưu</CButton>
+          <CButton className="pl-4 pr-4" color="success" onClick={()=>saveCustomer(userItem)}>{ConfigText.GENERAL.SAVE}</CButton>
         </div>
       </CModalFooter>
     </CModal>

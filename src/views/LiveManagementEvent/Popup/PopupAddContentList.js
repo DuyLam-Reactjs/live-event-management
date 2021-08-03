@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import {CButton, CModal, CModalBody, CModalHeader} from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import StatusContentItem from "../ContentList/ItemContentList/StatusContentItem";
 import {parsedIdAdsGroups, parsedIdContentProvider, parsedPageLimit} from "../../../helpers/common";
 import contentApi from "../../../apis/contentApi";
-import GroupNameContentProvider from "../ContentList/GroupNameContentProvider";
-import GroupsAdsProvider from "../ContentList/GroupsAdsProvider";
+
 import {useDispatch} from "react-redux";
 import {closePopup} from "../../../actions/popup";
 import inStreamAdsApi from "../../../apis/liveEventApi";
@@ -168,20 +166,20 @@ const PopupAddContentList = (props) => {
         </CModalHeader>
         <CModalBody>
           <div className="d-flex flex-row">
-            <GroupNameContentProvider
-              dataContentList={dataContentList}
-              handleChangeContentProvider={handleChangeContentProvider}
-              getListAdsGroups={getListAdsGroups}
-              handleScroll={handleScroll}
-            />
-            <GroupsAdsProvider
-              listAdsGroup={listAdsGroups}
-              handleChangeAds={handleChangeAds}
-            />
-            <StatusContentItem
-              onChangeStatus={onChangeStatus}
-              status ={idAndStatus?.status}
-            />
+            {/*<GroupNameContentProvider*/}
+            {/*  dataContentList={dataContentList}*/}
+            {/*  handleChangeContentProvider={handleChangeContentProvider}*/}
+            {/*  getListAdsGroups={getListAdsGroups}*/}
+            {/*  handleScroll={handleScroll}*/}
+            {/*/>*/}
+            {/*<GroupsAdsProvider*/}
+            {/*  listAdsGroup={listAdsGroups}*/}
+            {/*  handleChangeAds={handleChangeAds}*/}
+            {/*/>*/}
+            {/*<StatusContentItem*/}
+            {/*  onChangeStatus={onChangeStatus}*/}
+            {/*  status ={idAndStatus?.status}*/}
+            {/*/>*/}
           </div>
           <div className="d-flex justify-content-end mt-3">
             <CButton className="pl-4 pr-4" color="success" onClick={handleCreate}>Tạo</CButton>

@@ -1,14 +1,6 @@
 import React, { useState} from 'react'
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CRow} from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import SkipAfterInStreamAds from "../CreateContentProvider/CreateStreamAds/SkipAfterInStreamAds";
-import SkipInStreamAds from "../CreateContentProvider/CreateStreamAds/SkipInStreamAds";
-import StatusInStreamAds from "../CreateContentProvider/CreateStreamAds/StatusInStreamAds";
-import VastUrlInStreamAds from "../CreateContentProvider/CreateStreamAds/VastUrlInStreamAds";
-import TypeInStreamAds from "../CreateContentProvider/CreateStreamAds/TypeInStreamAds";
-import ContentInStreamAds from "../CreateContentProvider/CreateStreamAds/ContentInStreamAds";
-import PlatformInStreamAds from "../CreateContentProvider/CreateStreamAds/PlatFormInStreamAds";
-import GroupInStreamAds from "../CreateContentProvider/CreateStreamAds/GroupInStreamAds";
 import inStreamAdsApi from "../../../apis/liveEventApi";
 import {sendToast} from "../../../helpers/common";
 import {useLocation} from "react-router";
@@ -136,45 +128,45 @@ const PopupCreateNewAds = (props) => {
                 </CModalHeader>
                 <CModalBody>
                     <CRow className={'justify-content-between'} >
-                        <GroupInStreamAds
-                            itemAds={dataInStreamAds}
-                            onChangeNameGroup={onChangeNameGroup}
-                        />
-                        <TypeInStreamAds
-                            itemAds={dataInStreamAds}
-                            dataInStreamAdsType={dataInStreamAdsType}
-                            onChangeType={onChangeType}
-                        />
-                        <VastUrlInStreamAds
-                            itemAds={dataInStreamAds}
-                            setVastUrl={setVastUrl}
-                            dataInStreamAdsType={dataInStreamAdsType}
-                        />
-                        <StatusInStreamAds
-                            itemAds={dataInStreamAds}
-                            dataInStreamAdsStatus={dataInStreamAdsStatus}
-                            onChangeStatus={onChangeStatus}
-                        />
-                        <SkipInStreamAds
-                            itemAds={dataInStreamAds}
-                            dataInStreamAdsSkip={dataInStreamAdsSkip}
-                            onChangeSkip={onChangeSkip}
-                        />
-                        <SkipAfterInStreamAds
-                            itemAds={dataInStreamAds}
-                            onChangeTimeSkip={onChangeTimeSkip}
-                        />
-                        <PlatformInStreamAds
-                            itemAds={dataInStreamAds}
-                            onChangePlatform={onChangePlatform}
-                            dataInStreamAdsPlatForm={dataInStreamAdsPlatForm}
-                        />
-                        <ContentInStreamAds
-                            itemAds={dataInStreamAds}
-                            dataInStreamAdsContent={dataInStreamAdsContent}
-                            setContent={setContent}
-                            dataInStreamAdsType={dataInStreamAdsType}
-                        />
+                        {/*<GroupInStreamAds*/}
+                        {/*    itemAds={dataInStreamAds}*/}
+                        {/*    onChangeNameGroup={onChangeNameGroup}*/}
+                        {/*/>*/}
+                        {/*<TypeInStreamAds*/}
+                        {/*    itemAds={dataInStreamAds}*/}
+                        {/*    dataInStreamAdsType={dataInStreamAdsType}*/}
+                        {/*    onChangeType={onChangeType}*/}
+                        {/*/>*/}
+                        {/*<VastUrlInStreamAds*/}
+                        {/*    itemAds={dataInStreamAds}*/}
+                        {/*    setVastUrl={setVastUrl}*/}
+                        {/*    dataInStreamAdsType={dataInStreamAdsType}*/}
+                        {/*/>*/}
+                        {/*<StatusInStreamAds*/}
+                        {/*    itemAds={dataInStreamAds}*/}
+                        {/*    dataInStreamAdsStatus={dataInStreamAdsStatus}*/}
+                        {/*    onChangeStatus={onChangeStatus}*/}
+                        {/*/>*/}
+                        {/*<SkipInStreamAds*/}
+                        {/*    itemAds={dataInStreamAds}*/}
+                        {/*    dataInStreamAdsSkip={dataInStreamAdsSkip}*/}
+                        {/*    onChangeSkip={onChangeSkip}*/}
+                        {/*/>*/}
+                        {/*<SkipAfterInStreamAds*/}
+                        {/*    itemAds={dataInStreamAds}*/}
+                        {/*    onChangeTimeSkip={onChangeTimeSkip}*/}
+                        {/*/>*/}
+                        {/*<PlatformInStreamAds*/}
+                        {/*    itemAds={dataInStreamAds}*/}
+                        {/*    onChangePlatform={onChangePlatform}*/}
+                        {/*    dataInStreamAdsPlatForm={dataInStreamAdsPlatForm}*/}
+                        {/*/>*/}
+                        {/*<ContentInStreamAds*/}
+                        {/*    itemAds={dataInStreamAds}*/}
+                        {/*    dataInStreamAdsContent={dataInStreamAdsContent}*/}
+                        {/*    setContent={setContent}*/}
+                        {/*    dataInStreamAdsType={dataInStreamAdsType}*/}
+                        {/*/>*/}
                     </CRow>
                 </CModalBody>
                 <CModalFooter>
