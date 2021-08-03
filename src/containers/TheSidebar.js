@@ -26,8 +26,9 @@ const TheSidebar = () => {
       show={show}
       onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
     >
-      <CSidebarBrand className="d-md-down-none" to="/live/content-live-list">
-        <h2 className='c-sidebar-brand-full' style={{color:'#0AD418', margin: '2rem 1rem'}}>Live Management</h2>
+      <CSidebarBrand className="d-md-down-none" to="/live/content-live-list" style={{textDecoration: 'none'}}>
+        <h2 className='c-sidebar-brand-full'
+            style={{color:'rgb(91, 205, 39)', margin: '2rem 1rem'}}>Live Management</h2>
         <CIcon
           className="c-sidebar-brand-minimized"
           src={ConfigImage.logo}
@@ -50,5 +51,4 @@ const TheSidebar = () => {
   )
 }
 
-export default
-React.memo(TheSidebar)
+export default React.memo(TheSidebar)

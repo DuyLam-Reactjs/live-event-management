@@ -144,7 +144,7 @@ const TablesLiveEventList = () => {
         <CCol  className="col-sm-12 p-0 ">
           <div className="form-inline justify-content-sm-end c-datatable-items-per-page">
             <CLink>
-              <button className="btn btn-success mb-3"  onClick={handleAddLiveItem}>
+              <button className="btn mb-3 btn__live"  onClick={handleAddLiveItem}>
                 {ConfigText.LIVE.CREATE_LIVE_ENTITY}
               </button>
             </CLink>

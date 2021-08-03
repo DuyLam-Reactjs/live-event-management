@@ -121,7 +121,7 @@ const PopupCreateCustomer = (props) => {
           {error &&
           <p className="text" style={{color: 'red', textAlign: 'end'}}>{error}</p>
           }
-          <CButton color="success" block onClick={onClickCreatAccount}>{ConfigText.CUSTOMER.CREATE_ACCOUNT}</CButton>
+          <CButton className=" btn btn__live" block onClick={onClickCreatAccount}>{ConfigText.CUSTOMER.CREATE_ACCOUNT}</CButton>
           {/*<CLink to="/live/content-live-list">*/}
           {/*  <p className="mt-3 mb-0 register-back">Quay lại Live Event Management Tool</p>*/}
           {/*</CLink>*/}

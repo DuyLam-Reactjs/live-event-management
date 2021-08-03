@@ -29,8 +29,8 @@ const TheHeaderDropdown = (props) => {
     >
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <span className='mt-1'><strong>{profile?.email}</strong></span>
-        <div className="c-avatar">
-          <CIcon size={'2xl'} name={'cil-user'} />
+        <div className="c-avatar" color={'white'}>
+          <CIcon  size={'3xl'} name={'cil-user'} />
         </div>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">

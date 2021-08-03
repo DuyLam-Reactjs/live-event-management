@@ -128,7 +128,7 @@ const PopupCreateCustomer = () => {
                     }
                 </CForm>
                 <div className="d-flex justify-content-end mt-3">
-                    <CButton className="pl-4 pr-4" color="success" onClick={onSave} >{ConfigText.LIVE.CREATE_LIVE_ENTITY}</CButton>
+                    <CButton className="pl-4 pr-4 btn__live"  onClick={onSave} >{ConfigText.LIVE.CREATE_LIVE_ENTITY}</CButton>
                 </div>
             </CModalBody>
         </CModal>
