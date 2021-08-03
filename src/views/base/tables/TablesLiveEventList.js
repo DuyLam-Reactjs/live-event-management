@@ -47,14 +47,14 @@ const TablesLiveEventList = () => {
 
   useEffect(()=>{
     if (!valueKeyword)
-    // contentApi?.getListContentLive(rowPerPage, currentPage -1).then(res=>{
-    //   const data = res?.data
-    //   const {items, metadata} = data || {}
-    //   if (res?.success){
-    //     setCurrentPageList(items)
-    //     setTotal(metadata?.total)
-    //   }
-    // })
+    contentApi?.getListContentLive(rowPerPage, currentPage -1).then(res=>{
+      const data = res?.data
+      const {items, metadata} = data || {}
+      if (res?.success){
+        setCurrentPageList(items)
+        setTotal(metadata?.total)
+      }
+    })
     {
       const items = dataLiveEx?.data?.events
       const total = dataLiveEx?.data?.total
