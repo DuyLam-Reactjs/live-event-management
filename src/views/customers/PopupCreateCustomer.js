@@ -1,41 +1,37 @@
 import React, {useState} from "react";
 import {
   CButton,
-  CCard,
-  CCardBody,
-  CCol,
-  CContainer,
   CForm, CInput, CInputGroup, CInputGroupPrepend, CInputGroupText, CLink,
   CModal,
   CModalBody,
   CModalHeader,
-  CRow
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import {useDispatch} from "react-redux";
 import {closePopup} from "../../actions/popup";
-import customerApi from "../../apis/customerApi";
-import {useHistory} from "react-router";
-import {validateEmail} from "../../helpers/common";
+import {validateEmail, validatePassword} from "../../helpers/common";
 import CustomerApi from "../../apis/customerApi";
-import ConfigUrl from "../../config/ConfigUrl";
 import ConfigText from "../../config/ConfigText";
+import customerApi from "../../apis/customerApi";
 
-const PopupCreateCustomer = (props) => {
+const PopupCreateCustomer = ({
+   rowPerPage,
+   currentPage,
+   setCurrentPageList
+ }) => {
   const [createCustomer, setCustomer] = useState({
     email:'',
     password:'',
     partner: 2
   })
-  const history = useHistory()
-  const [validatedEmail, setValidatedEmail] = useState(false)
-  let [error, setError] = useState('')
+  let [error, setError] = useState({
+    email:'',
+    password: ''
+  })
 
 
   const onChangEmail = (e) => {
     const value = e.target.value
-    const checkValueEmail = validateEmail(value)
-    setValidatedEmail(checkValueEmail)
     setCustomer({...createCustomer, email: value})
   }
   const onChangPassword = (e) => {
@@ -48,23 +44,32 @@ const PopupCreateCustomer = (props) => {
   }
 
   const onClickCreatAccount = async () => {
-    if (validateEmail(createCustomer?.email)) {
-      CustomerApi.createUser(createCustomer).then(res=>{
+    const checkValuePassword = validatePassword(createCustomer?.password)
+    const checkValueEmail  = validateEmail(createCustomer?.email)
+    if (checkValueEmail && checkValuePassword) {
+      CustomerApi.createCustomer(createCustomer).then(res=>{
         const data = res?.data
         if (data?.code === "SUCCESS"){
-          history.push(ConfigUrl.user.LOGIN + '?rel=/')
+          customerApi?.listCustomers(rowPerPage,  currentPage*10 ).then(res => {
+            const {data} = res?.data
+            if (res?.success){
+              setCurrentPageList(data?.customers)
+            }
+          })
           dispatch(closePopup())
         }else {
           setError(data?.message)
         }
       })
-    } else {
-      setError(ConfigText.CUSTOMER.INVALID_EMAIL)
+    } else if (!checkValueEmail) {
+      setError({...error, email: ConfigText.CUSTOMER.INVALID_EMAIL})
+    }else if (!checkValuePassword) {
+      setError({...error, password: ConfigText.CUSTOMER.INVALID_PASSWORD})
     }
   }
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      onClickCreatAccount()
+      onClickCreatAccount && onClickCreatAccount()
     }
   }
 
@@ -79,7 +84,7 @@ const PopupCreateCustomer = (props) => {
       show={true}
       closeOnBackdrop={false}
     >
-      <CModalHeader style={{ backgroundColor: '#646464' }}>
+      <CModalHeader className="colorHeader">
         <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
           <h4 className="mb-0">{ConfigText.CUSTOMER.REGISTER}</h4>
           <CButton className='p-0 shadow-none' onClick={onClose}>
@@ -98,7 +103,7 @@ const PopupCreateCustomer = (props) => {
                     onKeyPress={handleKeyPress}
                     onChange={onChangEmail}/>
           </CInputGroup>
-          {!validatedEmail && <p className="" style={{color: 'red', textAlign: 'end'}}>{error}</p>}
+          {error && <p className="text text__error">{error?.email}</p>}
           <CInputGroup className="mb-3">
             <CInputGroupPrepend>
               <CInputGroupText>
@@ -109,6 +114,7 @@ const PopupCreateCustomer = (props) => {
                     onKeyPress={handleKeyPress}
                     onChange={onChangPassword} />
           </CInputGroup>
+          {error && <p className="text text__error">{error?.password}</p>}
           <CInputGroup className="mb-3">
             <CInputGroupPrepend>
               <CInputGroupText>admin</CInputGroupText>
@@ -118,13 +124,7 @@ const PopupCreateCustomer = (props) => {
                     onKeyPress={handleKeyPress}
                     onChange={onChangPartner}/>
           </CInputGroup>
-          {error &&
-          <p className="text" style={{color: 'red', textAlign: 'end'}}>{error}</p>
-          }
-          <CButton className=" btn btn__live" block onClick={onClickCreatAccount}>{ConfigText.CUSTOMER.CREATE_ACCOUNT}</CButton>
-          {/*<CLink to="/live/content-live-list">*/}
-          {/*  <p className="mt-3 mb-0 register-back">Quay lại Live Event Management Tool</p>*/}
-          {/*</CLink>*/}
+          <CButton className=" btn btnLive" block onClick={onClickCreatAccount}>{ConfigText.CUSTOMER.CREATE_ACCOUNT}</CButton>
         </CForm>
       </CModalBody>
     </CModal>

@@ -4,6 +4,7 @@ const CUSTOMER = {
     EMAIL: "Email",
     CREATE_CUSTOMER: "Tạo Customer",
     INVALID_EMAIL: "Email không hợp lệ",
+    INVALID_PASSWORD: "Mật khẩu phải chứa số, kí tự đặt biệt và tối đa từ 6-15 kí tự",
     CUSTOMER_LIST: "Customers List",
     REGISTER: "Register",
     CREATE_ACCOUNT: "Create Account",
@@ -24,6 +25,11 @@ const LIVE = {
     DELETE_EVENT: "Xóa sự kiện",
     DELETE_EVENT_CURRENT: "Bạn có muốn xóa sự kiện này ?",
     DVR: "Dvr",
+    PRESET_ID: "Preset_id",
+    REPLAY: "Replay",
+    NAME_RELAY: "Nhập tên Relay",
+    URL_RELAY: "Nhập Url Relay",
+    KEY_RELAY: "Nhập Key Relay",
     ERR_CHARACTER_LIMIT: "Vui lòng nhập tên và mô tả từ 3 kí tự trở lên, tối đa 100 kí tự. !"
 }
 const GENERAL = {

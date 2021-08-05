@@ -7,7 +7,7 @@ import ConfigConstant from "../config/ConfigConstant";
 
 class CustomerApi {
   static async login (email, password) {
-    const url = ConfigApi.user.login
+    const url = ConfigApi.customer.login
     const method = ConfigConstant.API_METHOD.POST
     const params = {
       email: email,
@@ -19,7 +19,7 @@ class CustomerApi {
     })
   }
   static async changePassword (oldPassword, newPassword) {
-    const url = ConfigApi.user.changePassword
+    const url = ConfigApi.customer.changePassword
     const method = ConfigConstant.API_METHOD.PUT
     const params = {
       old_password: oldPassword,
@@ -30,36 +30,37 @@ class CustomerApi {
       return { ...res, data }
     })
   }
-  static async listCustomers (offset, limit) {
-    const url = ConfigApi.user.listCustomers + '?offset=' + 10 + '&limit=' + 30
+  static async listCustomers (limit, offset) {
+    const url = ConfigApi.customer.listCustomers + '?limit=' + limit + '&offset=' + offset
+    // const url = ConfigApi.customer.listCustomers + '?limit=' + limit + '&page=' + page
     const method = ConfigConstant.API_METHOD.GET
     return AxiosClient.executeWithCache({ url, method }).then(res => {
       const data = res?.data
       return { ...res, data }
     })
   }
-  static async deleteCustomer (idUser) {
-    const url = ConfigApi.user.listCustomers + '/' + idUser
+  static async deleteCustomer (idCustomer) {
+    const url = ConfigApi.customer.listCustomers + '/' + idCustomer
     const method = ConfigConstant.API_METHOD.DELETE
     return AxiosClient.executeWithCache({ url, method }).then(res => {
       const data = res?.data
       return { ...res, data }
     })
   }
-  static async updateInfoCustomer (newEmail, newPassword) {
-    const url = ConfigApi.user.listCustomers
+  static async updateInfoCustomer (id,newEmail, newPassword) {
+    const url = ConfigApi.customer.listCustomers + '/' + id
     const method = ConfigConstant.API_METHOD.PUT
     const params = {
       email: newEmail,
-      password: newPassword
+      password: newPassword,
     }
     return AxiosClient.executeWithCache({ url, method, params }).then(res => {
       const data = res?.data
       return { ...res, data }
     })
   }
-  static async createUser (user) {
-    const url = ConfigApi.user.listCustomers
+  static async createCustomer (user) {
+    const url = ConfigApi.customer.listCustomers
     const method = ConfigConstant.API_METHOD.POST
     const params = user
     return AxiosClient.executeWithCache({ url, method, params }).then(res => {
@@ -67,8 +68,8 @@ class CustomerApi {
       return { ...res, data }
     })
   }
-  static async userProfile (id) {
-    const url = ConfigApi.user.userProfile + '/' + id?.idUser
+  static async customerInfo (id) {
+    const url = ConfigApi.customer.listCustomers + '/' + id
     const method = ConfigConstant.API_METHOD.GET
     return AxiosClient.executeWithCache({ url, method }).then(res => {
       const data = res?.data

@@ -6,7 +6,7 @@ import {
 } from './index'
 
 import { useDispatch, useSelector} from 'react-redux'
-import {getUser} from "../actions/user";
+import {getCustomer} from "../actions/customer";
 import {setToken} from "../actions/app";
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -22,7 +22,7 @@ import {handleLocalStorage} from "../helpers/common";
 const TheLayout = () => {
 
     const dispatch = useDispatch()
-    const dataProfile = useSelector(state => state?.User)
+    const dataProfile = useSelector(state => state?.Customer)
     const location = useLocation();
     const history = useHistory()
     const currentPath = location.pathname
@@ -34,9 +34,9 @@ const TheLayout = () => {
     useEffect(()=>{
         const checkLogin = () => {
             if (checkUserLogin){
-                const idUser = handleLocalStorage(LocalStorage.GET, 'idUser')
+                const idCustomer = handleLocalStorage(LocalStorage.GET, 'idCustomer')
                 dispatch(setToken())
-                dispatch(getUser({idUser}))
+                dispatch(getCustomer(idCustomer))
                 history.push(
                     currentPath !== '/'
                         ? (currentPath + search)

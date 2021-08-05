@@ -16,7 +16,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import CustomerApi from "../../../apis/customerApi";
 import {useDispatch} from "react-redux";
-import {getUser} from "../../../actions/user";
+import {getCustomer} from "../../../actions/customer";
 import {useHistory} from "react-router";
 import ConfigUrl from "../../../config/ConfigUrl";
 
@@ -26,7 +26,7 @@ const ChangePassWord = () => {
 
   useEffect(()=>{
     function getList () {
-      dispatch(getUser())
+      dispatch(getCustomer())
     }
     getList()
     // eslint-disable-next-line react-hooks/exhaustive-deps

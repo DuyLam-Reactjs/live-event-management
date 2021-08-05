@@ -39,24 +39,26 @@ class LiveEventApi {
       return {...res, data}
     })
   }
-  static async editLiveEntity(id, name, des, dvr, relay) {
-    const url = ConfigApi.live.liveEvent
-    const method = ConfigConstant.API_METHOD.PUT + "/" + id
+  static async editLiveEntity(id, name, des, dvr, relay, presetId) {
+    const url = ConfigApi.live.liveEvent + "/" + id
+    const method = ConfigConstant.API_METHOD.PUT
     const params = {
       name: name,
       description: des,
       dvr: dvr,
       relay: relay,
+      preset_id: presetId
     }
     return AxiosClient.executeWithCache({url, method, params}).then(res => {
       const data = res?.data
       return {...res, data}
     })
   }
-  static async getListAllInStreamAds(id) {
-    const url = ConfigApi.inStreamAds.getListAllInStreamAds + '/' + id + '/instream-ads'
+  static async getListLiveEvent ( limit, offset , keyWord) {
+    let url = ConfigApi.live.liveEvent + '?limit='+ limit + '&offset=' + offset
+    if(keyWord) url += '&keyword=' + keyWord
     const method = ConfigConstant.API_METHOD.GET
-    return AxiosClient.executeWithCache({url, method}).then(res => {
+    return AxiosClient.executeWithCache({ url, method }).then(res => {
       const data = res?.data
       return {...res, data}
     })

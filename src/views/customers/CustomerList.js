@@ -24,38 +24,34 @@ import {openPopup} from "../../actions/popup";
 import {POPUP} from "../../constants/constants";
 import ConfigImage from "../../config/ConfigImage";
 import ConfigText from "../../config/ConfigText";
-import ConfigTestData from "../../config/ConfigTestData";
 import customerApi from "../../apis/customerApi";
 
 const CustomerList = () => {
   const dispatch = useDispatch();
 
   const [currentPageList, setCurrentPageList] = useState()
-  const [editField, setEditField] = useState();
+  const [ editField, setEditField] = useState();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [rowPerPage, setRowPerPage] = useState(10);
   const [maxPage, setMaxPage] = useState(1);
   const [total, setTotal] = useState()
 
-
+  console.log(currentPage)
   useEffect(() => {
-    customerApi?.listCustomers(currentPage, rowPerPage).then(res => {
-      const data = res?.data
+    customerApi?.listCustomers(rowPerPage,  currentPage*10 ).then(res => {
+      const {data} = res?.data
       if (res?.success){
-        setCurrentPageList(data?.items)
-        setTotal(data?.metadata?.total)
+        setCurrentPageList(data?.customers)
+        setTotal(data?.total)
       }
     })
-    const dataCustomer = ConfigTestData?.dataCustomer
-    setCurrentPageList(dataCustomer?.data?.customers)
-    setTotal(dataCustomer?.data?.total)
-
   }, [currentPage, rowPerPage])
 
   useEffect(() => {
     if (currentPageList) {
       let max = parsedPageLimit(total, rowPerPage)
+      console.log(max)
       setMaxPage(max)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,21 +67,24 @@ const CustomerList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPageList])
 
-  const onChangePage = (item) => {
+  const handleChangePage = (item) => {
     setRowPerPage(item?.value)
   }
 
-  const handleSaveEdit = (item) => {
+  const handleUpdateCustomer = (item) => {
     dispatch(openPopup({
       name: POPUP.NAME.CUSTOMER.UPDATE_CUSTOMER,
       editField,
       setEditField,
-      userItem: item
+      item
     }))
   }
-  const createCustomer = () => {
+  const handleCreateCustomer = () => {
     dispatch(openPopup({
-      name: POPUP.NAME.CUSTOMER.CREATE_CUSTOMER
+      name: POPUP.NAME.CUSTOMER.CREATE_CUSTOMER,
+      rowPerPage,
+      currentPage,
+      setCurrentPageList
     }))
   }
 
@@ -110,7 +109,7 @@ const CustomerList = () => {
           <CCol  className="col-sm-12 p-0 ">
             <div className="form-inline justify-content-sm-end c-datatable-items-per-page">
               <CLink>
-                <button className="btn btn__live mb-3"  onClick={createCustomer}>
+                <button className="btn btnLive mb-3"  onClick={handleCreateCustomer}>
                   Tạo Customer
                 </button>
               </CLink>
@@ -143,18 +142,17 @@ const CustomerList = () => {
                       (item) => (
                         <td>
                           <CBadge>
-                            <CButton block color="info" onClick={()=>handleSaveEdit(item)}>
-                              {/*<CIcon  name={'cil-pencil'}/> */}
+                            <CButton block color="info" onClick={()=>handleUpdateCustomer(item)}>
                               <CImg src={ConfigImage.edit} alt="edit" />
                               <span className="ml-1">{ConfigText.GENERAL.EDIT}</span>
                             </CButton>
                           </CBadge>
-                          <CBadge>
-                            <CButton block color="danger" onClick={()=>handleOpenDelete(item)}>
-                              <CImg src={ConfigImage.deleteAds} alt="delete"/>
-                              <span className="ml-1">{ConfigText.GENERAL.DELETE}</span>
-                            </CButton>
-                          </CBadge>
+                          {/*<CBadge>*/}
+                          {/*  <CButton block color="danger" onClick={()=>handleOpenDelete(item)}>*/}
+                          {/*    <CImg src={ConfigImage.deleteAds} alt="delete"/>*/}
+                          {/*    <span className="ml-1">{ConfigText.GENERAL.DELETE}</span>*/}
+                          {/*  </CButton>*/}
+                          {/*</CBadge>*/}
                         </td>
                       ),
 
@@ -172,7 +170,7 @@ const CustomerList = () => {
             <CDropdownMenu>
               {rowPerPageList && (rowPerPageList || []).map((item, index) => {
                 return (
-                  <CDropdownItem key={index} onClick={()=>onChangePage(item)}>{item?.name}</CDropdownItem>
+                  <CDropdownItem key={index} onClick={()=>handleChangePage(item)}>{item?.name}</CDropdownItem>
                 )
               })
               }

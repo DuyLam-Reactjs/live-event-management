@@ -145,7 +145,7 @@ const PopupContent = (props) => {
         onClose={handleClose}
         centered={true}
       >
-        <CModalHeader style={{ backgroundColor: '#646464' }}>
+        <CModalHeader className="colorHeader">
           <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
             <h3 className="mb-0">Chọn nội dung</h3>
             <CButton className='p-0 shadow-none' onClick={handleClose}>

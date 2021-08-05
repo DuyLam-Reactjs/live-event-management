@@ -14,9 +14,9 @@ export const getLogin = (email, password) =>{
     })
   }
 }
-export const getUser = (id) =>{
+export const getCustomer = (id) =>{
   return dispatch => {
-    return CustomerApi.userProfile(id).then(res => {
+    return CustomerApi.customerInfo(id).then(res => {
       const result = {
         type: ACTION_TYPE.PROFILE,
         payload: res

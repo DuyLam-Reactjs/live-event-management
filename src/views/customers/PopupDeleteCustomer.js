@@ -25,7 +25,7 @@ const PopupDeleteCustomer = (props) => {
           customerApi?.listCustomers(currentPage, rowPerPage).then(resList => {
             const data = resList?.data
             if (resList?.success){
-              setCurrentPageList(data?.items)
+              setCurrentPageList(data?.customers)
               dispatch(closePopup())
             }
           })
@@ -39,9 +39,9 @@ const PopupDeleteCustomer = (props) => {
       show={true}
       closeOnBackdrop={false}
     >
-      <CModalHeader style={{ backgroundColor: '#646464' }}>
+      <CModalHeader className="colorHeader">
         <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
-          <h4 className="mb-0">{ConfigText.CUSTOMER.DELETE_CUSTOMER}</h4>
+          <h4 className="mb-0">{ConfigText.CUSTOMER.DELETE_CUSTOMER + ': ' + item?.email}</h4>
           <CButton className='p-0 shadow-none' onClick={onClose}>
             <CIcon name="cil-x" style={{ color: "#FFF" }}></CIcon>
           </CButton>

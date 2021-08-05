@@ -23,13 +23,12 @@ class contentApi {
       return { ...res, data }
     })
   }
-  static async getListContentLive ( limit, page , keyWord) {
-    let url = ConfigApi.content.contentLiveList + '?limit='+ limit + '&page=' + page
+  static async getListContentLive ( limit, offset , keyWord) {
+    let url = ConfigApi.content.contentLiveList + '?limit='+ limit + '&offset=' + offset
     if(keyWord) url += '&keyword=' + keyWord
     const method = ConfigConstant.API_METHOD.GET
     return AxiosClient.executeWithCache({ url, method }).then(res => {
-      const data = res?.data
-      return { ...res, data}
+      return res
     })
   }
   static async getContentProviderById (id) {

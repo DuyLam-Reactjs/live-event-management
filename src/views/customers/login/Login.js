@@ -60,8 +60,8 @@ const Login = () => {
       CustomerApi.login(emailValue?.email, emailValue?.password).then(res=>{
         const data = res?.data
         const apiKey = data?.apiKey
-        const idUser = data?.id
-        handleLocalStorage(LocalStorage.SET, 'idUser', idUser)
+        const idCustomer = data?.id
+        handleLocalStorage(LocalStorage.SET, 'idCustomer', idCustomer)
         const url = parsedURL?.rel
         saveApiKey(apiKey)
 

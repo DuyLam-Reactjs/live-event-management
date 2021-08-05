@@ -30,7 +30,7 @@ const PopupDeleteAds = (props) => {
             show={true}
             closeOnBackdrop={false}
         >
-            <CModalHeader style={{ backgroundColor: '#646464' }}>
+            <CModalHeader className="colorHeader">
                 <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
                     <h4 className="mb-0">Xóa quảng cáo</h4>
                     <CButton className='p-0 shadow-none' onClick={handleClose}>

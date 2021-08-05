@@ -2,11 +2,10 @@ import { DOMAIN_API } from "./ConfigEnv"
 
 
 const ConfigApi = {
-  user: {
+  customer: {
     login: DOMAIN_API + 'live-event/v1.0/customers/login',
     changePassword: DOMAIN_API + 'admin-ads/user/change-password',
     listCustomers: DOMAIN_API + 'live-event/v1.0/customers',
-    userProfile: DOMAIN_API + 'live-event/v1.0/customers',
   },
   live: {
     liveEvent: DOMAIN_API + 'live-event/v1.0/live-entities',

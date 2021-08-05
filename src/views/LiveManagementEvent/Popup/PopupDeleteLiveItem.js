@@ -8,7 +8,9 @@ import ConfigTExt from "../../../config/ConfigText";
 
 const PopupDeleteAds = ({
     item,
-    newData, setNewData, itemGroup, index
+    currentPage,
+    rowPerPage,
+    setCurrentPageList
 }) => {
     const dispatch = useDispatch()
     const nameItem = item?.name
@@ -20,9 +22,12 @@ const PopupDeleteAds = ({
         if (id)
             LiveEventApi.deleteLiveEventById(id).then(res =>{
                 if (res?.success){
-                    const copyListInStreamAds = [...newData]
-                    copyListInStreamAds.splice(index, 1)
-                    setNewData(copyListInStreamAds)
+                    LiveEventApi.getListLiveEvent(rowPerPage,currentPage*10).then(resp=>{
+                        const {data} = res?.data
+                        if (res?.success){
+                            setCurrentPageList(data?.events)
+                        }
+                    })
                     dispatch(closePopup())
                 }
             })
@@ -33,9 +38,9 @@ const PopupDeleteAds = ({
             show={true}
             closeOnBackdrop={false}
         >
-            <CModalHeader style={{ backgroundColor: '#646464' }}>
+            <CModalHeader className="colorHeader">
                 <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
-                    <h4 className="mb-0">{ConfigTExt.LIVE.DELETE_EVENT + ':' + nameItem}</h4>
+                    <h4 className="mb-0">{ConfigTExt.LIVE.DELETE_EVENT + ': ' + nameItem}</h4>
                     <CButton className='p-0 shadow-none' onClick={handleClose}>
                         <CIcon name="cil-x" style={{ color: "#FFF" }}></CIcon>
                     </CButton>

@@ -129,7 +129,7 @@ const PopupAddVast = (props) => {
   return (
     <React.Fragment>
       <CModal closeOnBackdrop={false} show={modal} onClose={handleClose} centered={true}>
-        <CModalHeader style={{ backgroundColor: '#646464' }}>
+        <CModalHeader className="colorHeader">
           <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
             <h4 className="mb-0">Vast URL & bumper</h4>
             <CButton className='p-0 shadow-none' onClick={handleClose}>

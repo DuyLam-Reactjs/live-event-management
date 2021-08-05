@@ -26,6 +26,10 @@ const json_to_query_string = (json) => {
     })
     .join('&')
 }
+const validatePassword = (password) => {
+  const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,15}$/
+  return re.test(String(password))
+}
 
 const handleLocalStorage  = (action, key, value) => {
 
@@ -232,6 +236,7 @@ export {
   parsedIdAdsGroups,
   parsedNumberUrl,
   classUseStyles,
-  removeApiKey
+  removeApiKey,
+  validatePassword
 }
 

@@ -18,7 +18,11 @@ import CustomerApi from "../../../apis/customerApi";
 import {useHistory} from "react-router";
 import ConfigUrl from "../../../config/ConfigUrl";
 
-const CreateCustomer = () => {
+const CreateCustomer = ({
+    rowPerPage,
+    currentPage,
+    setCurrentPageList
+  }) => {
   const [createCustomer, setCustomer] = useState({
     email:'',
     password:'',
@@ -46,7 +50,7 @@ const CreateCustomer = () => {
 
   const onClickCreatAccount = async () => {
     if (validateEmail(createCustomer?.email)) {
-      CustomerApi.createUser(createCustomer).then(res=>{
+      CustomerApi.createCustomer(createCustomer).then(res=>{
         const data = res?.data
         if (data?.code === "SUCCESS"){
           history.push(ConfigUrl.user.LOGIN + '?rel=/')
