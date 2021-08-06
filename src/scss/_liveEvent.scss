@@ -7,6 +7,22 @@
     color: #fff;
   }
 }
+.btnDefault {
+  background-color: #9B9B9BFF;
+  color: #fff;
+  font-weight: bold;
+  &:hover {
+    color: #fff;
+  }
+}
+.btnDelete {
+  background-color: #e74C3CFF;
+  color: #fff;
+  font-weight: bold;
+  &:hover {
+    color: #fff;
+  }
+}
 .inputLive {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;

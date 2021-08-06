@@ -11,6 +11,8 @@ import {openPopup} from "../actions/popup";
 import {POPUP} from "../constants/constants";
 import {freeSet} from "@coreui/icons";
 import ConfigText from "../config/ConfigText";
+import {handleLocalStorage} from "../helpers/common";
+import LocalStorage from "../config/LocalStorage";
 
 
 const TheHeaderDropdown = (props) => {
@@ -19,6 +21,12 @@ const TheHeaderDropdown = (props) => {
   const dispatch = useDispatch()
   const Logout = () => {
     dispatch(openPopup({name: POPUP.NAME.CUSTOMER.LOGOUT}))
+  }
+  const handleUpdateCustomer = () => {
+    dispatch(openPopup({
+      name: POPUP.NAME.CUSTOMER.UPDATE_CUSTOMER,
+      id: handleLocalStorage(LocalStorage.GET, 'idCustomer')
+    }))
   }
   return (
     <CDropdown
@@ -29,8 +37,8 @@ const TheHeaderDropdown = (props) => {
     >
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <span className='mt-1'><strong>{profile?.email}</strong></span>
-        <div className="c-avatar" color={'white'}>
-          <CIcon  size={'3xl'} name={'cil-user'} />
+        <div className="c-avatar">
+          <CIcon  size={'3xl'} name={'cil-user'} style={{color: '#fff'}} />
         </div>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
@@ -42,10 +50,10 @@ const TheHeaderDropdown = (props) => {
           <CIcon name="cil-people" className="mfe-2" />
           {ConfigText.CUSTOMER.MANAGE_CUSTOMER}
         </CDropdownItem>
-        {/*<CDropdownItem to="/change-password">*/}
-        {/*  <CIcon name="cil-lock-locked" className="mfe-2"/>*/}
-        {/*  Đổi mật khẩu*/}
-        {/*</CDropdownItem>*/}
+        <CDropdownItem onClick={handleUpdateCustomer}>
+          <CIcon name="cil-lock-locked" className="mfe-2"/>
+          Đổi mật khẩu
+        </CDropdownItem>
         <CDropdownItem onClick={Logout}>
           <CIcon
               content={freeSet.cilAccountLogout}

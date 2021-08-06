@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {
-  CButton,
-  CForm, CInput, CInputGroup, CInputGroupPrepend, CInputGroupText, CLink,
-  CModal,
-  CModalBody,
-  CModalHeader,
+    CButton,
+    CForm, CInput, CInputGroup, CInputGroupPrepend, CInputGroupText, CLink,
+    CModal,
+    CModalBody, CModalFooter,
+    CModalHeader,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import {useDispatch} from "react-redux";
@@ -16,7 +16,7 @@ import customerApi from "../../apis/customerApi";
 
 const PopupCreateCustomer = ({
    rowPerPage,
-   currentPage,
+   setCurrentPage,
    setCurrentPageList
  }) => {
   const [createCustomer, setCustomer] = useState({
@@ -50,10 +50,11 @@ const PopupCreateCustomer = ({
       CustomerApi.createCustomer(createCustomer).then(res=>{
         const data = res?.data
         if (data?.code === "SUCCESS"){
-          customerApi?.listCustomers(rowPerPage,  currentPage*10 ).then(res => {
-            const {data} = res?.data
-            if (res?.success){
+          customerApi?.listCustomers(rowPerPage,  0 ).then(resp => {
+            const data = resp?.data
+            if (resp?.success){
               setCurrentPageList(data?.customers)
+                setCurrentPage(1)
             }
           })
           dispatch(closePopup())
@@ -115,18 +116,22 @@ const PopupCreateCustomer = ({
                     onChange={onChangPassword} />
           </CInputGroup>
           {error && <p className="text text__error">{error?.password}</p>}
-          <CInputGroup className="mb-3">
-            <CInputGroupPrepend>
-              <CInputGroupText>admin</CInputGroupText>
-            </CInputGroupPrepend>
-            <CInput type="number" placeholder="Partner" autoComplete="partner"
-                    value={createCustomer?.partner}
-                    onKeyPress={handleKeyPress}
-                    onChange={onChangPartner}/>
-          </CInputGroup>
-          <CButton className=" btn btnLive" block onClick={onClickCreatAccount}>{ConfigText.CUSTOMER.CREATE_ACCOUNT}</CButton>
+          {/*<CInputGroup className="mb-3">*/}
+          {/*  <CInputGroupPrepend>*/}
+          {/*    <CInputGroupText>admin</CInputGroupText>*/}
+          {/*  </CInputGroupPrepend>*/}
+          {/*  <CInput type="number" placeholder="Partner" autoComplete="partner"*/}
+          {/*          value={createCustomer?.partner}*/}
+          {/*          onKeyPress={handleKeyPress}*/}
+          {/*          onChange={onChangPartner}/>*/}
+          {/*</CInputGroup>*/}
         </CForm>
       </CModalBody>
+        <CModalFooter>
+            <div className="d-flex justify-content-end">
+                <CButton className="btn btnLive pl-4 pr-4" block onClick={onClickCreatAccount}>{ConfigText.CUSTOMER.CREATE_ACCOUNT}</CButton>
+            </div>
+        </CModalFooter>
     </CModal>
   )
 }

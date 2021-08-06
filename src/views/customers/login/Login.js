@@ -56,6 +56,7 @@ const Login = () => {
     const timeNow = new Date()
     timeNow.setFullYear(timeNow.getFullYear() + 1)
     const checkValueEmail = validateEmail(emailValue?.email)
+    console.log(checkValueEmail, emailValue.email)
     if (checkValueEmail){
       CustomerApi.login(emailValue?.email, emailValue?.password).then(res=>{
         const data = res?.data
@@ -125,7 +126,7 @@ const Login = () => {
                     {error?.errorPassword &&
                       <p  style={{color: 'red', textAlign: 'end'}}>{error?.errorPassword}</p>
                     }
-                    <CButton color="success" className="px-4" block onClick={onLogin}>{ConfigText.CUSTOMER.LOGIN}</CButton>
+                    <CButton className="px-4 btnLive" block onClick={onLogin}>{ConfigText.CUSTOMER.LOGIN}</CButton>
                   </CForm>
                 </CCardBody>
               </CCard>

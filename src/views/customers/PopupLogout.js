@@ -33,7 +33,7 @@ const PopupLogout = () => {
         <div >
           Bạn có chắc sẽ đăng xuất khỏi tài khoản này?
           <div className="d-flex justify-content-end mt-3">
-            <CButton className="pl-4 pr-4 mr-2" color="success" onClick={handleLogout}>Xác nhận</CButton>
+            <CButton className="btnLive pl-4 pr-4 mr-2" color="success" onClick={handleLogout}>Xác nhận</CButton>
             <CButton className="pl-4 pr-4" color="secondary" onClick={onClose}>Bỏ qua</CButton>
           </div>
         </div>

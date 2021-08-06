@@ -6,6 +6,7 @@ const ConfigApi = {
     login: DOMAIN_API + 'live-event/v1.0/customers/login',
     changePassword: DOMAIN_API + 'admin-ads/user/change-password',
     listCustomers: DOMAIN_API + 'live-event/v1.0/customers',
+    statusCustomer: DOMAIN_API + 'live-event/v1.0/customers/status',
   },
   live: {
     liveEvent: DOMAIN_API + 'live-event/v1.0/live-entities',

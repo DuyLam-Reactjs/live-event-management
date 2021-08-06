@@ -2,6 +2,8 @@
 
 const CUSTOMER = {
     EMAIL: "Email",
+    PASSWORD: 'Password',
+    OLD_PASSWORD: 'Password Old',
     CREATE_CUSTOMER: "Tạo Customer",
     INVALID_EMAIL: "Email không hợp lệ",
     INVALID_PASSWORD: "Mật khẩu phải chứa số, kí tự đặt biệt và tối đa từ 6-15 kí tự",
@@ -12,7 +14,11 @@ const CUSTOMER = {
     DELETE_CUSTOMER_CURRENT: "Bạn có muốn xóa người dùng này ?",
     LOGOUT: "Đăng xuất",
     LOGIN: "Login",
-    MANAGE_CUSTOMER: "Quản lí Customer"
+    MANAGE_CUSTOMER: "Quản lí Customer",
+    NOT_ACTIVE_CUSTOMER: "Chưa Active",
+    ACTIVE_CUSTOMER: "Active",
+    LOCK_CUSTOMER: 'Lock',
+    DELETE: 'Delete'
 }
 const LIVE = {
     LIVE_EVENT_MANAGE_LIST: "Live Event Management List",
@@ -36,6 +42,7 @@ const GENERAL = {
     STATUS: "Thông báo",
     MANAGE: "Quản lý",
     EDIT: "Chỉnh sửa",
+    EDIT_STATUS: "Edit Status",
     DELETE: "Xoá",
     AFTER: "Sau",
     BEFORE: "Trước",

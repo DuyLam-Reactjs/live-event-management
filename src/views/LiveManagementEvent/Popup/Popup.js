@@ -15,6 +15,7 @@ import PopupDeleteLiveItem from "./PopupDeleteLiveItem";
 import PopupEditLiveEvent from "./PopupEditLiveEvent";
 import PopupCreateCustomer from "../../customers/PopupCreateCustomer";
 import PopupCreateLiveEntity from "./PopupCreateLiveEntity";
+import PopupUpdateStatusCustomer from "../../customers/PopupUpdateStatusCustomer";
 
 const Popup = React.memo((props)=>{
     const params = useSelector(state => state?.Popup)
@@ -26,6 +27,8 @@ const Popup = React.memo((props)=>{
         return <PopupDeleteCustomer {...params} />
     case POPUP.NAME.CUSTOMER.UPDATE_CUSTOMER:
         return <PopupUpdateCustomer {...params} />
+    case POPUP.NAME.CUSTOMER.UPDATE_STATUS_CUSTOMER:
+        return <PopupUpdateStatusCustomer {...params} />
     case POPUP.NAME.CUSTOMER.CREATE_CUSTOMER:
         return <PopupCreateCustomer {...params} />
     case POPUP.NAME.IN_STREAM_ADS.CREATE_INSTREAM_ADS:

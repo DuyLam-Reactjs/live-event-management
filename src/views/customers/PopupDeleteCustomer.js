@@ -22,7 +22,7 @@ const PopupDeleteCustomer = (props) => {
     if (item) {
       customerApi?.deleteCustomer(item?.id).then(res => {
         if(res?.success){
-          customerApi?.listCustomers(currentPage, rowPerPage).then(resList => {
+          customerApi?.listCustomers(rowPerPage,  currentPage*10 ).then(resList => {
             const data = resList?.data
             if (resList?.success){
               setCurrentPageList(data?.customers)

@@ -32,10 +32,9 @@ class CustomerApi {
   }
   static async listCustomers (limit, offset) {
     const url = ConfigApi.customer.listCustomers + '?limit=' + limit + '&offset=' + offset
-    // const url = ConfigApi.customer.listCustomers + '?limit=' + limit + '&page=' + page
     const method = ConfigConstant.API_METHOD.GET
     return AxiosClient.executeWithCache({ url, method }).then(res => {
-      const data = res?.data
+      const data = res?.data?.data
       return { ...res, data }
     })
   }
@@ -47,22 +46,35 @@ class CustomerApi {
       return { ...res, data }
     })
   }
-  static async updateInfoCustomer (id,newEmail, newPassword) {
+  static async updateStatusCustomer (id, status) {
     const url = ConfigApi.customer.listCustomers + '/' + id
     const method = ConfigConstant.API_METHOD.PUT
     const params = {
-      email: newEmail,
-      password: newPassword,
+      status: status
     }
     return AxiosClient.executeWithCache({ url, method, params }).then(res => {
       const data = res?.data
       return { ...res, data }
     })
   }
-  static async createCustomer (user) {
+  static async updateInfoCustomer (id,newEmail, newPassword, oldPassword) {
+    const url = ConfigApi.customer.listCustomers + '/' + id
+    const method = ConfigConstant.API_METHOD.PUT
+    const params = {
+      email: newEmail,
+      password: newPassword,
+      password_old: oldPassword,
+      status: 0
+    }
+    return AxiosClient.executeWithCache({ url, method, params }).then(res => {
+      const data = res?.data
+      return { ...res, data }
+    })
+  }
+  static async createCustomer (customer) {
     const url = ConfigApi.customer.listCustomers
     const method = ConfigConstant.API_METHOD.POST
-    const params = user
+    const params = customer
     return AxiosClient.executeWithCache({ url, method, params }).then(res => {
       const data = res?.data
       return { ...res, data }
