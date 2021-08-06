@@ -11,14 +11,15 @@ import {
     CModalHeader, CSwitch,CDropdownToggle
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import {closePopup} from "../../../actions/popup";
+import {closePopup, openPopup} from "../../../actions/popup";
 import {useDispatch} from "react-redux";
 import LiveEventApi from "../../../apis/liveEventApi";
 import {sendToast} from "../../../helpers/common";
 import ConfigText from "../../../config/ConfigText";
 import ConfigData from "../../../config/ConfigData";
+import PopupAddRelay from "./PopupAddRelay";
 
-const PopupCreateCustomer = ({
+const PopupCreateLiveEntity = ({
      currentPage,
      rowPerPage,
      setCurrentPageList
@@ -38,8 +39,12 @@ const PopupCreateCustomer = ({
         name:'',
         url: '',
     })
-
-    const [error, setError] = useState(false)
+    const [arrRelay, setArrRelay] = useState([])
+    console.log(arrRelay)
+    const [error, setError] = useState({
+        name:'',
+        relay:''
+    })
 
     const handleClose = () => {
         dispatch(closePopup())
@@ -71,34 +76,64 @@ const PopupCreateCustomer = ({
         const value = e.target.value
         setRelay({...relay, url: value})
     }
+    const handleKeyPress = () => {
+      setError('')
+    }
+
+    const [openPopupAdd, setPopupAdd] = useState(false)
+    const onAddRelay = () => {
+        setPopupAdd(!openPopupAdd)
+    }
 
     const onSave = () => {
         if (!valueNameContent){
             sendToast({message: ConfigText.LIVE.IMPORT_NAME_LIVE_ENTITY})
         }else {
             if (valueNameContent?.length < 3 || desc?.length < 3) {
-                setError(true)
+                setError({...error, name: ConfigText.LIVE.ERR_CHARACTER_LIMIT})
             }else {
-                let arrRelay = []
-                arrRelay.push(relay)
-                LiveEventApi.setLiveEntity(
-                    valueNameContent,
-                    desc,
-                    checkDvr,
-                    arrRelay,
-                    presetId?.key,
-                ).then(res => {
-                    const data = res?.data
-                    if (data?.code === "SUCCESS"){
-                        LiveEventApi?.getListLiveEvent(rowPerPage, currentPage*10).then(resp=>{
-                            const dataList = resp?.data
-                            if (resp?.success){
-                                setCurrentPageList(dataList?.data?.events)
-                            }
-                        })
-                        dispatch(closePopup())
-                    }
-                })
+                let newArrRelay = [...arrRelay]
+                const {key,name,url} = relay || {}
+                if (key && name && url){
+                    newArrRelay.push(relay)
+                    LiveEventApi.setLiveEntity(
+                        valueNameContent,
+                        desc,
+                        checkDvr,
+                        newArrRelay,
+                        presetId?.key,
+                    ).then(res => {
+                        const data = res?.data
+                        if (data?.code === "SUCCESS"){
+                            LiveEventApi?.getListLiveEvent(rowPerPage, currentPage*10).then(resp=>{
+                                const dataList = resp?.data
+                                if (resp?.success){
+                                    setCurrentPageList(dataList?.data?.events)
+                                }
+                            })
+                            dispatch(closePopup())
+                        }
+                    })
+                }else if (!key && !name && !url){
+                    LiveEventApi.setLiveEntity(
+                        valueNameContent,
+                        desc,
+                        checkDvr,
+                        newArrRelay,
+                        presetId?.key,
+                    ).then(res => {
+                        const data = res?.data
+                        if (data?.code === "SUCCESS"){
+                            LiveEventApi?.getListLiveEvent(rowPerPage, currentPage*10).then(resp=>{
+                                const dataList = resp?.data
+                                if (resp?.success){
+                                    setCurrentPageList(dataList?.data?.events)
+                                }
+                            })
+                            dispatch(closePopup())
+                        }
+                    })
+                }else {setError({...error, relay: ConfigText.LIVE.ERR_RELAY})}
             }
         }
     }
@@ -127,6 +162,7 @@ const PopupCreateCustomer = ({
                             <CInput type="text"
                                     placeholder= {ConfigText.LIVE.NAME_LIVE_ENTITY}
                                     onChange={onChangeNameLiveEntity}
+                                    onKeypress={handleKeyPress}
                                     maxLength={100}
                                     minLength={3}/>
                         </CInputGroup>
@@ -149,13 +185,15 @@ const PopupCreateCustomer = ({
                                 <CInputGroupText>{ConfigText.LIVE.DESCRIPTION_INFO}</CInputGroupText>
                             </CInputGroupPrepend>
                             <CInput  type="text"
-                                     placeholder={ConfigText.LIVE.IMPORT_DESCRIPTION_INFO} onChange={onChangeDescription}
+                                     placeholder={ConfigText.LIVE.IMPORT_DESCRIPTION_INFO}
+                                     onChange={onChangeDescription}
+                                     onKeypress={handleKeyPress}
                                      maxLength={100}
                                      minLength={3}/>
                         </CInputGroup>
                     </div>
                     {error &&
-                    <p className="text" style={{color: 'red', textAlign: 'end'}}>{ConfigText.LIVE.ERR_CHARACTER_LIMIT}</p>
+                        <p className="text text__error" >{error?.name}</p>
                     }
                     <div  className="pb-3">
                         <CInputGroup>
@@ -184,28 +222,45 @@ const PopupCreateCustomer = ({
                             <CInputGroupPrepend>
                                 <CInputGroupText>{ConfigText.LIVE.REPLAY}</CInputGroupText>
                             </CInputGroupPrepend>
-                            <div style={{width:'85%'}}>
+                            <div style={{width:'71%'}}>
                                 <CInput
                                     className="inputLive inputKey"
                                     type="text"
-                                    placeholder={ConfigText.LIVE.KEY_RELAY} onChange={onChangeKeyRelay}
+                                    placeholder={ConfigText.LIVE.KEY_RELAY}
+                                    onChange={onChangeKeyRelay}
+                                    onKeypress={handleKeyPress}
                                     maxLength={100}
                                     minLength={3}/>
                                 <CInput
                                     className="inputLive inputName"
                                     type="text"
-                                    placeholder={ConfigText.LIVE.NAME_RELAY} onChange={onChangeNameRelay}
+                                    placeholder={ConfigText.LIVE.NAME_RELAY}
+                                    onChange={onChangeNameRelay}
+                                    onKeypress={handleKeyPress}
                                     maxLength={100}
                                     minLength={3}/>
                                 <CInput
                                     className="inputLive inputUrl"
                                     type="text"
-                                    placeholder={ConfigText.LIVE.URL_RELAY} onChange={onChangeUrlRelay}
+                                    placeholder={ConfigText.LIVE.URL_RELAY}
+                                    onChange={onChangeUrlRelay}
+                                    onKeypress={handleKeyPress}
                                     maxLength={100}
                                     minLength={3}/>
                             </div>
+                            <CInputGroupPrepend >
+                                <CButton className="btnLive"  onClick={onAddRelay} >{ConfigText.LIVE.ADD_RELAY}</CButton>
+                            </CInputGroupPrepend>
+                            <PopupAddRelay
+                                modal={openPopupAdd} setModal={setPopupAdd}
+                                arrRelay={arrRelay}
+                                setArrRelay={setArrRelay}
+                            />
                         </CInputGroup>
                     </div>
+                    {error &&
+                    <p className="text text__error">{error?.relay}</p>
+                    }
                 </CForm>
                 <div className="d-flex justify-content-end mt-3">
                     <CButton className="pl-4 pr-4 btnLive"  onClick={onSave} >{ConfigText.LIVE.CREATE_LIVE_ENTITY}</CButton>
@@ -214,4 +269,4 @@ const PopupCreateCustomer = ({
         </CModal>
     )
 }
-export default PopupCreateCustomer
+export default PopupCreateLiveEntity

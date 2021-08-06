@@ -32,8 +32,10 @@
   }
   &.inputKey {
     border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
   }
   &.inputUrl {
     border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
 }

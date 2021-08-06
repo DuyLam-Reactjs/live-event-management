@@ -36,6 +36,9 @@ const LIVE = {
     NAME_RELAY: "Nhập tên Relay",
     URL_RELAY: "Nhập Url Relay",
     KEY_RELAY: "Nhập Key Relay",
+    ERR_RELAY: "Nhập đầy đủ các thông tin relay hoặc để trống",
+    ADD_RELAY: "+ Add",
+    ADD_RELAY_TITLE: "Thêm Relay",
     ERR_CHARACTER_LIMIT: "Vui lòng nhập tên và mô tả từ 3 kí tự trở lên, tối đa 100 kí tự. !"
 }
 const GENERAL = {
