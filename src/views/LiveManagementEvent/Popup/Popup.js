@@ -41,8 +41,6 @@ const Popup = React.memo((props)=>{
         return <PopupDeleteAds {...params} />
     case POPUP.NAME.IN_STREAM_ADS.DUPLICATE_INSTREAM_ADS:
         return <PopupDuplicateAds {...params} />
-    // case POPUP.NAME.IN_STREAM_ADS.EDIT_INSTREAM_ADS:
-    //     return <PopupEditAds {...params} />
     case POPUP.NAME.CONTENT.EDIT_CONTENT:
         return <PopupEditContentList {...params} />
     case POPUP.NAME.CONTENT.ADD_CONTENT:

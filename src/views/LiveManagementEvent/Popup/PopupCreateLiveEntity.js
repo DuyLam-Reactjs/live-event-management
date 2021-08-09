@@ -1,9 +1,6 @@
 import React, {useState} from "react";
 import {
     CButton, CForm,
-    CInputGroup,
-    CInputGroupPrepend,
-    CInputGroupText,
     CModal,
     CModalBody,
     CModalHeader,
@@ -16,11 +13,11 @@ import {sendToast} from "../../../helpers/common";
 import ConfigText from "../../../config/ConfigText";
 import PopupAddRelay from "./PopupAddRelay";
 import PopupEditRelay from "./PopupEditRelay";
-import RelayLiveEvent from "../CreateLiveEntity/RelayLiveEvent";
 import NameLiveEvent from "../CreateLiveEntity/NameLiveEvent";
 import DvrLiveEvent from "../CreateLiveEntity/DvrLiveEvent";
 import PresetIdLiveEvent from "../CreateLiveEntity/PresetIdLiveEvent";
 import RelayListLiveEvent from "../CreateLiveEntity/RelayListLiveEvent";
+import PopupDeleteRelay from "./PopupDeleteRelay";
 
 const PopupCreateLiveEntity = ({
      currentPage,
@@ -70,16 +67,19 @@ const PopupCreateLiveEntity = ({
     const onAddRelay = () => {
         setPopupAdd(!openPopupAdd)
     }
-    const onDeleteRelayItem = (item, index) => {
-        arrRelay.splice(index,1)
-        const newArrRelay = [...arrRelay]
-        setArrRelay(newArrRelay)
-    }
+
     const [openPopupEditRelay, setEditRelay] = useState(false)
+    const [openDeleteRelay, setDeleteRelay] = useState(false)
     const [itemRelay, setItemRelay] = useState('')
     const [indexItemRelay, setIndexItemRelay] = useState('')
     const onEditRelayItem = (item, index) => {
         setEditRelay(!openPopupEditRelay)
+        setItemRelay(item)
+        setIndexItemRelay(index)
+    }
+    const onDeleteRelayItem = (item, index) => {
+
+        setDeleteRelay(!openDeleteRelay)
         setItemRelay(item)
         setIndexItemRelay(index)
     }
@@ -170,17 +170,26 @@ const PopupCreateLiveEntity = ({
                             arrRelay={arrRelay}
                         />
                     </div>
-                    <PopupAddRelay
-                        modal={openPopupAdd} setModal={setPopupAdd}
-                        arrRelay={arrRelay}
-                        setArrRelay={setArrRelay}
-                    />
+                    {openPopupAdd &&
+                        <PopupAddRelay
+                            modal={openPopupAdd} setModal={setPopupAdd}
+                            arrRelay={arrRelay}
+                            setArrRelay={setArrRelay}
+                        />
+                    }
                     <PopupEditRelay
                         modal={openPopupEditRelay} setModal={setEditRelay}
                         item={itemRelay}
                         arrRelay={arrRelay}
                         setArrRelay={setArrRelay}
                         index={indexItemRelay}
+                    />
+                    <PopupDeleteRelay
+                        modal={openDeleteRelay} setModal={setDeleteRelay}
+                        arrRelay={arrRelay}
+                        setArrRelay={setArrRelay}
+                        index={indexItemRelay}
+                        item={itemRelay}
                     />
                 </CForm>
                 <div className="d-flex justify-content-end mt-3">

@@ -12,8 +12,6 @@ import CIcon from "@coreui/icons-react";
 import ConfigText from "../../../config/ConfigText";
 
 const   PopupEditRelay = ({modal, setModal, arrRelay, setArrRelay, item, index}) => {
-    console.log(arrRelay)
-
     const [relay, setRelay] = useState({
         key: item?.key || '',
         name: item?.name || '',
@@ -85,7 +83,7 @@ const   PopupEditRelay = ({modal, setModal, arrRelay, setArrRelay, item, index})
                                     type="text"
                                     placeholder={ConfigText.LIVE.KEY_RELAY}
                                     onChange={onChangeKeyRelay}
-                                    onKeypress={handleKeyPress}
+                                    onKeyPress={handleKeyPress}
                                     value={relay?.key}
                                     maxLength={100}
                                     minLength={3}/>
@@ -94,7 +92,7 @@ const   PopupEditRelay = ({modal, setModal, arrRelay, setArrRelay, item, index})
                                     type="text"
                                     placeholder={ConfigText.LIVE.NAME_RELAY}
                                     onChange={onChangeNameRelay}
-                                    onKeypress={handleKeyPress}
+                                    onKeyPress={handleKeyPress}
                                     value={relay?.name}
                                     maxLength={100}
                                     minLength={3}/>
@@ -103,7 +101,7 @@ const   PopupEditRelay = ({modal, setModal, arrRelay, setArrRelay, item, index})
                                     type="text"
                                     placeholder={ConfigText.LIVE.URL_RELAY}
                                     onChange={onChangeUrlRelay}
-                                    onKeypress={handleKeyPress}
+                                    onKeyPress={handleKeyPress}
                                     value={relay?.url}
                                     maxLength={100}
                                     minLength={3}/>

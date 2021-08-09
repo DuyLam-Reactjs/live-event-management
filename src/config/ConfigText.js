@@ -40,6 +40,8 @@ const LIVE = {
     ADD_RELAY: "+ Add",
     ADD_RELAY_TITLE: "Thêm Relay",
     EDIT_RELAY_TITLE: "Chỉnh sữa Relay",
+    DELETE_RELAY: 'Xóa Relay',
+    DELETE_RELAY_TITLE: 'Bạn có muốn xóa Relay này ?',
     ERR_CHARACTER_LIMIT: "Vui lòng nhập tên và mô tả từ 3 kí tự trở lên, tối đa 100 kí tự. !"
 }
 const GENERAL = {

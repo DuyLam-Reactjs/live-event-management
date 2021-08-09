@@ -56,7 +56,7 @@ const Login = () => {
     const timeNow = new Date()
     timeNow.setFullYear(timeNow.getFullYear() + 1)
     const checkValueEmail = validateEmail(emailValue?.email)
-    console.log(checkValueEmail, emailValue.email)
+
     if (checkValueEmail){
       CustomerApi.login(emailValue?.email, emailValue?.password).then(res=>{
         const data = res?.data
