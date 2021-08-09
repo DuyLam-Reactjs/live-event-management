@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {
   CBadge,
-  CButton, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CForm, CInput,
+  CButton, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CForm, CImg, CInput,
   CInputGroup,
   CInputGroupPrepend, CInputGroupText,
   CModal,
@@ -17,6 +17,8 @@ import {sendToast} from "../../../helpers/common";
 import LiveEventApi from "../../../apis/liveEventApi";
 import ConfigText from "../../../config/ConfigText";
 import ConfigData from "../../../config/ConfigData";
+import ConfigImage from "../../../config/ConfigImage";
+import PopupEditRelay from "./PopupEditRelay";
 
 
 
@@ -30,13 +32,17 @@ const PopupEditLiveEvent = ({
     key: item?.preset_id,
     name: item?.preset_id
   })
+  const [openPopupEditRelay, setEditRelay] = useState(false)
+  const [itemRelay, setItemRelay] = useState('')
   const [relay, setRelay] = useState({
-    key: item?.relay[0]?.key,
-    name:item?.relay[0]?.name,
-    url: item?.relay[0]?.url,
+    key: '',
+    name:'',
+    url:''
   })
   const [error, setError] = useState(false)
+  const [arrRelay, setArrRelay] = useState(item?.relay || [])
   const dispatch = useDispatch()
+
 
   const handleClose = () => {
     dispatch(closePopup())
@@ -57,27 +63,25 @@ const PopupEditLiveEvent = ({
   const onCLickPresetId = (item) =>{
     setPresetId(item)
   }
-  const onChangeKeyRelay = (e) =>{
-    const value = e.target.value
-    setRelay({...relay, key: value})
+  const onDeleteRelayItem = (item, index) => {
+    arrRelay.splice(index,1)
+    const newArrRelay = [...arrRelay]
+    setArrRelay(newArrRelay)
   }
-  const onChangeNameRelay = (e) =>{
-    const value = e.target.value
-    setRelay({...relay, name: value})
+
+
+  const onEditRelayItem = (item) => {
+    setEditRelay(!openPopupEditRelay)
+    setItemRelay(item)
   }
-  const onChangeUrlRelay = (e) =>{
-    const value = e.target.value
-    setRelay({...relay, url: value})
-  }
-  const onEditInStreamAds = () => {
+
+  const onSaveLiveEvent = () => {
     if (!valueNameContent){
       sendToast({message: ConfigText.LIVE.IMPORT_NAME_LIVE_ENTITY})
     }else {
       if (valueNameContent?.length < 3 || desc?.length < 3) {
         setError(true)
       }else {
-        let arrRelay = []
-        arrRelay.push(relay)
         const id = item?.id
         LiveEventApi.editLiveEntity(
             id,
@@ -181,40 +185,38 @@ const PopupEditLiveEvent = ({
             </CInputGroup>
           </div>
           <div className="pb-3">
-            <CInputGroup>
-              <CInputGroupPrepend>
-                <CInputGroupText>{ConfigText.LIVE.REPLAY}</CInputGroupText>
-              </CInputGroupPrepend>
-              <div style={{width:'85%'}}>
-                <CInput
-                    className="inputLive inputKey"
-                    type="text"
-                    placeholder={ConfigText.LIVE.KEY_RELAY} onChange={onChangeKeyRelay}
-                    value={relay?.key}
-                    maxLength={100}
-                    minLength={3}/>
-                <CInput
-                    className="inputLive inputName"
-                    type="text"
-                    placeholder={ConfigText.LIVE.NAME_RELAY} onChange={onChangeNameRelay}
-                    value={relay?.name}
-                    maxLength={100}
-                    minLength={3}/>
-                <CInput
-                    className="inputLive inputUrl"
-                    type="text"
-                    placeholder={ConfigText.LIVE.URL_RELAY} onChange={onChangeUrlRelay}
-                    value={relay?.url}
-                    maxLength={100}
-                    minLength={3}/>
-              </div>
-            </CInputGroup>
+            {arrRelay && (arrRelay || []).map((item, index)=>{
+
+              return(
+                  <CInputGroup style={{marginTop: '2px'}}>
+                    <CInputGroupPrepend>
+                      <CInputGroupText>{ConfigText.LIVE.REPLAY}</CInputGroupText>
+                    </CInputGroupPrepend>
+                    <div className="relay inputLive">
+                      <p>key: {item?.key}</p>
+                      <p>name: {item?.name}</p>
+                      <p>url: {item?.url}</p>
+                    </div>
+                    <CButton className="btn inputLive inputName" color={'info'}  onClick={()=>onEditRelayItem(item, index)} >
+                      <CImg src={ConfigImage.edit} alt="edit"/>
+                    </CButton>
+                    <CButton className="btn btn-danger inputLive"  onClick={()=>onDeleteRelayItem(item, index)} >
+                      <CImg src={ConfigImage.deleteAds} alt="delete"/>
+                    </CButton>
+                  </CInputGroup>
+              )
+            })}
           </div>
+          <PopupEditRelay
+              modal={openPopupEditRelay}
+              setModal={setEditRelay}
+              item={itemRelay}
+          />
         </CForm>
       </CModalBody>
       <CModalFooter>
         <div className="d-flex justify-content-end mt-3">
-          <CButton className="pl-4 pr-4" color="success" onClick={()=>onEditInStreamAds()}>{ConfigText.GENERAL.SAVE}</CButton>
+          <CButton className="pl-4 pr-4 btnLive" color="success" onClick={()=>onSaveLiveEvent()}>{ConfigText.GENERAL.SAVE}</CButton>
         </div>
       </CModalFooter>
     </CModal>

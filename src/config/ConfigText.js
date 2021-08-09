@@ -39,6 +39,7 @@ const LIVE = {
     ERR_RELAY: "Nhập đầy đủ các thông tin relay hoặc để trống",
     ADD_RELAY: "+ Add",
     ADD_RELAY_TITLE: "Thêm Relay",
+    EDIT_RELAY_TITLE: "Chỉnh sữa Relay",
     ERR_CHARACTER_LIMIT: "Vui lòng nhập tên và mô tả từ 3 kí tự trở lên, tối đa 100 kí tự. !"
 }
 const GENERAL = {

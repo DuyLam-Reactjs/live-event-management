@@ -17,6 +17,7 @@ import PopupCreateCustomer from "../../customers/PopupCreateCustomer";
 import PopupCreateLiveEntity from "./PopupCreateLiveEntity";
 import PopupUpdateStatusCustomer from "../../customers/PopupUpdateStatusCustomer";
 import PopupAddRelay from "./PopupAddRelay";
+import PopupEditRelay from "./PopupEditRelay";
 
 const Popup = React.memo((props)=>{
     const params = useSelector(state => state?.Popup)
@@ -54,6 +55,8 @@ const Popup = React.memo((props)=>{
         return <PopupCreateLiveEntity {...params} />
     case POPUP.NAME.LIVE_EVENT.ADD_RELAY:
         return <PopupAddRelay {...params} />
+    case POPUP.NAME.LIVE_EVENT.EDIT_RELAY:
+        return <PopupEditRelay {...params} />
     default:
         return null
 }

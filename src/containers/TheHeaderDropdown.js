@@ -15,9 +15,8 @@ import {handleLocalStorage} from "../helpers/common";
 import LocalStorage from "../config/LocalStorage";
 
 
-const TheHeaderDropdown = (props) => {
-  const {profile} = props
-  const isAdmin = profile?.role?.is_admin
+const TheHeaderDropdown = ({profile}) => {
+  const {id, email, status} = profile?.data || {}
   const dispatch = useDispatch()
   const Logout = () => {
     dispatch(openPopup({name: POPUP.NAME.CUSTOMER.LOGOUT}))
@@ -25,7 +24,7 @@ const TheHeaderDropdown = (props) => {
   const handleUpdateCustomer = () => {
     dispatch(openPopup({
       name: POPUP.NAME.CUSTOMER.UPDATE_CUSTOMER,
-      id: handleLocalStorage(LocalStorage.GET, 'idCustomer')
+      id
     }))
   }
   return (
@@ -35,10 +34,10 @@ const TheHeaderDropdown = (props) => {
       direction="down"
       style={{fontSize: '1rem'}}
     >
-      <CDropdownToggle className="c-header-nav-link" caret={false}>
-        <span className='mt-1'><strong>{profile?.email}</strong></span>
+      <CDropdownToggle className="c-header-nav-link" caret={false} style={{color: '#fff'}}>
+        <span className='mt-1'><strong>{email}</strong></span>
         <div className="c-avatar">
-          <CIcon  size={'3xl'} name={'cil-user'} style={{color: '#fff'}} />
+          <CIcon  size={'3xl'} name={'cil-user'}/>
         </div>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">

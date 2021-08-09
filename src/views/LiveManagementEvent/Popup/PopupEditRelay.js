@@ -11,17 +11,14 @@ import {
 import CIcon from "@coreui/icons-react";
 import ConfigText from "../../../config/ConfigText";
 
-const PopupAddRelay = ({modal, setModal, arrRelay, setArrRelay}) => {
+const PopupEditRelay = ({modal, setModal, arrRelay, setArrRelay, item}) => {
     const [relay, setRelay] = useState({
-        key: '',
-        name:'',
-        url: '',
+        key: item?.key,
+        name: item?.name,
+        url: item?.url,
     })
-
-    const [error, setError] = useState({
-        name:'',
-        relay:''
-    })
+    console.log(relay)
+    const [error, setError] = useState('')
 
     const handleClose = () => {
         setModal(!modal)
@@ -54,7 +51,7 @@ const PopupAddRelay = ({modal, setModal, arrRelay, setArrRelay}) => {
         }else if (!key && !name && !url){
             setArrRelay(newArrRelay)
             setModal(!modal)
-        }else setError({...error, relay: ConfigText.LIVE.ERR_RELAY})
+        }else setError(ConfigText.LIVE.ERR_RELAY)
     }
 
     return(
@@ -65,7 +62,7 @@ const PopupAddRelay = ({modal, setModal, arrRelay, setArrRelay}) => {
         >
             <CModalHeader className="colorHeader">
                 <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
-                    <h4 className="mb-0">{ConfigText.LIVE.ADD_RELAY_TITLE}</h4>
+                    <h4 className="mb-0">{ConfigText.LIVE.EDIT_RELAY_TITLE}</h4>
                     <CButton className='p-0 shadow-none' onClick={handleClose}>
                         <CIcon name="cil-x" style={{ color: "#FFF" }}></CIcon>
                     </CButton>
@@ -85,7 +82,7 @@ const PopupAddRelay = ({modal, setModal, arrRelay, setArrRelay}) => {
                                     placeholder={ConfigText.LIVE.KEY_RELAY}
                                     onChange={onChangeKeyRelay}
                                     onKeypress={handleKeyPress}
-                                    value={relay?.key}
+                                    value={relay?.key || item?.key}
                                     maxLength={100}
                                     minLength={3}/>
                                 <CInput
@@ -94,6 +91,7 @@ const PopupAddRelay = ({modal, setModal, arrRelay, setArrRelay}) => {
                                     placeholder={ConfigText.LIVE.NAME_RELAY}
                                     onChange={onChangeNameRelay}
                                     onKeypress={handleKeyPress}
+                                    value={relay?.name || item?.name}
                                     maxLength={100}
                                     minLength={3}/>
                                 <CInput
@@ -102,13 +100,14 @@ const PopupAddRelay = ({modal, setModal, arrRelay, setArrRelay}) => {
                                     placeholder={ConfigText.LIVE.URL_RELAY}
                                     onChange={onChangeUrlRelay}
                                     onKeypress={handleKeyPress}
+                                    value={relay?.url || item?.url}
                                     maxLength={100}
                                     minLength={3}/>
                             </div>
                         </CInputGroup>
                     </div>
                     {error &&
-                    <p className="text text__error">{error?.relay}</p>
+                    <p className="text text__error">{error}</p>
                     }
                 </CForm>
                 <div className="d-flex justify-content-end mt-3">
@@ -118,4 +117,4 @@ const PopupAddRelay = ({modal, setModal, arrRelay, setArrRelay}) => {
         </CModal>
     )
 }
-export default PopupAddRelay
+export default PopupEditRelay
