@@ -211,6 +211,8 @@ const PopupEditLiveEvent = ({
               modal={openPopupEditRelay}
               setModal={setEditRelay}
               item={itemRelay}
+              arrRelay={arrRelay}
+              setArrRelay={setArrRelay}
           />
         </CForm>
       </CModalBody>

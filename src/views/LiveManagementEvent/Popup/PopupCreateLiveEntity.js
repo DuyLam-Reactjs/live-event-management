@@ -1,14 +1,12 @@
 import React, {useState} from "react";
 import {
-    CBadge,
-    CDropdown,
-    CButton, CForm, CInput,
+    CButton, CForm,
     CInputGroup,
     CInputGroupPrepend,
     CInputGroupText,
-    CModal, CDropdownItem,
-    CModalBody, CDropdownMenu,
-    CModalHeader, CSwitch, CDropdownToggle, CImg
+    CModal,
+    CModalBody,
+    CModalHeader,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import {closePopup} from "../../../actions/popup";
@@ -16,14 +14,13 @@ import {useDispatch} from "react-redux";
 import LiveEventApi from "../../../apis/liveEventApi";
 import {sendToast} from "../../../helpers/common";
 import ConfigText from "../../../config/ConfigText";
-import ConfigData from "../../../config/ConfigData";
 import PopupAddRelay from "./PopupAddRelay";
-import ConfigImage from "../../../config/ConfigImage";
 import PopupEditRelay from "./PopupEditRelay";
 import RelayLiveEvent from "../CreateLiveEntity/RelayLiveEvent";
 import NameLiveEvent from "../CreateLiveEntity/NameLiveEvent";
 import DvrLiveEvent from "../CreateLiveEntity/DvrLiveEvent";
 import PresetIdLiveEvent from "../CreateLiveEntity/PresetIdLiveEvent";
+import RelayListLiveEvent from "../CreateLiveEntity/RelayListLiveEvent";
 
 const PopupCreateLiveEntity = ({
      currentPage,
@@ -80,15 +77,17 @@ const PopupCreateLiveEntity = ({
     }
     const [openPopupEditRelay, setEditRelay] = useState(false)
     const [itemRelay, setItemRelay] = useState('')
-    const onEditRelayItem = (item) => {
+    const [indexItemRelay, setIndexItemRelay] = useState('')
+    const onEditRelayItem = (item, index) => {
         setEditRelay(!openPopupEditRelay)
         setItemRelay(item)
+        setIndexItemRelay(index)
     }
     const onSave = () => {
         if (!valueNameContent){
             sendToast({message: ConfigText.LIVE.IMPORT_NAME_LIVE_ENTITY})
         }else {
-            if (valueNameContent?.length < 3 || desc?.length < 3) {
+            if (valueNameContent?.length < 2 || desc?.length < 2) {
                 setError({...error, name: ConfigText.LIVE.ERR_CHARACTER_LIMIT})
             }else {
                     LiveEventApi.setLiveEntity(
@@ -145,7 +144,7 @@ const PopupCreateLiveEntity = ({
                     </div>
                     <div  className="pb-3">
                         <NameLiveEvent
-                            onChangName={onChangeNameLiveEntity}
+                            onChangName={onChangeDescription}
                             handleKeyPress={handleKeyPress}
                             name={ConfigText.LIVE.DESCRIPTION_INFO}
                             namePlaceHolder={ConfigText.LIVE.IMPORT_DESCRIPTION_INFO}
@@ -162,32 +161,26 @@ const PopupCreateLiveEntity = ({
                         />
                     </div>
                     <div className="pb-3">
-                        <CInputGroup>
-                            <CInputGroupPrepend>
-                                <CInputGroupText>{ConfigText.LIVE.REPLAY}</CInputGroupText>
-                            </CInputGroupPrepend>
-                            <CButton className="btnLive inputLive"  onClick={onAddRelay} >{ConfigText.LIVE.ADD_RELAY_TITLE}</CButton>
-                            <PopupAddRelay
-                                modal={openPopupAdd} setModal={setPopupAdd}
-                                arrRelay={arrRelay}
-                                setArrRelay={setArrRelay}
-                            />
-                        </CInputGroup>
-                        {arrRelay && (arrRelay || []).map((item, index)=>{
-                            return (
-                                <RelayLiveEvent
-                                    item={item}
-                                    onDeleteRelayItem={onDeleteRelayItem}
-                                    onEditRelayItem={onEditRelayItem}
-                                    index={index}
-                                />
-                            )
-                        })}
+                        <RelayListLiveEvent
+                            name={ConfigText.LIVE.REPLAY}
+                            title={ConfigText.LIVE.ADD_RELAY_TITLE}
+                            onAddRelay={onAddRelay}
+                            onDeleteRelayItem={onDeleteRelayItem}
+                            onEditRelayItem={onEditRelayItem}
+                            arrRelay={arrRelay}
+                        />
                     </div>
+                    <PopupAddRelay
+                        modal={openPopupAdd} setModal={setPopupAdd}
+                        arrRelay={arrRelay}
+                        setArrRelay={setArrRelay}
+                    />
                     <PopupEditRelay
-                        modal={openPopupEditRelay}
-                        setModal={setEditRelay}
+                        modal={openPopupEditRelay} setModal={setEditRelay}
                         item={itemRelay}
+                        arrRelay={arrRelay}
+                        setArrRelay={setArrRelay}
+                        index={indexItemRelay}
                     />
                 </CForm>
                 <div className="d-flex justify-content-end mt-3">

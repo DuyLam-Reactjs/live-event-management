@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     CButton, CForm, CInput,
     CInputGroup,
@@ -11,13 +11,18 @@ import {
 import CIcon from "@coreui/icons-react";
 import ConfigText from "../../../config/ConfigText";
 
-const PopupEditRelay = ({modal, setModal, arrRelay, setArrRelay, item}) => {
+const   PopupEditRelay = ({modal, setModal, arrRelay, setArrRelay, item, index}) => {
+    console.log(arrRelay)
+
     const [relay, setRelay] = useState({
-        key: item?.key,
-        name: item?.name,
-        url: item?.url,
+        key: item?.key || '',
+        name: item?.name || '',
+        url: item?.url || '',
     })
-    console.log(relay)
+    useEffect(()=>{
+        setRelay(item)
+    },[item])
+
     const [error, setError] = useState('')
 
     const handleClose = () => {
@@ -40,12 +45,11 @@ const PopupEditRelay = ({modal, setModal, arrRelay, setArrRelay, item}) => {
       setError('')
     }
 
-
     const onSave = () => {
         const newArrRelay = [...arrRelay]
         const {key, name, url} = relay
         if (key && name && url) {
-            newArrRelay.push(relay)
+            newArrRelay.splice(index, 1, relay)
             setArrRelay(newArrRelay)
             setModal(!modal)
         }else if (!key && !name && !url){
@@ -82,7 +86,7 @@ const PopupEditRelay = ({modal, setModal, arrRelay, setArrRelay, item}) => {
                                     placeholder={ConfigText.LIVE.KEY_RELAY}
                                     onChange={onChangeKeyRelay}
                                     onKeypress={handleKeyPress}
-                                    value={relay?.key || item?.key}
+                                    value={relay?.key}
                                     maxLength={100}
                                     minLength={3}/>
                                 <CInput
@@ -91,7 +95,7 @@ const PopupEditRelay = ({modal, setModal, arrRelay, setArrRelay, item}) => {
                                     placeholder={ConfigText.LIVE.NAME_RELAY}
                                     onChange={onChangeNameRelay}
                                     onKeypress={handleKeyPress}
-                                    value={relay?.name || item?.name}
+                                    value={relay?.name}
                                     maxLength={100}
                                     minLength={3}/>
                                 <CInput
@@ -100,7 +104,7 @@ const PopupEditRelay = ({modal, setModal, arrRelay, setArrRelay, item}) => {
                                     placeholder={ConfigText.LIVE.URL_RELAY}
                                     onChange={onChangeUrlRelay}
                                     onKeypress={handleKeyPress}
-                                    value={relay?.url || item?.url}
+                                    value={relay?.url}
                                     maxLength={100}
                                     minLength={3}/>
                             </div>

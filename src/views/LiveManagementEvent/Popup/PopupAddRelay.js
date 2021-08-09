@@ -49,7 +49,7 @@ const PopupAddRelay = ({modal, setModal, arrRelay, setArrRelay}) => {
         const {key, name, url} = relay
         if (key && name && url) {
             newArrRelay.push(relay)
-            setArrRelay(newArrRelay)
+            setArrRelay(newArrRelay.reverse())
             setModal(!modal)
         }else if (!key && !name && !url){
             setArrRelay(newArrRelay)
