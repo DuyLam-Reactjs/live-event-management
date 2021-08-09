@@ -39,7 +39,10 @@ const   PopupEditRelay = ({modal, setModal, arrRelay, setArrRelay, item, index})
         const value = e.target.value
         setRelay({...relay, url: value})
     }
-    const handleKeyPress = () => {
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter' || event.keyCode === 13){
+            onSave && onSave()
+        }
       setError('')
     }
 

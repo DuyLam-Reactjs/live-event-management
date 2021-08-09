@@ -17,7 +17,7 @@ const PopupAddRelay = ({modal, setModal, arrRelay, setArrRelay}) => {
         name:'',
         url: '',
     })
-    console.log(relay)
+
     const [error, setError] = useState({
         name:'',
         relay:''
@@ -52,8 +52,8 @@ const PopupAddRelay = ({modal, setModal, arrRelay, setArrRelay}) => {
         const newArrRelay = [...arrRelay]
         const {key, name, url} = relay
         if (key && name && url) {
-            newArrRelay.push(relay)
-            setArrRelay(newArrRelay.reverse())
+            newArrRelay.splice(0,0, relay)
+            setArrRelay(newArrRelay)
             setModal(!modal)
         }else if (!key && !name && !url){
             setArrRelay(newArrRelay)

@@ -19,6 +19,12 @@ import ConfigText from "../../../config/ConfigText";
 import ConfigData from "../../../config/ConfigData";
 import ConfigImage from "../../../config/ConfigImage";
 import PopupEditRelay from "./PopupEditRelay";
+import PopupDeleteRelay from "./PopupDeleteRelay";
+import NameLiveEvent from "../CreateLiveEntity/NameLiveEvent";
+import DvrLiveEvent from "../CreateLiveEntity/DvrLiveEvent";
+import PresetIdLiveEvent from "../CreateLiveEntity/PresetIdLiveEvent";
+import RelayListLiveEvent from "../CreateLiveEntity/RelayListLiveEvent";
+import PopupAddRelay from "./PopupAddRelay";
 
 
 
@@ -33,12 +39,11 @@ const PopupEditLiveEvent = ({
     name: item?.preset_id
   })
   const [openPopupEditRelay, setEditRelay] = useState(false)
+  const [openDeleteRelay, setDeleteRelay] = useState(false)
+  const [openPopupAdd, setPopupAdd] = useState(false)
   const [itemRelay, setItemRelay] = useState('')
-  const [relay, setRelay] = useState({
-    key: '',
-    name:'',
-    url:''
-  })
+  const [indexItemRelay, setIndexItemRelay] = useState('')
+
   const [error, setError] = useState(false)
   const [arrRelay, setArrRelay] = useState(item?.relay || [])
   const dispatch = useDispatch()
@@ -64,15 +69,21 @@ const PopupEditLiveEvent = ({
     setPresetId(item)
   }
   const onDeleteRelayItem = (item, index) => {
-    arrRelay.splice(index,1)
-    const newArrRelay = [...arrRelay]
-    setArrRelay(newArrRelay)
+    setIndexItemRelay(index)
+    setDeleteRelay(!openDeleteRelay)
+    setItemRelay(item)
+  }
+  const onAddRelay = () => {
+    setPopupAdd(!openPopupAdd)
   }
 
-
-  const onEditRelayItem = (item) => {
+  const onEditRelayItem = (item, index) => {
     setEditRelay(!openPopupEditRelay)
     setItemRelay(item)
+    setIndexItemRelay(index)
+  }
+  const handleKeyPress = () => {
+    setError('')
   }
 
   const onSaveLiveEvent = () => {
@@ -122,97 +133,69 @@ const PopupEditLiveEvent = ({
       <CModalBody>
         <CForm>
           <div className="pb-3 pt-3">
-            <CInputGroup>
-              <CInputGroupPrepend>
-                <CInputGroupText>{ConfigText.GENERAL.NAME}</CInputGroupText>
-              </CInputGroupPrepend>
-              <CInput type="text"
-                      placeholder={ConfigText.LIVE.NAME_LIVE_ENTITY}
-                      value={valueNameContent}
-                      maxLength={100}
-                      minLength={3}
-                      onChange={onChangeNameLiveEntity}  />
-            </CInputGroup>
+            <NameLiveEvent
+                onChangName={onChangeNameLiveEntity}
+                handleKeyPress={handleKeyPress}
+                name={ConfigText.GENERAL.NAME}
+                namePlaceHolder={ConfigText.LIVE.NAME_LIVE_ENTITY}
+                value={valueNameContent}
+            />
           </div>
           <div className="pb-3">
-            <CInputGroup>
-              <CInputGroupPrepend>
-                <CInputGroupText>{ConfigText.LIVE.DVR}</CInputGroupText>
-              </CInputGroupPrepend>
-              <CBadge >
-                <CSwitch className={'mx-1'} color={'success'} labelOn={'ON'} labelOff={'OFF'}
-                         onChange={onCheckedDvr}
-                         checked={!!checkDvr}/>
-              </CBadge>
-            </CInputGroup>
+            <DvrLiveEvent
+                onCheckedDvr={onCheckedDvr}
+                checkDvr={checkDvr}
+            />
           </div>
           <div  className="pb-3">
-            <CInputGroup>
-              <CInputGroupPrepend>
-                <CInputGroupText>{ConfigText.LIVE.DESCRIPTION_INFO}</CInputGroupText>
-              </CInputGroupPrepend>
-              <CInput  type="text"
-                       placeholder={ConfigText.LIVE.IMPORT_DESCRIPTION_INFO}
-                       value={desc}
-                       onChange={onChangeDescription}
-                       maxLength={100}
-                       minLength={3}/>
-            </CInputGroup>
+            <NameLiveEvent
+                onChangName={onChangeDescription}
+                handleKeyPress={handleKeyPress}
+                name={ConfigText.LIVE.DESCRIPTION_INFO}
+                namePlaceHolder={ConfigText.LIVE.IMPORT_DESCRIPTION_INFO}
+                value={desc}
+            />
           </div>
           {error &&
             <p className="text" style={{color: 'red', textAlign: 'end'}}>{ConfigText.LIVE.ERR_CHARACTER_LIMIT}</p>
           }
           <div  className="pb-3">
-            <CInputGroup>
-              <CInputGroupPrepend>
-                <CInputGroupText>{ConfigText.LIVE.PRESET_ID}</CInputGroupText>
-              </CInputGroupPrepend>
-              <CDropdown className="btn-group" style={{width: '138px'}}>
-                <CDropdownToggle color="default" className='border inputLive color-white'>
-                  <span className="text-filter" style={{ color: '#222', textTransform: 'uppercase' }}>{presetId?.name}</span>
-                </CDropdownToggle>
-                <CDropdownMenu>
-                  <div>
-                    {(ConfigData.dataPresetId || []).map((item, index) => {
-                      return (
-                          <CDropdownItem key={index} onClick={()=>onCLickPresetId(item)}>{item?.name}</CDropdownItem>
-                      )
-                    })
-                    }
-                  </div>
-                </CDropdownMenu>
-              </CDropdown>
-            </CInputGroup>
+            <PresetIdLiveEvent
+                name={ConfigText.LIVE.PRESET_ID}
+                onCLickPresetId={onCLickPresetId}
+                presetId={presetId}
+            />
           </div>
           <div className="pb-3">
-            {arrRelay && (arrRelay || []).map((item, index)=>{
-
-              return(
-                  <CInputGroup style={{marginTop: '2px'}}>
-                    <CInputGroupPrepend>
-                      <CInputGroupText>{ConfigText.LIVE.REPLAY}</CInputGroupText>
-                    </CInputGroupPrepend>
-                    <div className="relay inputLive">
-                      <p>key: {item?.key}</p>
-                      <p>name: {item?.name}</p>
-                      <p>url: {item?.url}</p>
-                    </div>
-                    <CButton className="btn inputLive inputName" color={'info'}  onClick={()=>onEditRelayItem(item, index)} >
-                      <CImg src={ConfigImage.edit} alt="edit"/>
-                    </CButton>
-                    <CButton className="btn btn-danger inputLive"  onClick={()=>onDeleteRelayItem(item, index)} >
-                      <CImg src={ConfigImage.deleteAds} alt="delete"/>
-                    </CButton>
-                  </CInputGroup>
-              )
-            })}
+            <RelayListLiveEvent
+                name={ConfigText.LIVE.REPLAY}
+                title={ConfigText.LIVE.ADD_RELAY_TITLE}
+                onAddRelay={onAddRelay}
+                onDeleteRelayItem={onDeleteRelayItem}
+                onEditRelayItem={onEditRelayItem}
+                arrRelay={arrRelay}
+            />
           </div>
+          {openPopupAdd &&
+            <PopupAddRelay
+                modal={openPopupAdd} setModal={setPopupAdd}
+                arrRelay={arrRelay}
+                setArrRelay={setArrRelay}
+            />
+          }
           <PopupEditRelay
-              modal={openPopupEditRelay}
-              setModal={setEditRelay}
+              modal={openPopupEditRelay} setModal={setEditRelay}
               item={itemRelay}
               arrRelay={arrRelay}
               setArrRelay={setArrRelay}
+              index={indexItemRelay}
+          />
+          <PopupDeleteRelay
+              modal={openDeleteRelay} setModal={setDeleteRelay}
+              arrRelay={arrRelay}
+              setArrRelay={setArrRelay}
+              index={indexItemRelay}
+              item={itemRelay}
           />
         </CForm>
       </CModalBody>

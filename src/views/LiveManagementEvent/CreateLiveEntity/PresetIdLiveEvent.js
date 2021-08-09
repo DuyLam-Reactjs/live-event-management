@@ -7,7 +7,6 @@ import {
     CInputGroupPrepend,
     CInputGroupText
 } from "@coreui/react";
-import ConfigText from "../../../config/ConfigText";
 import ConfigData from "../../../config/ConfigData";
 
 const PresetIdLiveEvent = ({onCLickPresetId, presetId, name}) => {
@@ -18,7 +17,7 @@ const PresetIdLiveEvent = ({onCLickPresetId, presetId, name}) => {
             </CInputGroupPrepend>
             <CDropdown className="btn-group" style={{width: '138px'}}>
                 <CDropdownToggle color="default" className='border inputLive color-white'>
-                    <span className="text-filter" style={{ color: '#222' }}>{presetId?.name}</span>
+                    <span className="text-filter" style={{ color: '#222', textTransform: 'uppercase' }}>{presetId?.name}</span>
                 </CDropdownToggle>
                 <CDropdownMenu>
                     <div>

@@ -78,7 +78,6 @@ const PopupCreateLiveEntity = ({
         setIndexItemRelay(index)
     }
     const onDeleteRelayItem = (item, index) => {
-
         setDeleteRelay(!openDeleteRelay)
         setItemRelay(item)
         setIndexItemRelay(index)
