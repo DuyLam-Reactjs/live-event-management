@@ -13,6 +13,8 @@ import {validateEmail, validatePassword} from "../../helpers/common";
 import CustomerApi from "../../apis/customerApi";
 import ConfigText from "../../config/ConfigText";
 import customerApi from "../../apis/customerApi";
+import EmailCustomer from "./basicCustomer/EmailCustomer";
+import PasswordCustomer from "./basicCustomer/PasswordCustomer";
 
 const PopupCreateCustomer = ({
    rowPerPage,
@@ -34,7 +36,7 @@ const PopupCreateCustomer = ({
     const value = e.target.value
     setCustomer({...createCustomer, email: value})
   }
-  const onChangPassword = (e) => {
+  const onChangePassword = (e) => {
     const value = e.target.value
     setCustomer({...createCustomer, password: value})
   }
@@ -95,27 +97,18 @@ const PopupCreateCustomer = ({
       </CModalHeader>
       <CModalBody>
         <CForm>
-          <p className="text-muted">Create customer</p>
-          <CInputGroup className="mb-3">
-            <CInputGroupPrepend>
-              <CInputGroupText>@</CInputGroupText>
-            </CInputGroupPrepend>
-            <CInput type="text" placeholder="Email" autoComplete="email"
-                    onKeyPress={handleKeyPress}
-                    onChange={onChangEmail}/>
-          </CInputGroup>
-          {error && <p className="text text__error">{error?.email}</p>}
-          <CInputGroup className="mb-3">
-            <CInputGroupPrepend>
-              <CInputGroupText>
-                <CIcon name="cil-lock-locked" />
-              </CInputGroupText>
-            </CInputGroupPrepend>
-            <CInput type="password" placeholder="Password" autoComplete="new-password"
-                    onKeyPress={handleKeyPress}
-                    onChange={onChangPassword} />
-          </CInputGroup>
-          {error && <p className="text text__error">{error?.password}</p>}
+            <p className="text-muted">{ConfigText.CUSTOMER.CREATE_ACCOUNT}</p>
+            <EmailCustomer
+                error={error}
+                onChangeUserName={onChangEmail}
+                onKeyPress={handleKeyPress}
+            />
+            <PasswordCustomer
+                placeholder={'Password'}
+                error={error}
+                onChangePassWord={onChangePassword}
+                onKeyPress={handleKeyPress}
+            />
           {/*<CInputGroup className="mb-3">*/}
           {/*  <CInputGroupPrepend>*/}
           {/*    <CInputGroupText>admin</CInputGroupText>*/}

@@ -15,7 +15,7 @@ const METHOD = {
 }
 
 
-function getTokenKey () {
+function getApiKey () {
   let key = KEY.API_KEY
   const domainAPI = ConfigEnv.DOMAIN_API
   const isTesting = (domainAPI || '').includes('testing-api')
@@ -58,7 +58,7 @@ function remove(key, removeOption){
 
 export default {
   KEY, METHOD,
-  getTokenKey,
+  getApiKey,
   handleCookie,
   remove,
 }

@@ -4,7 +4,6 @@ import {CInput, CInputGroup, CInputGroupPrepend, CInputGroupText} from "@coreui/
 
 
 const NameLiveEvent = ({name, onChangName, handleKeyPress, namePlaceHolder, value}) => {
-    console.log(value)
     return (
         <CInputGroup>
             <CInputGroupPrepend>
@@ -13,7 +12,7 @@ const NameLiveEvent = ({name, onChangName, handleKeyPress, namePlaceHolder, valu
             <CInput type="text"
                     placeholder= {namePlaceHolder}
                     onChange={onChangName}
-                    onKeypress={handleKeyPress}
+                    onKeyPress={handleKeyPress}
                     value={'' || value}
                     maxLength={100}
                     minLength={3}

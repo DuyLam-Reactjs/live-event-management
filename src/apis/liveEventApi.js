@@ -89,13 +89,41 @@ class LiveEventApi {
     })
   }
   static async deleteLiveEventById(id) {
-    const url = ConfigApi.live.liveEvent + '/' + id
+    let url = ConfigApi.live.liveEvent + '/' + id
     const method = ConfigConstant.API_METHOD.DELETE
     return AxiosClient.executeWithCache({url, method}).then(res => {
       const data = res?.data
       return {...res, data}
     })
   }
+  static async blockLiveEventById(id) {
+    let url = ConfigApi.live.liveEvent + '/' + id + '/block'
+    const method = ConfigConstant.API_METHOD.PUT
+    return AxiosClient.executeWithCache({url, method}).then(res => {
+      const data = res?.data
+      return {...res, data}
+    })
+  }
+  static async relayLiveEventById(id) {
+    let url = ConfigApi.live.liveEvent + '/' + id + '/relays'
+    const method = ConfigConstant.API_METHOD.GET
+    return AxiosClient.executeWithCache({url, method}).then(res => {
+      const data = res?.data
+      return {...res, data}
+    })
+  }
+  static async reloadLiveEventById(id, idRelay) {
+    let url = ConfigApi.live.liveEvent + '/' + id + '/reload'
+    const method = ConfigConstant.API_METHOD.POST
+    const params = {
+      relay_id: idRelay
+    }
+    return AxiosClient.executeWithCache({url, method, params}).then(res => {
+      const data = res?.data
+      return {...res, data}
+    })
+  }
+
   static async editInStreamAdsById(id, item, idContentProvider, isAllContent) {
     const url = ConfigApi.inStreamAds.inStreamAds + '/' + id
     const method = ConfigConstant.API_METHOD.PUT

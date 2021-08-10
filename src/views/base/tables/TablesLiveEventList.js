@@ -117,6 +117,16 @@ const TablesLiveEventList = () => {
       setCurrentPageList
     }))
   }
+  const handleBlockLiveItem = (item) => {
+    dispatch(openPopup({
+      name: POPUP.NAME.LIVE_EVENT.BLOCK_LIVE_ITEM,
+      item,
+      currentPage,
+      rowPerPage,
+      setCurrentPageList
+    }))
+  }
+
   return (
     <>
       <TitleLive title={ConfigText.LIVE.LIVE_EVENT_MANAGE_LIST}/>
@@ -191,12 +201,20 @@ const TablesLiveEventList = () => {
                       <td>
                         <CBadge color={getBadge(item.status)}>
                           <CButton block color="info" onClick={()=>handleEditLiveItem(item)}>
-                            <CImg src={ConfigImage.edit} alt="edit"/> <span className="ml-1">{ConfigText.GENERAL.EDIT}</span>
+                            <CImg src={ConfigImage.edit} alt="edit"/>
+                            <span className="ml-1">{ConfigText.GENERAL.EDIT}</span>
+                          </CButton>
+                        </CBadge>
+                        <CBadge>
+                          <CButton block color="success" onClick={()=>handleBlockLiveItem(item)}>
+                            <CIcon content={freeSet.cilBan} className="mfe-2"/>
+                            <span className="ml-1">{ConfigText.GENERAL.BLOCK}</span>
                           </CButton>
                         </CBadge>
                         <CBadge>
                           <CButton block color="danger" onClick={()=>handleDeleteLiveItem(item)}>
-                            <CImg src={ConfigImage.deleteAds} alt="delete"/> <span className="ml-1">{ConfigText.GENERAL.DELETE}</span>
+                            <CImg src={ConfigImage.deleteAds} alt="delete"/>
+                            <span className="ml-1">{ConfigText.GENERAL.DELETE}</span>
                           </CButton>
                         </CBadge>
                       </td>

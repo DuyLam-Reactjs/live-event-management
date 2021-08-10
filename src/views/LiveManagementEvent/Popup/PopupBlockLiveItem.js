@@ -5,8 +5,9 @@ import {closePopup} from "../../../actions/popup";
 import {useDispatch} from "react-redux";
 import LiveEventApi from "../../../apis/liveEventApi";
 import ConfigTExt from "../../../config/ConfigText";
+import {sendToast} from "../../../helpers/common";
 
-const PopupDeleteLiveItem = ({
+const PopupBlockLiveItem = ({
     item,
     currentPage,
     rowPerPage,
@@ -17,20 +18,21 @@ const PopupDeleteLiveItem = ({
     const handleClose = () => {
         dispatch(closePopup())
     }
-    const onDeleteGroupAds = () => {
+    const onBlockEvent = () => {
         const id  = item?.id
-        if (id)
-            LiveEventApi.deleteLiveEventById(id).then(res =>{
+        if (id){
+            LiveEventApi.blockLiveEventById(id).then(res =>{
                 if (res?.success){
                     LiveEventApi.getListLiveEvent(rowPerPage,currentPage*10).then(resp=>{
-                        const {data} = res?.data
+                        const {data} = resp?.data
                         if (res?.success){
                             setCurrentPageList(data?.events)
                         }
                     })
                     dispatch(closePopup())
-                }
+                }else {sendToast({message: "Bạn không có quyền Block sự kiện"})}
             })
+        }
     }
     return(
         <CModal
@@ -40,7 +42,7 @@ const PopupDeleteLiveItem = ({
         >
             <CModalHeader className="colorHeader">
                 <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
-                    <h4 className="mb-0">{ConfigTExt.LIVE.DELETE_EVENT + ': ' + nameItem}</h4>
+                    <h4 className="mb-0">{ConfigTExt.LIVE.BLOCK_EVENT + ': ' + nameItem}</h4>
                     <CButton className='p-0 shadow-none' onClick={handleClose}>
                         <CIcon name="cil-x" style={{ color: "#FFF" }}></CIcon>
                     </CButton>
@@ -48,9 +50,9 @@ const PopupDeleteLiveItem = ({
             </CModalHeader>
             <CModalBody>
                 <div >
-                    {ConfigTExt.LIVE.DELETE_EVENT_CURRENT}
+                    {ConfigTExt.LIVE.BLOCK_EVENT_CURRENT}
                     <div className="d-flex justify-content-end mt-3">
-                        <CButton className="pl-4 pr-4" color="danger" onClick={onDeleteGroupAds}>{ConfigTExt.GENERAL.DELETE}</CButton>
+                        <CButton className="pl-4 pr-4 btnLive"  onClick={onBlockEvent}>{ConfigTExt.GENERAL.BLOCK}</CButton>
                     </div>
                 </div>
             </CModalBody>
@@ -58,4 +60,4 @@ const PopupDeleteLiveItem = ({
     )
 }
 
-export default PopupDeleteLiveItem
+export default PopupBlockLiveItem

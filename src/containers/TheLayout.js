@@ -29,12 +29,13 @@ const TheLayout = () => {
     const search = location.search
 
 
-    let checkUserLogin = Cookie.load(ConfigCookie.getTokenKey())
+    let checkUserLogin = Cookie.load(ConfigCookie.getApiKey())
 
     useEffect(()=>{
         const checkLogin = () => {
             if (checkUserLogin){
                 const idCustomer = handleLocalStorage(LocalStorage.GET, 'idCustomer')
+                console.log(idCustomer)
                 dispatch(setToken())
                 dispatch(getCustomer(idCustomer))
                 history.push(

@@ -64,6 +64,7 @@ const PopupUpdateStatusCustomer = ({
         </div>
       </CModalHeader>
       <CModalBody>
+          {status === 0 &&
           <CFormGroup variant="custom-radio" inline>
               <CBadge >
                   <CSwitch
@@ -80,6 +81,7 @@ const PopupUpdateStatusCustomer = ({
               </CBadge>
               <span className=' mt-2' style={{verticalAlign: 'super'}}>{ConfigText.CUSTOMER.NOT_ACTIVE_CUSTOMER}</span>
           </CFormGroup>
+          }
           <CFormGroup variant="custom-radio" inline>
               <CBadge >
                   <CSwitch

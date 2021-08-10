@@ -57,14 +57,14 @@ class CustomerApi {
       return { ...res, data }
     })
   }
-  static async updateInfoCustomer (id,newEmail, newPassword, oldPassword) {
+  static async updateInfoCustomer (id,newEmail, newPassword, oldPassword, status) {
     const url = ConfigApi.customer.listCustomers + '/' + id
     const method = ConfigConstant.API_METHOD.PUT
     const params = {
       email: newEmail,
       password: newPassword,
       password_old: oldPassword,
-      status: 0
+      status: status
     }
     return AxiosClient.executeWithCache({ url, method, params }).then(res => {
       const data = res?.data

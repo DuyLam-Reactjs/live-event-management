@@ -8,7 +8,7 @@ const CUSTOMER = {
     INVALID_EMAIL: "Email không hợp lệ",
     INVALID_PASSWORD: "Mật khẩu phải chứa số, kí tự đặt biệt và tối đa từ 6-15 kí tự",
     CUSTOMER_LIST: "Customers List",
-    REGISTER: "Register",
+    REGISTER: "Register Customer",
     CREATE_ACCOUNT: "Create Account",
     DELETE_CUSTOMER: "Xóa Customer",
     DELETE_CUSTOMER_CURRENT: "Bạn có muốn xóa người dùng này ?",
@@ -29,7 +29,11 @@ const LIVE = {
     IMPORT_NAME_LIVE_ENTITY: "Vui lòng nhập tên Live Entity",
     LIVE_EVENT_INFO: "Thông tin sự kiện",
     DELETE_EVENT: "Xóa sự kiện",
+    BLOCK_EVENT: "Block sự kiện",
+    RELOAD_EVENT: "Reload sự kiện",
     DELETE_EVENT_CURRENT: "Bạn có muốn xóa sự kiện này ?",
+    BLOCK_EVENT_CURRENT: "Bạn có muốn block sự kiện này ?",
+    RELOAD_EVENT_CURRENT: "Bạn có muốn reload sự kiện này ?",
     DVR: "Dvr",
     PRESET_ID: "Preset_id",
     REPLAY: "Replay",
@@ -53,7 +57,10 @@ const GENERAL = {
     AFTER: "Sau",
     BEFORE: "Trước",
     SAVE: "Lưu",
-    NAME: "Tên"
+    NAME: "Tên",
+    BLOCK: "Block",
+    RELOAD: "Reload",
+    RELAY: "Relay"
 }
 module.exports = {
     CUSTOMER,

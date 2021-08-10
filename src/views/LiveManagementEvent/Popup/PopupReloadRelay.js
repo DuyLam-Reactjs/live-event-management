@@ -1,46 +1,55 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {CButton, CModal, CModalBody, CModalHeader} from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import {closePopup} from "../../../actions/popup";
 import {useDispatch} from "react-redux";
 import LiveEventApi from "../../../apis/liveEventApi";
 import ConfigTExt from "../../../config/ConfigText";
+import {sendToast} from "../../../helpers/common";
 
-const PopupDeleteLiveItem = ({
+const PopupReloadRelay = ({
     item,
-    currentPage,
-    rowPerPage,
-    setCurrentPageList
+    modal, setModal
 }) => {
-    const dispatch = useDispatch()
     const nameItem = item?.name
-    const handleClose = () => {
-        dispatch(closePopup())
-    }
-    const onDeleteGroupAds = () => {
-        const id  = item?.id
+
+    const [idRelay, setIdRelay] = useState('')
+    useEffect(()=>{
+        const id = item?.id
         if (id)
-            LiveEventApi.deleteLiveEventById(id).then(res =>{
+        LiveEventApi.relayLiveEventById(id).then(res =>{
+            const {data} = res?.data
+            if (res?.success){
+                setIdRelay(data?.rules?.id)
+            }
+        })
+    },[])
+    const handleClose = () => {
+        setModal(false)
+    }
+
+    const onReloadEvent = () => {
+        const id  = item?.id
+        if (id && idRelay){
+            LiveEventApi.reloadLiveEventById(id, idRelay).then(res =>{
                 if (res?.success){
-                    LiveEventApi.getListLiveEvent(rowPerPage,currentPage*10).then(resp=>{
-                        const {data} = res?.data
-                        if (res?.success){
-                            setCurrentPageList(data?.events)
-                        }
-                    })
-                    dispatch(closePopup())
+                    setModal(false)
                 }
             })
+        }else {
+            sendToast({message: 'Không có giá trị Relay'})
+        }
+
     }
     return(
         <CModal
             centered={true}
-            show={true}
+            show={modal}
             closeOnBackdrop={false}
         >
             <CModalHeader className="colorHeader">
                 <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
-                    <h4 className="mb-0">{ConfigTExt.LIVE.DELETE_EVENT + ': ' + nameItem}</h4>
+                    <h4 className="mb-0">{ConfigTExt.LIVE.RELOAD_EVENT + ': ' + nameItem}</h4>
                     <CButton className='p-0 shadow-none' onClick={handleClose}>
                         <CIcon name="cil-x" style={{ color: "#FFF" }}></CIcon>
                     </CButton>
@@ -48,9 +57,9 @@ const PopupDeleteLiveItem = ({
             </CModalHeader>
             <CModalBody>
                 <div >
-                    {ConfigTExt.LIVE.DELETE_EVENT_CURRENT}
+                    {ConfigTExt.LIVE.RELOAD_EVENT_CURRENT}
                     <div className="d-flex justify-content-end mt-3">
-                        <CButton className="pl-4 pr-4" color="danger" onClick={onDeleteGroupAds}>{ConfigTExt.GENERAL.DELETE}</CButton>
+                        <CButton className="pl-4 pr-4 btnLive"  onClick={onReloadEvent}>{ConfigTExt.GENERAL.RELOAD}</CButton>
                     </div>
                 </div>
             </CModalBody>
@@ -58,4 +67,4 @@ const PopupDeleteLiveItem = ({
     )
 }
 
-export default PopupDeleteLiveItem
+export default PopupReloadRelay

@@ -18,6 +18,9 @@ import PopupCreateLiveEntity from "./PopupCreateLiveEntity";
 import PopupUpdateStatusCustomer from "../../customers/PopupUpdateStatusCustomer";
 import PopupAddRelay from "./PopupAddRelay";
 import PopupEditRelay from "./PopupEditRelay";
+import PopupBlockLiveItem from "./PopupBlockLiveItem";
+import PopupReloadRelay from "./PopupReloadRelay";
+import PopupRelayLiveItem from "./PopupRelayLiveItem";
 
 const Popup = React.memo((props)=>{
     const params = useSelector(state => state?.Popup)
@@ -47,6 +50,12 @@ const Popup = React.memo((props)=>{
         return <PopupAddContentList {...params} />
     case POPUP.NAME.LIVE_EVENT.DELETE_LIVE_ITEM:
         return <PopupDeleteLiveItem {...params} />
+    case POPUP.NAME.LIVE_EVENT.BLOCK_LIVE_ITEM:
+        return <PopupBlockLiveItem {...params} />
+    case POPUP.NAME.LIVE_EVENT.RELOAD_LIVE_ITEM:
+        return <PopupReloadRelay {...params} />
+    case POPUP.NAME.LIVE_EVENT.RELAY_LIVE_ITEM:
+        return <PopupRelayLiveItem {...params} />
     case POPUP.NAME.LIVE_EVENT.EDIT_LIVE_ITEM:
         return <PopupEditLiveEvent {...params} />
     case POPUP.NAME.LIVE_EVENT.CREATE_LIVE_ENTITY:

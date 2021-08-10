@@ -16,8 +16,6 @@ import {closePopup} from "../../../actions/popup";
 import {sendToast} from "../../../helpers/common";
 import LiveEventApi from "../../../apis/liveEventApi";
 import ConfigText from "../../../config/ConfigText";
-import ConfigData from "../../../config/ConfigData";
-import ConfigImage from "../../../config/ConfigImage";
 import PopupEditRelay from "./PopupEditRelay";
 import PopupDeleteRelay from "./PopupDeleteRelay";
 import NameLiveEvent from "../CreateLiveEntity/NameLiveEvent";
@@ -25,6 +23,7 @@ import DvrLiveEvent from "../CreateLiveEntity/DvrLiveEvent";
 import PresetIdLiveEvent from "../CreateLiveEntity/PresetIdLiveEvent";
 import RelayListLiveEvent from "../CreateLiveEntity/RelayListLiveEvent";
 import PopupAddRelay from "./PopupAddRelay";
+import PopupReloadRelay from "./PopupReloadRelay";
 
 
 
@@ -41,6 +40,7 @@ const PopupEditLiveEvent = ({
   const [openPopupEditRelay, setEditRelay] = useState(false)
   const [openDeleteRelay, setDeleteRelay] = useState(false)
   const [openPopupAdd, setPopupAdd] = useState(false)
+  const [openPopupReload, setPopupReload] = useState(false)
   const [itemRelay, setItemRelay] = useState('')
   const [indexItemRelay, setIndexItemRelay] = useState('')
 
@@ -79,6 +79,11 @@ const PopupEditLiveEvent = ({
 
   const onEditRelayItem = (item, index) => {
     setEditRelay(!openPopupEditRelay)
+    setItemRelay(item)
+    setIndexItemRelay(index)
+  }
+  const onReloadLiveItem = (it, index) => {
+    setPopupReload(!openPopupReload)
     setItemRelay(item)
     setIndexItemRelay(index)
   }
@@ -173,6 +178,7 @@ const PopupEditLiveEvent = ({
                 onAddRelay={onAddRelay}
                 onDeleteRelayItem={onDeleteRelayItem}
                 onEditRelayItem={onEditRelayItem}
+                onReloadLiveItem={onReloadLiveItem}
                 arrRelay={arrRelay}
             />
           </div>
@@ -183,6 +189,13 @@ const PopupEditLiveEvent = ({
                 setArrRelay={setArrRelay}
             />
           }
+          <PopupReloadRelay
+              modal={openPopupReload} setModal={setPopupReload}
+              arrRelay={arrRelay}
+              setArrRelay={setArrRelay}
+              index={indexItemRelay}
+              item={itemRelay}
+          />
           <PopupEditRelay
               modal={openPopupEditRelay} setModal={setEditRelay}
               item={itemRelay}

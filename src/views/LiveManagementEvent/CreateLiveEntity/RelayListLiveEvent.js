@@ -9,6 +9,7 @@ const RelayListLiveEvent = ({
     arrRelay,
     onDeleteRelayItem,
     onEditRelayItem,
+    onReloadLiveItem
     }) => {
     return (
         <>
@@ -24,6 +25,7 @@ const RelayListLiveEvent = ({
                         item={item}
                         onDeleteRelayItem={onDeleteRelayItem}
                         onEditRelayItem={onEditRelayItem}
+                        onReloadLiveItem={onReloadLiveItem}
                         index={index}
                     />
                 )

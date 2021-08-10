@@ -152,7 +152,7 @@ function saveApiKey (apiKey) {
   }
 
   try {
-    const key = ConfigCookie.getTokenKey()
+    const key = ConfigCookie.getApiKey()
     const type = ConfigCookie.METHOD.SAVE
     const value = apiKey
     ConfigCookie.handleCookie({ type, key, value, option })

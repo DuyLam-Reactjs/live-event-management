@@ -24,7 +24,7 @@ const TheHeaderDropdown = ({profile}) => {
   const handleUpdateCustomer = () => {
     dispatch(openPopup({
       name: POPUP.NAME.CUSTOMER.UPDATE_CUSTOMER,
-      id
+      id, status, email
     }))
   }
   return (

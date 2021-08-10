@@ -14,11 +14,13 @@ import {closePopup} from "../../actions/popup";
 import CustomerApi from "../../apis/customerApi";
 import ConfigText from "../../config/ConfigText";
 import {validateEmail, validatePassword} from "../../helpers/common";
+import EmailCustomer from "./basicCustomer/EmailCustomer";
+import PasswordCustomer from "./basicCustomer/PasswordCustomer";
 
-const PopupUpdateCustomer = ({id}) => {
+const PopupUpdateCustomer = ({id, status, email}) => {
   const dispatch = useDispatch()
     const [emailValue, setEmail] = useState({
-        email: '',
+        email: email || '',
         password:'',
         oldPassword: '',
     })
@@ -47,7 +49,7 @@ const PopupUpdateCustomer = ({id}) => {
       const password = validatePassword(emailValue?.password)
       const email  = validateEmail(emailValue?.email)
       if (password && email) {
-          CustomerApi.updateInfoCustomer(id, emailValue?.email, emailValue?.password, emailValue?.oldPassword ).then(res => {
+          CustomerApi.updateInfoCustomer(id, emailValue?.email, emailValue?.password, emailValue?.oldPassword, status ).then(res => {
               if (res?.success) {
                   dispatch(closePopup())
               }
@@ -63,54 +65,30 @@ const PopupUpdateCustomer = ({id}) => {
     <CModal closeOnBackdrop={false} show={true} onClose={handleClose} centered={true} size={''}>
       <CModalHeader className="colorHeader">
         <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
-          <h4 className="mb-0">Customer Name:  </h4>
+          <h4 className="mb-0">{'Customer Name: ' + email} </h4>
           <CButton className='p-0 shadow-none' onClick={handleClose}>
             <CIcon name="cil-x" style={{ color: "#FFF" }}></CIcon>
           </CButton>
         </div>
       </CModalHeader>
       <CModalBody>
-          <CInputGroup className="mb-4 mt-4">
-              <CInputGroupPrepend>
-                  <CInputGroupText>
-                      {/*{ConfigText.CUSTOMER.EMAIL}*/}
-                      @
-                  </CInputGroupText>
-              </CInputGroupPrepend>
-              <CInput type="text" placeholder="Email" autoComplete="email" value={emailValue?.email}
-                onChange={onChangeUserName}/>
-          </CInputGroup>
-          {error &&
-            <p className="text text__error">{error?.email}</p>
-          }
-          <CInputGroup className="mb-4">
-              <CInputGroupPrepend>
-                  <CInputGroupText>
-                      <CIcon name="cil-lock-locked" />
-                      {/*{ConfigText.CUSTOMER.OLD_PASSWORD}*/}
-                  </CInputGroupText>
-              </CInputGroupPrepend>
-              <CInput type="password" placeholder="Old Password" autoComplete="current-password"
-                      value={emailValue?.oldPassword}
-                      onChange={onChangeOldPassWord}/>
-          </CInputGroup>
-          {error &&
-          <p className="text text__error mb-0">{error?.password}</p>
-          }
-          <CInputGroup className="mb-4">
-              <CInputGroupPrepend>
-                  <CInputGroupText>
-                      <CIcon name="cil-lock-locked" />
-                      {/*{ConfigText.CUSTOMER.PASSWORD}*/}
-                  </CInputGroupText>
-              </CInputGroupPrepend>
-              <CInput type="password" placeholder="New Password" autoComplete="current-password"
-                      value={emailValue?.password}
-                onChange={onChangePassWord}/>
-          </CInputGroup>
-          {error &&
-            <p className="text text__error mb-0">{error?.password}</p>
-          }
+          <EmailCustomer
+              error={error}
+              email={emailValue?.email}
+              onChangeUserName={onChangeUserName}
+          />
+          <PasswordCustomer
+              placeholder={'Old Password'}
+              error={error}
+              password={emailValue?.oldPassword}
+              onChangePassWord={onChangeOldPassWord}
+          />
+          <PasswordCustomer
+            placeholder={'New Password'}
+            error={error}
+            password={emailValue?.password}
+            onChangePassWord={onChangePassWord}
+          />
       </CModalBody>
       <CModalFooter>
         <div className="d-flex justify-content-end">
