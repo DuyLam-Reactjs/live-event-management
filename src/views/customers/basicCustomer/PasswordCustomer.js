@@ -17,7 +17,7 @@ const PasswordCustomer = ({error,password, onChangePassWord,placeholder, onKeyPr
                         onChange={onChangePassWord}/>
             </CInputGroup>
             {error &&
-            <p className="text text__error mb-0">{error?.password}</p>
+            <p className="text text__error">{error}</p>
             }
         </>
     )

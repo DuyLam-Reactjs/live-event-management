@@ -1,5 +1,5 @@
-// const DOMAIN_API = process.env.REACT_APP_API
-const DOMAIN_API =  'https://dev-api.vieon.vn' + '/'
+const DOMAIN_API = process.env.REACT_APP_API
+// const DOMAIN_API =  'https://dev-api.vieon.vn' + '/'
 
 const STATIC_DOMAIN = process.env.REACT_APP_STATIC_DOMAIN
 const DEFAULT_PORT = process.env.PORT

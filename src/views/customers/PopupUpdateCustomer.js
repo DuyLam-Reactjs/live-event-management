@@ -83,14 +83,14 @@ const PopupUpdateCustomer = ({id, status, email}) => {
           />
           <PasswordCustomer
               placeholder={'Old Password'}
-              error={error}
+              error={error?.oldPassword}
               password={emailValue?.oldPassword}
               onKeyPress={handleKeyPress}
               onChangePassWord={onChangeOldPassWord}
           />
           <PasswordCustomer
             placeholder={'New Password'}
-            error={error}
+            error={error?.password}
             password={emailValue?.password}
             onKeyPress={handleKeyPress}
             onChangePassWord={onChangePassWord}
