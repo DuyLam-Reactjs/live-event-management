@@ -108,13 +108,14 @@ const PopupEditLiveEvent = ({
             presetId?.key,
         ).then(res => {
           if (res?.success){
-              LiveEventApi?.getListLiveEvent(rowPerPage, currentPage*10).then(resp=>{
+              LiveEventApi?.getListLiveEvent(rowPerPage, (currentPage-1)*10).then(resp=>{
                 const dataList = resp?.data
                 if (resp?.success){
                   setCurrentPageList(dataList?.data?.events)
                 }
               })
               dispatch(closePopup())
+            sendToast({message: ConfigText.GENERAL.UPDATE_SUCCESS})
           }
         })
       }

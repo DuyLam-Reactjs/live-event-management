@@ -9,7 +9,7 @@ import {
 import CIcon from "@coreui/icons-react";
 import {useDispatch} from "react-redux";
 import {closePopup} from "../../actions/popup";
-import {validateEmail, validatePassword} from "../../helpers/common";
+import {sendToast, validateEmail, validatePassword} from "../../helpers/common";
 import CustomerApi from "../../apis/customerApi";
 import ConfigText from "../../config/ConfigText";
 import customerApi from "../../apis/customerApi";
@@ -60,6 +60,7 @@ const PopupCreateCustomer = ({
             }
           })
           dispatch(closePopup())
+            sendToast({message: ConfigText.CUSTOMER.CREATE_SUCCESS})
         }else {
           setError(data?.message)
         }
@@ -71,7 +72,7 @@ const PopupCreateCustomer = ({
     }
   }
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' || event.keyCode === 13) {
       onClickCreatAccount && onClickCreatAccount()
     }
   }

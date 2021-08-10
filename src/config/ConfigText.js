@@ -17,8 +17,12 @@ const CUSTOMER = {
     MANAGE_CUSTOMER: "Quản lí Customer",
     NOT_ACTIVE_CUSTOMER: "Chưa Active",
     ACTIVE_CUSTOMER: "Active",
-    LOCK_CUSTOMER: 'Lock',
-    DELETE: 'Delete'
+    LOCK_CUSTOMER: "Lock",
+    DELETE: "Delete",
+    PERMISSION_STATUS: "Bạn không có quyền thay đổi trạng thái",
+    UPDATE_INFO_CUSTOMER: "Update Info",
+    UPDATE_SUCCESS: "Cập nhật thành công",
+    CREATE_SUCCESS: "Tạo Customer thành công",
 }
 const LIVE = {
     LIVE_EVENT_MANAGE_LIST: "Live Event Management List",
@@ -46,7 +50,11 @@ const LIVE = {
     EDIT_RELAY_TITLE: "Chỉnh sữa Relay",
     DELETE_RELAY: 'Xóa Relay',
     DELETE_RELAY_TITLE: 'Bạn có muốn xóa Relay này ?',
-    ERR_CHARACTER_LIMIT: "Vui lòng nhập tên và mô tả từ 3 kí tự trở lên, tối đa 100 kí tự. !"
+    ERR_CHARACTER_LIMIT: "Vui lòng nhập tên và mô tả từ 3 kí tự trở lên, tối đa 100 kí tự. !",
+    PERMISSION_BLOCK: "Bạn không có quyền Block sự kiện",
+    BLOCK_SUCCESS: "Sự kiện đã bị khoá",
+    DELETE_SUCCESS: "Xoá sự kiện thành công",
+    CREATE_SUCCESS: "Tạo sự kiện thành công"
 }
 const GENERAL = {
     STATUS: "Thông báo",
@@ -60,7 +68,8 @@ const GENERAL = {
     NAME: "Tên",
     BLOCK: "Block",
     RELOAD: "Reload",
-    RELAY: "Relay"
+    RELAY: "Relay",
+    UPDATE_SUCCESS: "Cập nhật thành công",
 }
 module.exports = {
     CUSTOMER,

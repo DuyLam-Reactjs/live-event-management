@@ -47,7 +47,7 @@ const TablesLiveEventList = () => {
   const [valueKeyword, setKeyword] = useState('')
 
   useEffect(()=>{
-    LiveEventApi?.getListLiveEvent(rowPerPage, currentPage*10).then(res=>{
+    LiveEventApi?.getListLiveEvent(rowPerPage, (currentPage-1)*10).then(res=>{
       const dataList = res?.data
       if (res?.success){
         setCurrentPageList(dataList?.data?.events)

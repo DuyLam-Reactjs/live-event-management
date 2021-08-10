@@ -4,7 +4,7 @@ import CIcon from "@coreui/icons-react";
 import {closePopup} from "../../../actions/popup";
 import {useDispatch} from "react-redux";
 import LiveEventApi from "../../../apis/liveEventApi";
-import ConfigTExt from "../../../config/ConfigText";
+import ConfigText from "../../../config/ConfigText";
 import {sendToast} from "../../../helpers/common";
 
 const PopupBlockLiveItem = ({
@@ -30,7 +30,8 @@ const PopupBlockLiveItem = ({
                         }
                     })
                     dispatch(closePopup())
-                }else {sendToast({message: "Bạn không có quyền Block sự kiện"})}
+                    sendToast({message: ConfigText.LIVE.BLOCK_SUCCESS})
+                }else {sendToast({message: ConfigText.LIVE.PERMISSION_BLOCK})}
             })
         }
     }
@@ -42,7 +43,7 @@ const PopupBlockLiveItem = ({
         >
             <CModalHeader className="colorHeader">
                 <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
-                    <h4 className="mb-0">{ConfigTExt.LIVE.BLOCK_EVENT + ': ' + nameItem}</h4>
+                    <h4 className="mb-0">{ConfigText.LIVE.BLOCK_EVENT + ': ' + nameItem}</h4>
                     <CButton className='p-0 shadow-none' onClick={handleClose}>
                         <CIcon name="cil-x" style={{ color: "#FFF" }}></CIcon>
                     </CButton>
@@ -50,9 +51,9 @@ const PopupBlockLiveItem = ({
             </CModalHeader>
             <CModalBody>
                 <div >
-                    {ConfigTExt.LIVE.BLOCK_EVENT_CURRENT}
+                    {ConfigText.LIVE.BLOCK_EVENT_CURRENT}
                     <div className="d-flex justify-content-end mt-3">
-                        <CButton className="pl-4 pr-4 btnLive"  onClick={onBlockEvent}>{ConfigTExt.GENERAL.BLOCK}</CButton>
+                        <CButton className="pl-4 pr-4 btnLive"  onClick={onBlockEvent}>{ConfigText.GENERAL.BLOCK}</CButton>
                     </div>
                 </div>
             </CModalBody>

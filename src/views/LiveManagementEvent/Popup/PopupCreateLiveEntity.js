@@ -98,13 +98,14 @@ const PopupCreateLiveEntity = ({
                     ).then(res => {
                         const data = res?.data
                         if (data?.code === "SUCCESS"){
-                            LiveEventApi?.getListLiveEvent(rowPerPage, currentPage*10).then(resp=>{
+                            LiveEventApi?.getListLiveEvent(rowPerPage, (currentPage-1)*10).then(resp=>{
                                 const dataList = resp?.data
                                 if (resp?.success){
                                     setCurrentPageList(dataList?.data?.events)
                                 }
                             })
                             dispatch(closePopup())
+                            sendToast({message: ConfigText.LIVE.CREATE_SUCCESS})
                         }
                     })
                 }

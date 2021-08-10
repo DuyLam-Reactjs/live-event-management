@@ -64,7 +64,7 @@ class CustomerApi {
       email: newEmail,
       password: newPassword,
       password_old: oldPassword,
-      status: status
+      status: 0
     }
     return AxiosClient.executeWithCache({ url, method, params }).then(res => {
       const data = res?.data

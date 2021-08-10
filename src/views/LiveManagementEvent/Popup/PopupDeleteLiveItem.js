@@ -5,6 +5,7 @@ import {closePopup} from "../../../actions/popup";
 import {useDispatch} from "react-redux";
 import LiveEventApi from "../../../apis/liveEventApi";
 import ConfigTExt from "../../../config/ConfigText";
+import {sendToast} from "../../../helpers/common";
 
 const PopupDeleteLiveItem = ({
     item,
@@ -29,6 +30,7 @@ const PopupDeleteLiveItem = ({
                         }
                     })
                     dispatch(closePopup())
+                    sendToast({message: ConfigTExt.LIVE.DELETE_SUCCESS})
                 }
             })
     }

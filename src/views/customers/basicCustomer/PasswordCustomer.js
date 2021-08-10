@@ -2,7 +2,7 @@ import React from "react";
 import {CInput, CInputGroup, CInputGroupPrepend, CInputGroupText} from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
-const PasswordCustomer = ({error,password, onChangePassWord,placeholder}) => {
+const PasswordCustomer = ({error,password, onChangePassWord,placeholder, onKeyPress}) => {
     return(
         <>
             <CInputGroup className="mb-4">
@@ -13,6 +13,7 @@ const PasswordCustomer = ({error,password, onChangePassWord,placeholder}) => {
                 </CInputGroupPrepend>
                 <CInput type="password" placeholder={placeholder} autoComplete="current-password"
                         value={password}
+                        onKeyPress={onKeyPress}
                         onChange={onChangePassWord}/>
             </CInputGroup>
             {error &&

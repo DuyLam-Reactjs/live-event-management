@@ -15,6 +15,7 @@ import {closePopup} from "../../actions/popup";
 import ConfigText from "../../config/ConfigText";
 import CustomerApi from "../../apis/customerApi";
 import customerApi from "../../apis/customerApi";
+import {sendToast} from "../../helpers/common";
 
 
 const PopupUpdateStatusCustomer = ({
@@ -41,6 +42,9 @@ const PopupUpdateStatusCustomer = ({
                       if (resList?.success){
                           setCurrentPageList(data?.customers)
                           dispatch(closePopup())
+                          sendToast({message: ConfigText.GENERAL.UPDATE_SUCCESS})
+                      }else {
+                          sendToast({message: ConfigText.CUSTOMER.PERMISSION_STATUS})
                       }
                   })
               }
@@ -54,7 +58,7 @@ const PopupUpdateStatusCustomer = ({
     }
 
   return (
-    <CModal closeOnBackdrop={false} show={true} onClose={handleClose} centered={true} size={'lg'}>
+    <CModal closeOnBackdrop={false} show={true} onClose={handleClose} centered={true} >
       <CModalHeader className="colorHeader">
         <div className="w-100 d-flex justify-content-between align-items-center" style={{ color: "#FFF" }}>
           <h4 className="mb-0">User Name: {email} </h4>
@@ -64,24 +68,24 @@ const PopupUpdateStatusCustomer = ({
         </div>
       </CModalHeader>
       <CModalBody>
-          {status === 0 &&
-          <CFormGroup variant="custom-radio" inline>
-              <CBadge >
-                  <CSwitch
-                      className={'mx-1'}
-                      color={'success'}
-                      labelOn={'ON'} labelOff={'OFF'}
-                      type="radio"
-                      value={0}
-                      checked={value === 0 ? true : false}
-                      onChange={(e) => handleChange(e)}
-                      id={id + "_1"}
-                      name='status'
-                  />
-              </CBadge>
-              <span className=' mt-2' style={{verticalAlign: 'super'}}>{ConfigText.CUSTOMER.NOT_ACTIVE_CUSTOMER}</span>
-          </CFormGroup>
-          }
+          {/*{status === 0 &&*/}
+          {/*<CFormGroup variant="custom-radio" inline>*/}
+          {/*    <CBadge >*/}
+          {/*        <CSwitch*/}
+          {/*            className={'mx-1'}*/}
+          {/*            color={'success'}*/}
+          {/*            labelOn={'ON'} labelOff={'OFF'}*/}
+          {/*            type="radio"*/}
+          {/*            value={0}*/}
+          {/*            checked={value === 0 ? true : false}*/}
+          {/*            onChange={(e) => handleChange(e)}*/}
+          {/*            id={id + "_1"}*/}
+          {/*            name='status'*/}
+          {/*        />*/}
+          {/*    </CBadge>*/}
+          {/*    <span className=' mt-2' style={{verticalAlign: 'super'}}>{ConfigText.CUSTOMER.NOT_ACTIVE_CUSTOMER}</span>*/}
+          {/*</CFormGroup>*/}
+          {/*}*/}
           <CFormGroup variant="custom-radio" inline>
               <CBadge >
                   <CSwitch

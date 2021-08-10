@@ -60,6 +60,9 @@ const PopupUpdateCustomer = ({id, status, email}) => {
           setError({...error, password: ConfigText.CUSTOMER.INVALID_PASSWORD})
       }
   }
+  const handleKeyPress = (event) => {
+      if (event.key === 'Enter' || event.keyCode === 13) saveCustomer && saveCustomer()
+  }
 
   return (
     <CModal closeOnBackdrop={false} show={true} onClose={handleClose} centered={true} size={''}>
@@ -76,17 +79,20 @@ const PopupUpdateCustomer = ({id, status, email}) => {
               error={error}
               email={emailValue?.email}
               onChangeUserName={onChangeUserName}
+              onKeyPress={handleKeyPress}
           />
           <PasswordCustomer
               placeholder={'Old Password'}
               error={error}
               password={emailValue?.oldPassword}
+              onKeyPress={handleKeyPress}
               onChangePassWord={onChangeOldPassWord}
           />
           <PasswordCustomer
             placeholder={'New Password'}
             error={error}
             password={emailValue?.password}
+            onKeyPress={handleKeyPress}
             onChangePassWord={onChangePassWord}
           />
       </CModalBody>

@@ -13,7 +13,6 @@ import {
   CDropdownItem,
   CPagination,
   CImg,
-  CSwitch,
   CLink,
 } from '@coreui/react'
 
@@ -58,12 +57,6 @@ const CustomerList = () => {
     setRowPerPage(item?.value)
   }
 
-  const handleUpdateCustomer = (item) => {
-    dispatch(openPopup({
-      name: POPUP.NAME.CUSTOMER.UPDATE_CUSTOMER,
-      item
-    }))
-  }
   const handleUpdateStatusCustomer = (item) => {
     dispatch(openPopup({
       name: POPUP.NAME.CUSTOMER.UPDATE_STATUS_CUSTOMER,
@@ -78,17 +71,6 @@ const CustomerList = () => {
       name: POPUP.NAME.CUSTOMER.CREATE_CUSTOMER,
       rowPerPage,
       setCurrentPage,
-      setCurrentPageList
-    }))
-  }
-
-
-  const handleOpenDelete = (item) => {
-    dispatch(openPopup({
-      name: POPUP.NAME.CUSTOMER.DELETE_CUSTOMER,
-      item,
-      currentPage,
-      rowPerPage,
       setCurrentPageList
     }))
   }
@@ -153,16 +135,10 @@ const CustomerList = () => {
                     'Quản lý':
                       (item) => (
                         <td>
-                          {/*<CBadge>*/}
-                          {/*  <CButton block color="info" onClick={()=>handleUpdateCustomer(item)}>*/}
-                          {/*    <CImg src={ConfigImage.edit} alt="edit" />*/}
-                          {/*    <span className="ml-1">{ConfigText.GENERAL.EDIT}</span>*/}
-                          {/*  </CButton>*/}
-                          {/*</CBadge>*/}
                           <CBadge>
                             <CButton block color="info" onClick={()=>handleUpdateStatusCustomer(item)}>
                               <CImg src={ConfigImage.edit} alt="edit status" />
-                              <span className="ml-1">{ConfigText.GENERAL.EDIT_STATUS}</span>
+                              <span className="ml-1">{ConfigText.GENERAL.EDIT}</span>
                             </CButton>
                           </CBadge>
                         </td>

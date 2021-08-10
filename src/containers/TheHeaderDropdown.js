@@ -51,7 +51,7 @@ const TheHeaderDropdown = ({profile}) => {
         </CDropdownItem>
         <CDropdownItem onClick={handleUpdateCustomer}>
           <CIcon name="cil-lock-locked" className="mfe-2"/>
-          Đổi mật khẩu
+          {ConfigText.CUSTOMER.UPDATE_INFO_CUSTOMER}
         </CDropdownItem>
         <CDropdownItem onClick={Logout}>
           <CIcon
